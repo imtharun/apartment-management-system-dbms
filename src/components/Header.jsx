@@ -2,7 +2,7 @@ import React from "react";
 
 function Header() {
   return (
-    <nav className="flex justify-between my-7 max-w-[1400px] mx-auto">
+    <nav className="flex justify-between my-7 max-w-[1400px] mx-auto px-4">
       <div>
         <h1 className="text-2xl">
           <span className="text-orange-500">Bra</span>
@@ -40,7 +40,7 @@ function Header() {
                 <a href="/">Contact Us</a>
               </li>
             </ul>
-            <button className="ml-8 text-orange-500 border-2 px-6 py-2 rounded-md border-orange-500">Sign Up</button>
+            <button className="ml-8 text-orange-500 border-2 px-6 py-2 rounded-md border-orange-500 hover:text-white hover:bg-orange-500 transition-all">Sign Up</button>
           </div>
         </div>
       </div>
