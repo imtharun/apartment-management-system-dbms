@@ -1,25 +1,20 @@
 const express = require("express");
 var db = require('./sql_connect');
-var con = db.con;
 const { stringify } = require("querystring");
-const { assert } = require("console");
+const { assert } = require("console"); 
+const bodyParser = require('body-parser');
+
+
 
 //port number to listen
 let port = 3000;
 
 //connects to database in the beginning
-connect();
+db.connect();
 
+//init
 const app = express();
-
-
-function callerr(callback) {
-  const sql = 'SELECT * FROM name;';
-  const query = con.query(sql,(err,rows,fields) => {
-  if(err) throw err;
-  callback(err, rows); // USING CALLBACK
-  });
-}
+app.use(bodyParser.urlencoded({ extended: true }));
 
 
 
@@ -35,58 +30,45 @@ app.get('/', function(req, res){
 });
 
 //calls create databses function
-app.get('/createdb',(req, res)=>
-{
-  const dbname = 'jssample';
-  db.createdb(dbname)
-  res.send('dbcreated');
-});
+// app.get('/createdb',(req, res)=>
+// {
+//   const dbname = 'jssample';
+//   db.createdb(dbname)
+//   res.send('dbcreated');
+// });
 
+
+
+//insert values into table using post method
+app.post('/insertvalues', function (req, res) {  
+  console.log('Got body:', req.body);
+  console.log(req.body.username);
+  console.log(req.body.password);
+  res.sendStatus(200);
+}) 
+
+
+//To fetch all data from table using table name
+app.get('/result/:tbname', function(req, res){
+  const table_name = req.params.tbname;
+  const result = db.fetchalldata(table_name,(err,result)=>{
+    console.log(result);
+    res.send(result);
+  })
+});
 
 
 //returns table values
-// app.get('/fetchdata',async (req,res)=>
-// {
-//   let sql = 'SELECT * FROM name;';
-//   let query =  con.query(sql,(err,rows,fields)=>
-//   {
-//     if(err){
-//       throw err;
-//     } 
-//     console.log(rows);
-//     res.send(rows);
-//   })
-// });
-
-app.get('/samp',async(req, res)=>
+app.get('/fetchdata',async (req,res)=>
 {
-  var result = callerr((err,result) => {
-  console.log(result);
-  res.send(result);
-  return res;
-})  
+  var result = db.fetchalldata('name',(err,result) => {
+    console.log(result);
+    res.send(result);
+  }) 
 });
 
+
 //Other routes
-// app.get('*', function(req, res){
-//   res.send('Sorry, this is an invalid URL.');
-// });
-
-
-function connect()
-{
-  con.connect(function(err) 
-  {
-    if (err) throw err;
-    console.log("database Connected!");
-  });    
-
-}
-
-
-
-// console.log(caller("tenet"));
-
-
-
-// const b = caller('name');
+app.get('*', function(req, res){
+  res.send('Sorry, this is an invalid URL.');
+});

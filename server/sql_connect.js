@@ -16,7 +16,7 @@ function connect()
         console.log("database Connected!");
     });    
 
-}
+};
 
 // we can create a database with the name passes as an argument
 function createdb(dbname)
@@ -32,6 +32,14 @@ function createdb(dbname)
         let resp = 'database connected';
         return resp;
     })
-}
+};
 
-module.exports = { connect, createdb,con }
+function fetchalldata(name,callback) {
+    const sql = 'SELECT * FROM '+name+';';
+    const query = con.query(sql,(err,rows,fields) => {
+    if(err) throw err;
+    callback(err, rows); // USING CALLBACK
+    });
+};
+
+module.exports = { connect, createdb,con ,fetchalldata}
