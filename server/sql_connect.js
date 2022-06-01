@@ -3,9 +3,9 @@ var config = require('./config_sql');
 var con = mysql.createConnection({
     host: config.host,
     user: config.uname,
-    password: config.upass
+    password: config.upass,
+    database: 'jssample'
 });
-
 
 //used to establish connection with the database
 function connect()
@@ -34,4 +34,4 @@ function createdb(dbname)
     })
 }
 
-module.exports = { connect, createdb }
+module.exports = { connect, createdb,con }
