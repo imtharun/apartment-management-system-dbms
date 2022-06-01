@@ -1,47 +1,31 @@
 import React from "react";
+import jasmineImage from "./../assets/jasmine.png";
 
 function Header() {
   return (
-    <nav className="flex justify-between my-7 max-w-[1400px] mx-auto px-4">
-      <div>
-        <h1 className="text-2xl">
-          <span className="text-orange-500">Bra</span>
-          <span>Va</span>
-        </h1>
-      </div>
-      <div className="">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-7 w-7 md:hidden"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M4 6h16M4 12h16M4 18h16"
-          />
-        </svg>
-        <div className=" hidden md:block text-lg">
-          <div className="flex items-center">
-            <ul className="flex ">
-              <li className="mx-4">
-                <a className="hover:border-y-2" href="/">Home</a>
-              </li>
-              <li className="mx-4">
-                <a href="/">About Us</a>
-              </li>
-              <li className="mx-4">
-                <a href="/">Project</a>
-              </li>
-              <li className="mx-4">
-                <a href="/">Contact Us</a>
-              </li>
-            </ul>
-            <button className="ml-8 text-orange-500 border-2 px-6 py-2 rounded-md border-orange-500 hover:text-white hover:bg-orange-500 transition-all">Sign Up</button>
-          </div>
+    <nav className="h-14 bg-blue-500">
+      <div className="flex items-center justify-between p-2">
+        <div className="ml-4 flex items-center">
+          <img className="h-10 w-10" src={jasmineImage} alt="Jasmine Icon" />
+          <h1 className="font-mons text-lg px-2 font-semibold text-white">
+            Jasmine Apartment
+          </h1>
+        </div>
+        <div className="sm:hidden">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-8 w-8 mr-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="white"
+            strokeWidth={2}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
         </div>
       </div>
     </nav>
