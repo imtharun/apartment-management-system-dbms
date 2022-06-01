@@ -1,5 +1,5 @@
 var host = 'localhost';
-var uname = 'root';
-var upass = 'root1234';
+var pgname = 'postgres';
+var pgpass = 'root1234';
 
-module.exports = {host,uname,upass};
+module.exports = {host,pgname,pgpass};

@@ -1,22 +1,15 @@
 const express = require("express");
-var db = require('./sql_connect');
-const { stringify } = require("querystring");
-const { assert } = require("console"); 
 const bodyParser = require('body-parser');
-
-
+const pg = require('./postgre_connect');
 
 //port number to listen
 let port = 3000;
 
 //connects to database in the beginning
-db.connect();
 
 //init
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
-
-
 
 //initializing
 app.listen(port,()=>{
@@ -28,15 +21,6 @@ app.listen(port,()=>{
 app.get('/', function(req, res){
   res.send("Hello world!");
 });
-
-//calls create databses function
-// app.get('/createdb',(req, res)=>
-// {
-//   const dbname = 'jssample';
-//   db.createdb(dbname)
-//   res.send('dbcreated');
-// });
-
 
 
 //insert values into table using post method
@@ -51,20 +35,20 @@ app.post('/insertvalues', function (req, res) {
 //To fetch all data from table using table name
 app.get('/result/:tbname', function(req, res){
   const table_name = req.params.tbname;
-  const result = db.fetchalldata(table_name,(err,result)=>{
+  const result = pg.fetchalldata(('demoscheme.'+table_name),(err,result)=>{
     console.log(result);
-    res.send(result);
+    res.send(result.rows);
   })
 });
 
 
 //returns table values
-app.get('/fetchdata',async (req,res)=>
+app.get('/fetchdata',(req,res)=>
 {
-  var result = db.fetchalldata('name',(err,result) => {
+  const rest = pg.fetchalldata('demoscheme.demotable',(err,result)=>{
     console.log(result);
-    res.send(result);
-  }) 
+    res.send(result.rows);
+  })
 });
 
 
