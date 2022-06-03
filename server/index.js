@@ -25,10 +25,16 @@ app.get('/', function(req, res){
 
 //insert values into table using post method
 app.post('/insertvalues', function (req, res) {  
-  console.log('Got body:', req.body);
+  // console.log('Got body:', req.body);
   console.log(req.body.username);
   console.log(req.body.password);
-  res.sendStatus(200);
+  const uname = req.body.username;
+  const uage = req.body.password;
+  let name = [uname,uage];
+  const rest = pg.insertintotable(name,(err,result)=>{
+    if(err) throw err;
+    res.sendStatus(200);
+  })
 }) 
 
 
