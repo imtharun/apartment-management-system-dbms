@@ -1,29 +1,18 @@
-import React, { useEffect } from "react";
-import axios from "axios";
-import Aside from "./components/Aside";
+import React, { useState } from "react";
+// import axios from "axios";
 import Header from "./components/Header";
-import Lorem from "./components/Lorem";
+// import Lorem from "./components/Lorem";
+import Dashboard from "./components/Dashboard";
 
 function App() {
-  // useEffect(() => {
-  //   axios
-  //     .post("/user", {
-  //       firstName: "Fred",
-  //       lastName: "Flintstone",
-  //     })
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }, []);
+  const [isHamClicked, setIsHamClicked] = useState(false);
   return (
-    <div className="App bg-gray-300 h-screen ">
-      <Header />
-      <section className="flex">
-        <Aside />
-        <Lorem />
+    <div className="App ">
+      <Header isHamClicked={isHamClicked} setIsHamClicked={setIsHamClicked} />
+      <section
+        
+      >
+        <Dashboard isHamClicked={isHamClicked} />
       </section>
     </div>
   );
