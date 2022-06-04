@@ -10,21 +10,21 @@ function Dashboard(props) {
     >
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-2 gap-5 p-10">
         <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">200</h1>
+          <h1 className="font-bold text-xl text-center">5</h1>
           <p className="font-bold text-center text-sm uppercase">Total Block</p>
         </div>
         <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">200</h1>
+          <h1 className="font-bold text-xl text-center">50</h1>
           <p className="font-bold text-sm text-center uppercase">Total Floor</p>
         </div>
         <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">200</h1>
+          <h1 className="font-bold text-xl text-center">30</h1>
           <p className="font-bold text-sm text-center uppercase">
             Total Employees
           </p>
         </div>
         <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">200</h1>
+          <h1 className="font-bold text-xl text-center">Rs. 20000</h1>
           <p className="font-bold text-center text-sm uppercase">
             Employee Salary
           </p>
