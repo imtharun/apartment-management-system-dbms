@@ -1,58 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
+import { HamContext } from "../HamContextProvider";
 
 function Dashboard(props) {
+  const { hamActive } = useContext(HamContext);
+
   return (
     <div
       style={{
-        filter  : props.isHamClicked ? "blur(2px)" : "blur(0px)",
+        filter: hamActive ? "blur(2px)" : "blur(0px)",
       }}
       className="w-screen"
     >
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-2 gap-5 p-10">
-        <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">5</h1>
-          <p className="font-bold text-center text-sm uppercase">Total Block</p>
-        </div>
-        <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">50</h1>
-          <p className="font-bold text-sm text-center uppercase">Total Floor</p>
-        </div>
-        <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">30</h1>
-          <p className="font-bold text-sm text-center uppercase">
-            Total Employees
-          </p>
-        </div>
-        <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">Rs. 20000</h1>
-          <p className="font-bold text-center text-sm uppercase">
-            Employee Salary
-          </p>
-        </div>
-        <div className=" p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">200</h1>
-          <p className="font-bold text-center text-sm uppercase">
-            Total Tenant
-          </p>
-        </div>
-        <div className="p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">05</h1>
-          <p className="font-bold uppercase text-center text-sm">
-            Total Complaints
-          </p>
-        </div>
-        <div className="p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">12</h1>
-          <p className="font-bold uppercase text-center text-sm">
-            Total Request
-          </p>
-        </div>
-        <div className="p-4 border-2 border-blue-500">
-          <h1 className="font-bold text-xl text-center">21,000</h1>
-          <p className="font-bold uppercase text-center text-sm">
-            Total Payment
-          </p>
-        </div>
+      <div className=" grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-2 gap-5 p-10">
+        {props.forAdminBox &&
+          props.forAdminBox.map((ele, index) => {
+            return (
+              <div key={index + 1} className=" p-4 border-2 border-blue-500">
+                <h1 className="font-bold text-xl text-center">
+                  {Object.values(props.forAdminBox[index])}
+                </h1>
+                <p className="font-bold text-center text-sm uppercase">
+                  {Object.keys(props.forAdminBox[index])}
+                </p>
+              </div>
+            );
+          })}
       </div>
       <div className="p-10">
         <div className="border-2 border-blue-500 p-5">

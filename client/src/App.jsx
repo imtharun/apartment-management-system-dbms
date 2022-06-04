@@ -6,10 +6,25 @@ import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Employee from "./components/Employee";
 import Tenant from "./components/Tenant";
-import Admin from "./components/Admin";
+// import Admin from "./components/Admin";
 import Owner from "./components/Owner";
+import Aside from "./components/Aside";
 
 function App() {
+  const forAdmin = [
+    "Owner Information",
+    "Tenant Information",
+    "Employee Information",
+    "Apartment Fund ",
+  ];
+  const forAdminBox = [
+    { "Total Employee": 100 },
+    { "Total Floor": 10 },
+    { "Total Block": 5 },
+    { "Total Rent": "Rs. 20000" },
+    { "Total Owner": 50 },
+    { "Total Fund": 50000 },
+  ];
   return (
     <div className="App ">
       <Routes>
@@ -17,8 +32,11 @@ function App() {
           path="/"
           element={
             <main>
-              <Header />
-              <Dashboard />
+              <Header forAdmin={forAdmin} />
+              <section className="flex">
+                <Aside forAdmin={forAdmin} />
+                <Dashboard forAdminBox={forAdminBox} />
+              </section>
             </main>
           }
         />
@@ -27,7 +45,10 @@ function App() {
           element={
             <main>
               <Header />
-              <Employee />
+              <section className="flex">
+                <Aside />
+                <Employee />
+              </section>
             </main>
           }
         />
@@ -36,7 +57,10 @@ function App() {
           element={
             <main>
               <Header />
-              <Admin />
+              <section className="flex">
+                <Aside />
+                <Dashboard />
+              </section>
             </main>
           }
         />
