@@ -7,11 +7,12 @@ const pool = new Pool({
   password: config.pgpass,
   port: 5432,
 })
+const scheme = 'demoscheme.';
 
 
 //to fetch all data from a given table
 function fetchalldata(tname,callback) {
-  pool.query('SELECT * FROM '+tname+ ' ORDER BY id ASC', (error, results) => {
+  pool.query('SELECT * FROM '+scheme+tname+ ' ORDER BY id ASC', (error, results) => {
     if(error) throw error;
     callback(error,results);
   })
@@ -20,7 +21,7 @@ function fetchalldata(tname,callback) {
 //able to insert into table
 function insertintotable(values,callback)
 {
-  sql = 'INSERT INTO demoscheme.demotable(name, age) VALUES($1, $2)';
+  sql = 'INSERT INTO '+scheme+table+'(name, age) VALUES($1, $2)';
   //const values = [name,age];
   pool.query(sql,values,(err,results)=>{
     if(err) throw err;

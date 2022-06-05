@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require('body-parser');
 const pg = require('./postgre_connect');
+const insertInto = require('./routes/insertinto');
 
 //port number to listen
 let port = 3000;
@@ -8,19 +9,21 @@ let port = 3000;
 //init
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use("/insertinto",insertInto);
 
 //initializing
 app.listen(port,()=>{
   console.log("Server starten to listen...");
-});
+}); 
 
 
-//home page
+//home page 
 app.get('/', function(req, res){
   res.send("Hello world!");
+  console.log(res)
 });
 
-
+/*
 //insert values into table using post method
 app.post('/insertvalues', function (req, res) {  
   // console.log('Got body:', req.body);
@@ -32,12 +35,12 @@ app.post('/insertvalues', function (req, res) {
     res.sendStatus(200);
   })
 }) 
-
+*/
 
 //To fetch all data from table using table name
 app.get('/result/:tbname', function(req, res){
   const table_name = req.params.tbname;
-  const resul = pg.fetchalldata(('demoscheme.'+table_name),(err,result)=>{
+  const resul = pg.fetchalldata((table_name),(err,result)=>{
     res.send(result.rows);
   })
 });
@@ -46,7 +49,7 @@ app.get('/result/:tbname', function(req, res){
 //returns table values
 app.get('/fetchdata',(req,res)=>
 {
-  const rest = pg.fetchalldata('demoscheme.demotable',(err,result)=>{
+  const rest = pg.fetchalldata('demotable',(err,result)=>{
     res.send(result.rows);
   })
 });
@@ -56,3 +59,4 @@ app.get('/fetchdata',(req,res)=>
 app.get('*', function(req, res){
   res.send('Sorry, this is an invalid URL.');
 });
+
