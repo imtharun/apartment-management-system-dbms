@@ -1,92 +1,58 @@
-const express = require("express");
-var db = require('./sql_connect');
-var con = db.con;
-const { stringify } = require("querystring");
-const { assert } = require("console");
+const express = require("express"); //Line 1
+const cors = require("cors");
+const app = express(); //Line 2
+const port = process.env.PORT || 5000; //Line 3
+const bodyParser = require("body-parser");
 
-//port number to listen
-let port = 3000;
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
 
-//connects to database in the beginning
-connect();
+// parse application/json
+app.use(bodyParser.json());
 
-const app = express();
+app.use(cors());
 
+// This displays message that the server running and listening to specified port
+app.listen(port, () => console.log(`Listening on port ${port}`)); //Line 6
 
-function callerr(callback) {
-  const sql = 'SELECT * FROM name;';
-  const query = con.query(sql,(err,rows,fields) => {
-  if(err) throw err;
-  callback(err, rows); // USING CALLBACK
-  });
-}
-
-
-
-//initializing
-app.listen(port,()=>{
-  console.log("Server starten to listen...");
+app.get("/", (req, res) => {
+  res.send({ hai: "Hello world" });
 });
 
-
-//home page
-app.get('/', function(req, res){
-  res.send("Hello world!");
+// create a GET route
+app.get("/express_backend", (req, res) => {
+  //Line 9
+  res.send({ express: "YOUR EXPRESS BACKEND IS CONNECTED TO REACT" }); //Line 10
 });
 
-//calls create databses function
-app.get('/createdb',(req, res)=>
-{
-  const dbname = 'jssample';
-  db.createdb(dbname)
-  res.send('dbcreated');
+app.post("/auth", (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  if (username && username.toUpperCase().charAt(0) === "E") {
+    res.send({ user: "employee" });
+  }
+  if (username && username.toUpperCase().charAt(0) === "A") {
+    res.send({ user: "admin" });
+  }
+  if (username && username.toUpperCase().charAt(0) === "T") {
+    res.send({ user: "tenant" });
+  }
+  if (username && username.toUpperCase().charAt(0) === "O") {
+    res.send({ user: "owner" });
+  }
 });
 
-
-
-//returns table values
-// app.get('/fetchdata',async (req,res)=>
-// {
-//   let sql = 'SELECT * FROM name;';
-//   let query =  con.query(sql,(err,rows,fields)=>
-//   {
-//     if(err){
-//       throw err;
-//     } 
-//     console.log(rows);
-//     res.send(rows);
-//   })
-// });
-
-app.get('/samp',async(req, res)=>
-{
-  var result = callerr((err,result) => {
-  console.log(result);
-  res.send(result);
-  return res;
-})  
+app.post("/createowner", (req, res) => {
+  console.log(req.body);
+  res.send({ status: req.body });
 });
 
-//Other routes
-// app.get('*', function(req, res){
-//   res.send('Sorry, this is an invalid URL.');
-// });
+app.post("/bookslot", (req, res) => {
+  console.log(req.body);
+  res.send({ status: req.body });
+});
 
-
-function connect()
-{
-  con.connect(function(err) 
-  {
-    if (err) throw err;
-    console.log("database Connected!");
-  });    
-
-}
-
-
-
-// console.log(caller("tenet"));
-
-
-
-// const b = caller('name');
+app.post("/raisingcomplaint", (req, res) => {
+  console.log(req.body);
+  res.send({ status: req.body });
+});
