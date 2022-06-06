@@ -2,14 +2,18 @@ const express = require("express");
 const bodyParser = require('body-parser');
 const pg = require('./postgre_connect');
 const insertInto = require('./routes/insertinto');
+const cors = require("cors")
+
 
 //port number to listen
-const port = 3000;
+const port = 5000;
 
 //init
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use("/insertinto",insertInto);
+app.use(cors())
 
 //initializing
 app.listen(port,()=>{
@@ -20,6 +24,24 @@ app.listen(port,()=>{
 app.get('/', function(req, res){
   res.send("Only accepting GET and POST requests!");
   console.log(res)
+});
+
+
+app.post("/auth", (req, res) => {
+    console.log(req.body);
+    const username = req.body.username;
+    if (username && username.toUpperCase().charAt(0) === "E") {
+      res.send({ user: "employee" });
+    }
+    if (username && username.toUpperCase().charAt(0) === "A") {
+      res.send({ user: "admin" });
+    }
+    if (username && username.toUpperCase().charAt(0) === "T") {
+      res.send({ user: "tenant" });
+    }
+    if (username && username.toUpperCase().charAt(0) === "O") {
+      res.send({ user: "owner" });
+    }
 });
 
 app.get('/complaint',function(req,res){
