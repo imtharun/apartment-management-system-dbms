@@ -4,7 +4,7 @@ const pg = require('./postgre_connect');
 const insertInto = require('./routes/insertinto');
 
 //port number to listen
-let port = 3000;
+const port = 3000;
 
 //init
 const app = express();
@@ -16,13 +16,16 @@ app.listen(port,()=>{
   console.log("Server starten to listen...");
 }); 
 
-
 //home page 
 app.get('/', function(req, res){
-  res.send("Hello world!");
+  res.send("Only accepting GET and POST requests!");
   console.log(res)
 });
 
+app.get('/complaint',function(req,res){
+  res.send("Complaint registered");
+
+});
 /*
 //insert values into table using post method
 app.post('/insertvalues', function (req, res) {  

@@ -2,8 +2,8 @@ const Pool = require('pg').Pool
 const config = require('./config_sql');
 const pool = new Pool({
   user: config.pgname,
-  host: 'localhost',
-  database: 'demo',
+  host: config.host,
+  database: config.db,
   password: config.pgpass,
   port: 5432,
 })
@@ -106,6 +106,16 @@ function insertintorental(values,callback)
   })
 }
 
+function registercomplaint(values,callback)
+{
+  sql = 'insert into demoscheme.complaint(complaint)values($1)';
+  pool.query(sql,values,(err,results)=>
+  {
+    if(err) throw err;
+    callback(err,results);
+  })
+}
+
 
 module.exports = 
 { 
@@ -117,5 +127,6 @@ module.exports =
   insertintoemoloyees,
   insertintoowner,
   insertintorental,
-  insertintotenant 
+  insertintotenant,
+  registercomplaint
 }

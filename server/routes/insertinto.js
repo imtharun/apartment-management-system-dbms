@@ -24,7 +24,6 @@ router.post("/tenant",(req, res)=>
     })
 })
 
-
 router.post("/employees",(req, res)=>
 {
     const uname = req.body.username;
