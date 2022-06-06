@@ -1,65 +1,97 @@
-const express = require("express");
-const bodyParser = require('body-parser');
-const pg = require('./postgre_connect');
-const insertInto = require('./routes/insertinto');
-
-//port number to listen
-const port = 3000;
-
-//init
-const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/insertinto",insertInto);
-
-//initializing
-app.listen(port,()=>{
-  console.log("Server starten to listen...");
-}); 
-
-//home page 
-app.get('/', function(req, res){
-  res.send("Only accepting GET and POST requests!");
-  console.log(res)
-});
-
-app.get('/complaint',function(req,res){
-  res.send("Complaint registered");
-
-});
-/*
-//insert values into table using post method
-app.post('/insertvalues', function (req, res) {  
-  // console.log('Got body:', req.body);
-  const uname = req.body.username;
-  const uage = req.body.password;
-  let name = [uname,uage];
-  const rest = pg.insertintotable(name,(err,result)=>{
-    if(err) throw err;
-    res.sendStatus(200);
-  })
-}) 
-*/
-
-//To fetch all data from table using table name
-app.get('/result/:tbname', function(req, res){
-  const table_name = req.params.tbname;
-  const resul = pg.fetchalldata((table_name),(err,result)=>{
-    res.send(result.rows);
-  })
-});
+const express = require('express');
+const router = express.Router();
+const pg = require('../postgre_connect')
 
 
-//returns table values
-app.get('/fetchdata',(req,res)=>
+//insert into demo table
+router.post("/demotable",(req,res)=>
 {
-  const rest = pg.fetchalldata('demotable',(err,result)=>{
-    res.send(result.rows);
-  })
-});
+    console.log("got request");
+    const resul = pg.fetchalldata(('demotable'),(err,result)=>{
+        res.send(result.rows);
+    })
+})
 
 
-//Other routes
-app.get('*', function(req, res){
-  res.send('Sorry, this is an invalid URL.');
-});
+router.post("/tenant",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintotenant(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
 
+router.post("/employees",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintoemployees(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+
+
+router.post("/block_admin",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintoblock_admin(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+
+
+router.post("/room",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintoroom(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+
+
+router.post("/owner",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintoowner(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+
+
+router.post("/block",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintoblockt(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+
+
+router.post("/rental",(req, res)=>
+{
+    const uname = req.body.username;
+    const uage = req.body.password;
+    let values = [uname,uage];
+    const rest = pg.insertintorental(values,(err,result)=>{
+    if(err) throw err;
+        res.sendStatus(200);
+    })
+})
+module.exports = router; 
