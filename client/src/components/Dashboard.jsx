@@ -11,23 +11,23 @@ function Dashboard(props) {
       }}
       className="w-screen"
     >
-      <div className=" grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-2 gap-5 p-10">
-        {props.forAdminBox &&
-          props.forAdminBox.map((ele, index) => {
+      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 md:grid-rows-2 gap-5 p-10">
+        {props.forBox &&
+          props.forBox.map((ele, index) => {
             return (
-              <div key={index + 1} className=" p-4 border-2 border-blue-500">
+              <div key={index + 1} className=" p-3 border-2 border-blue-500">
                 <h1 className="font-bold text-xl text-center">
-                  {Object.values(props.forAdminBox[index])}
-                </h1>
-                <p className="font-bold text-center text-sm uppercase">
-                  {Object.keys(props.forAdminBox[index])}
+                  {Object.values(props.forBox[index])}
+                </h1> 
+                <p className="font-bold text-center text-sm capitalize">
+                  {Object.keys(props.forBox[index])}
                 </p>
               </div>
             );
           })}
       </div>
-      <div className="p-10">
-        <div className="border-2 border-blue-500 p-5">
+      <div className="p-10 -mt-14">
+        <div className="border-2 border-blue-500 p-5 ">
           <div>
             <h1 className="text-center font-semibold">
               Apartment Rules and Regulation
