@@ -17,10 +17,23 @@ import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
 import RentDetails from "./components/RentDetails";
 import SalaryStatus from "./components/SalaryStatus";
+import { useEffect } from "react";
+import axios from "axios";
 // import Lorem from "./components/Lorem";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/dashboard")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const forAdmin = [
     "Tenant Details",
@@ -39,8 +52,7 @@ function App() {
 
   const forEmployee = ["Salary Status", "Complaints"];
   const forEmployeeBox = [
-    { "Total tenant": 5 },
-    { "Total Owner": 3 },
+    { "Total complaints": 3 },
     { "Salary Details": "Rs. 20,000" },
   ];
 
@@ -111,26 +123,11 @@ function App() {
   ];
 
   const maintenanceHeader = ["Name", "Flat no", "Mobile number", "Status"];
-  const maintenanceRows = [
-    {
-      Name: "Tharunprasath A S",
-      flatNo: 123,
-      mobileNumber: 987654321,
-      status: "paid",
-    },
-    {
-      Name: "Tharunprasath A S",
-      flatNo: 123,
-      mobileNumber: 987654321,
-      status: "paid",
-    },
-    {
-      Name: "Tharunprasath A S",
-      flatNo: 123,
-      mobileNumber: 987654321,
-      status: "paid",
-    },
-  ];
+  const maintenanceRows = {
+    Name: "Tharunprasath A S",
+    flatNo: 123,
+    mobileNumber: 987654321,
+  };
 
   const oTenetData = [
     {

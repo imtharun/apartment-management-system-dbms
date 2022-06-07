@@ -1,6 +1,10 @@
+import axios from "axios";
 import React from "react";
+import { useState } from "react";
 
 function PayMaintenance(props) {
+  const [isPaid, setIsPaid] = useState(false);
+
   return (
     <section className="bg-white px-10 ">
       <div className="container">
@@ -35,11 +39,10 @@ function PayMaintenance(props) {
                 </thead>
                 <tbody>
                   {/* <tr> */}
-                  {props.maintenanceRows.map((ele, index) => {
-                    return (
-                      <tr key={index + 1}>
-                        <td
-                          className="
+
+                  <tr>
+                    <td
+                      className="
                           text-center text-dark
                           font-medium
                           text-base
@@ -48,11 +51,11 @@ function PayMaintenance(props) {
                           bg-[#F3F6FF]
                           border-b border-l border-[#E8E8E8]
                           "
-                        >
-                          {ele.Name}
-                        </td>
-                        <td
-                          className="
+                    >
+                      {props.maintenanceRows.Name}
+                    </td>
+                    <td
+                      className="
                           text-center text-dark
                           font-medium
                           text-base
@@ -61,11 +64,11 @@ function PayMaintenance(props) {
                           bg-[#F3F6FF]
                           border-b border-l border-[#E8E8E8]
                           "
-                        >
-                          {ele.flatNo}
-                        </td>
-                        <td
-                          className="
+                    >
+                      {props.maintenanceRows.flatNo}
+                    </td>
+                    <td
+                      className="
                           text-center text-dark
                           font-medium
                           text-base
@@ -74,11 +77,11 @@ function PayMaintenance(props) {
                           bg-[#F3F6FF]
                           border-b border-l border-[#E8E8E8]
                           "
-                        >
-                          {ele.mobileNumber}
-                        </td>
-                        <td
-                          className="
+                    >
+                      {props.maintenanceRows.mobileNumber}
+                    </td>
+                    <td
+                      className="
                           text-center text-dark
                           font-medium
                           text-base
@@ -87,12 +90,34 @@ function PayMaintenance(props) {
                           bg-[#F3F6FF]
                           border-b border-l border-[#E8E8E8]
                           "
+                    >
+                      {!isPaid ? (
+                        <button
+                          className="px-6 py-2 font-semibold text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none hover:bg-white hover:text-blue-500 transition-all duration-300 hover:border-blue-500 border-transparent border-2"
+                          onClick={() => {
+                            setIsPaid(!isPaid);
+                            axios
+                              .post("http://localpost:5000/userpaid", {
+                                name: props.maintenanceRows.name,
+                                status: "Paid",
+                              })
+                              .then((res) => {
+                                console.log(res);
+                              })
+                              .catch((err) => {
+                                console.log(err);
+                              });
+                          }}
                         >
-                          {ele.status}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                          Pay
+                        </button>
+                      ) : (
+                        <span className="px-6 py-2 border-2 border-transparent">
+                          Paid
+                        </span>
+                      )}
+                    </td>
+                  </tr>
                 </tbody>
               </table>
             </div>
