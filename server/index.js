@@ -46,14 +46,27 @@ app.post("/auth", (req, res) => {
     }
 });
 
-app.get('/raisingcomplaint',function(req,res){
+app.post('/raisingcomplaint',function(req,res){
     const name = req.body.name;
     const floorno = req.body.floorno;
     const desc = req.body.descp;
     const values = [name,floorno,desc];
     const resul =db.registercomplaint(values,(err,result)=>{
-    res.send(result.rows);
+      if(err) console.log(err);
+      console.log(result);
+    res.send(result);
     })
+});
+
+app.get('/dashboard',function(req,res){
+  const name = req.body.name;
+  const floorno = req.body.floorno;
+  const desc = req.body.descp;
+  const values = [name,floorno,desc];
+  const resul =db.dashboard(values,(err,result)=>{
+    if(err) console.log(err);
+    res.send(result.rows);
+  })
 });
 
 //creates owner in owner table
@@ -88,8 +101,9 @@ app.post('/bookslot',(req,res)=>
     const values = [vtype,slno];
     console.log(values);
     const rest = db.bookslot(values,(err,result)=>{
-        //if(err) res.sendStatus(404);
-        res.sendStatus(200);
+      if(err) console.log(err);
+      //if(err) res.sendStatus(404);
+      res.sendStatus(200);
   })
 });
 
