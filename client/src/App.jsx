@@ -10,9 +10,13 @@ import OwnerDetails from "./components/OwnerDetails";
 import TenantDetails from "./components/TenantDetails";
 import CreatingOwner from "./components/CreatingOwner";
 import CreatingParkingSlot from "./components/CreatingParkingSlot";
-import CompaintsViewer from "./components/CompaintsViewer";
+import ComplaintsViewer from "./components/ComplaintsViewer";
 import Maintenance from "./components/Maintenance";
 import RaisingComplaints from "./components/RaisingComplaints";
+import ParkingSlot from "./components/ParkingSlot";
+import PayMaintenance from "./components/PayMaintenance";
+import RentDetails from "./components/RentDetails";
+import SalaryStatus from "./components/SalaryStatus";
 // import Lorem from "./components/Lorem";
 
 function App() {
@@ -37,7 +41,7 @@ function App() {
     "Tenant Details",
     "Owner Details",
     "Salary Status",
-    "Compaints",
+    "Complaints",
   ];
   const forEmployeeBox = [
     { "Total tenant": 5 },
@@ -46,16 +50,16 @@ function App() {
   ];
 
   const forTenant = [
-    "Raising Compaints",
-    "Notice Board",
+    "Raising Complaints",
     "Alloted Parking slot",
     "Pay maintenance",
   ];
+
   const forTenantBox = [
-    { "Tenant Name": "Tharunprasath A S " },
+    { "Tenant Name": "Tharun" },
     { "Tenant age": 20 },
     { "No. of members in Family": 5 },
-    { "Adhaar number": 1234567890 },
+    { "Adhaar number": 123456 },
   ];
 
   const forOwner = ["Rent details", "Tenant details", "Complaint"];
@@ -71,6 +75,14 @@ function App() {
     { tno: 2, name: "D K suryah", age: 20, adhaar: 123456, dob: "21-May-2002" },
     { tno: 3, name: "Yuvarraj", age: 20, adhaar: 123456, dob: "21-May-2002" },
     { tno: 4, name: "Shivanesh", age: 20, adhaar: 123456, dob: "21-May-2002" },
+  ];
+
+  const oHeader = ["Owner Id", "Name", "Age", "Adhaar no", "dob"];
+  const ownerData = [
+    { oid: 1, name: "Tharun", age: 20, adhaar: 123456, dob: "21-May-2002" },
+    { oid: 2, name: "D K suryah", age: 20, adhaar: 123456, dob: "21-May-2002" },
+    { oid: 3, name: "Yuvarraj", age: 20, adhaar: 123456, dob: "21-May-2002" },
+    { oid: 4, name: "Shivanesh", age: 20, adhaar: 123456, dob: "21-May-2002" },
   ];
 
   const compSubj = [
@@ -93,6 +105,8 @@ function App() {
   quod officiis!",
     },
   ];
+
+  const allotedSlots = ["A-123", "B-2131", "C-12312"];
 
   const monthlyDetails = [
     { "Total Owners": 59 },
@@ -120,6 +134,85 @@ function App() {
       flatNo: 123,
       mobileNumber: 987654321,
       status: "paid",
+    },
+  ];
+
+  const oTenetData = [
+    {
+      tno: 1,
+      name: "Tharun",
+      age: 20,
+      adhaar: 123456,
+      dob: "21-May-2002",
+      status: "paid",
+    },
+    {
+      tno: 2,
+      name: "D K suryah",
+      age: 20,
+      adhaar: 123456,
+      dob: "21-May-2002",
+      status: "pending",
+    },
+    {
+      tno: 3,
+      name: "Yuvarraj",
+      age: 20,
+      adhaar: 123456,
+      dob: "21-May-2002",
+      status: "pending",
+    },
+    {
+      tno: 4,
+      name: "Shivanesh",
+      age: 20,
+      adhaar: 123456,
+      dob: "21-May-2002",
+      status: "paid",
+    },
+  ];
+
+  const salaryStatusHeader = [
+    "Eid",
+    "Name",
+    "age",
+    "adhaar",
+    "Month",
+    "status",
+  ];
+
+  const salaryStatusRows = [
+    {
+      eid: 1,
+      name: "Tharun",
+      age: 20,
+      adhaar: 123456,
+      month: "January",
+      status: "Received",
+    },
+    {
+      eid: 2,
+      name: "D K suryah",
+      age: 20,
+      adhaar: 123456,
+      month: "Feburary",
+      status: "Received",
+    },
+    {
+      eid: 3,
+      name: "Yuvarraj",
+      age: 20,
+      adhaar: 123456,
+      month: "March",
+      status: "Received",
+    },
+    {
+      eid: 4,
+      name: "Shivanesh",
+      age: 20,
+      adhaar: 123456,
+      month: "April",
+      status: "Pending",
     },
   ];
 
@@ -184,7 +277,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="p-5">
-                <OwnerDetails />
+                <OwnerDetails header={oHeader} ownerData={ownerData} />
               </section>
             </main>
           }
@@ -228,7 +321,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="p-5">
-                <CompaintsViewer complaints={compSubj} />
+                <ComplaintsViewer complaints={compSubj} />
               </section>
             </main>
           }
@@ -259,6 +352,126 @@ function App() {
             </main>
           }
         />
+        <Route
+          path="/tenant/allotedparkingslot"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forTenant} />
+              <section className="p-5">
+                <ParkingSlot allotedSlots={allotedSlots} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/tenant/paymaintenance"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forTenant} />
+              <section className="p-5">
+                <PayMaintenance
+                  maintenanceHeader={maintenanceHeader}
+                  maintenanceRows={maintenanceRows}
+                />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/tenantdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <TenantDetails header={header} tenetData={tenetData} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/tenantdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <TenantDetails header={header} tenetData={tenetData} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/complaint"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <ComplaintsViewer complaints={compSubj} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/rentdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <RentDetails
+                  header={[...header, "status"]}
+                  tenetData={oTenetData}
+                />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/employee/ownerdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forEmployee} />
+              <section className="p-5">
+                <OwnerDetails header={oHeader} ownerData={ownerData} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/employee/tenantdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forEmployee} />
+              <section className="p-5">
+                <TenantDetails header={header} tenetData={tenetData} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/employee/complaints"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forEmployee} />
+              <section className="p-5">
+                <ComplaintsViewer complaints={compSubj} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/employee/salarystatus"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forEmployee} />
+              <section className="p-5">
+                <SalaryStatus
+                  salaryStatusHeader={salaryStatusHeader}
+                  salaryStatusRows={salaryStatusRows}
+                />
+              </section>
+            </main>
+          }
+        />
+        <Route />
       </Routes>
     </div>
   );
