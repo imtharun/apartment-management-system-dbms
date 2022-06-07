@@ -28,19 +28,44 @@ app.get("/", function (req, res) {
 app.post("/auth", (req, res) => {
   console.log(req.body);
   const username = req.body.username;
-  if (username && username.toUpperCase().charAt(0) === "E") {
+  const password = req.body.password;
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "E" &&
+    password &&
+    password.length >= 6
+  ) {
     res.send({ user: "employee" });
   }
-  if (username && username.toUpperCase().charAt(0) === "A") {
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "A" &&
+    password &&
+    password.length >= 6
+  ) {
     res.send({ user: "admin" });
   }
-  if (username && username.toUpperCase().charAt(0) === "T") {
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "T" &&
+    password &&
+    password.length >= 6
+  ) {
     res.send({ user: "tenant" });
   }
-  if (username && username.toUpperCase().charAt(0) === "O") {
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "O" &&
+    password &&
+    password.length >= 6
+  ) {
     res.send({ user: "owner" });
   } else {
-    res.send({ user: "unknown" });
+    if (password.length < 6) {
+      res.send({ user: "passunknown" });
+    } else {
+      res.send({ user: "unknown" });
+    }
   }
 });
 

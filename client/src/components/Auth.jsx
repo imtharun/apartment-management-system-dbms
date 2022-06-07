@@ -50,6 +50,7 @@ function Auth(props) {
         password: password,
       })
       .then((res) => {
+        console.log(res.data.user);
         if (res.data.user === "employee") {
           props.setIsAuth(true);
           nav("/employee");
@@ -80,6 +81,7 @@ function Auth(props) {
         }
         if (res.data.user === "unknown") {
           setIsName(false);
+        } else if (res.data.user === "passunknown") {
           setIsPassword(false);
         }
       })
