@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require('body-parser');
-// const pg = require('./postgre_connect');
 const db = require('./mysql_connect');
 const dashB = require('./routes/dashb');
 const cors = require("cors")
@@ -28,7 +27,7 @@ app.get('/', function(req, res){
   console.log(res)
 });
 
-
+//authorisation
 app.post("/auth", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -161,8 +160,8 @@ app.post('/bookslot',(req,res)=>
     const values = [vtype,slno];
     console.log(values);
     const rest = db.bookslot(values,(err,result)=>{
-      if(err) console.log(err);
-      //if(err) res.sendStatus(404);
+      // if(err) console.log(err);
+      // if(err) res.sendStatus(404);
       res.sendStatus(200);
   })
 });

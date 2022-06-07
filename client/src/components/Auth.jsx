@@ -50,7 +50,7 @@ function Auth(props) {
         password: password,
       })
       .then((res) => {
-        props.setWhom(res.data.user)
+        props.setWhom(res.data.user);
         console.log(res.data.user);
         if (res.data.user === "employee") {
           props.setIsAuth(true);

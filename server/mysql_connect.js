@@ -17,23 +17,6 @@ function connect()
     });    
 }
 
-// we can create a database with the name passes as an argument
-// function createdb(dbname)
-// {
-//     let sql = 'CREATE DATABASE '+dbname;
-//     con.query(sql , dbname,(err,result)=>
-//     {
-//         if(err)
-//         {
-//             throw err;
-//         };
-//         console.log(result);
-//         let resp = 'database connected';
-//         return resp;
-//     })
-// }
-
-
 //register the complaint to the block 
 function registercomplaint(values,callback)
 {
@@ -97,8 +80,33 @@ function dashboard(callback)
     {
         callback(err,results);
     })
+}
 
+function totaltenant(callback)
+{
+    sql = 'SELECT COUNT(tenant_id) FROM tenant';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
 
+function totalemployee(callback)
+{
+    sql = 'SELECT COUNT(emp_id) FROM employee';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+function totalcomplaint(callback)
+{
+    sql = 'SELECT COUNT(complaints) FROM block';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
 }
 
 
@@ -109,5 +117,8 @@ module.exports = {
     bookslot,
     getdata,
     dashboard,
-    totalowner
+    totalowner,
+    totaltenant,
+    totalemployee,
+    totalcomplaint
 }

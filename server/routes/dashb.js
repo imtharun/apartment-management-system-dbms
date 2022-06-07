@@ -3,96 +3,107 @@ const router = express.Router();
 const cors = require("cors")
 const app = express();
 router.use(cors());
+const db = require('../mysql_connect');
 // const pg = require('../postgre_connect')
 
 
-//insert into demo table
-router.get("/owner",(req,res)=>
+
+router.get("/admin",(req,res)=>
 {
-    console.log("got request");
-    res.send({status: "success"})
+  let resdata;
+  let totalowner;
+  let totaltenant;
+  let totalemployee;
+  
+  let resul = db.totalowner((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totalowner = resultArray;
+  });
+  resul = db.totaltenant((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totaltenant = resultArray;
+  });
+  resul = db.totalemployee((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totalemployee = resultArray;
+  });
+
+  resul =db.getdata('tenant',(err,result)=>{
+    if(err) console.log(err);
+    tenantdata = result;
+    resdata = {
+      totalowner : totalowner,
+      totaltenant: totaltenant,
+      totalemployee: totalemployee
+    }
+    res.send(resdata);
+  })
 })
 
 
-// router.post("/tenant",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintotenant(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
+router.get("/owner",(req,res)=>
+{
+    let resdata;
+  let totaltenant;
+  let totalcomplaint;
+  let totalemployee;
 
-// router.post("/employees",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintoemployees(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
+  resul = db.totaltenant((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totaltenant = resultArray;
+  });
+  resul = db.totalcomplaint((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totalcomplaint = resultArray;
+  });
 
+  resul = db.totalemployee((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totalemployee = resultArray;
+    resdata = {
+      totaltenant : totaltenant,
+      totalcomplaint : totalcomplaint,
+      totalemployee : totalemployee
+    }
+    res.send(resdata);
+  })
+})
 
-// router.post("/block_admin",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintoblock_admin(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
+router.get("/employee",(req,res)=>
+{
+    let totalcomplaint;
+    resul = db.totalcomplaint((err,result)=>
+  {
+    if(err) console.log(err);
+    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    totalcomplaint = resultArray;
+    resdata = 
+    {
+        totalcomplaint : totalcomplaint
+    }
+      res.send(resdata);
+  });
+})
 
+router.get("/tenant",(req,res)=>
+{
+    const rest = db.getdata('tenant',(err,result)=>
+    {
+        console.log(result);
+        res.send(result);
+    });
+})
 
-// router.post("/room",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintoroom(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
-
-
-// router.post("/owner",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintoowner(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
-
-
-// router.post("/block",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintoblockt(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
-
-
-// router.post("/rental",(req, res)=>
-// {
-//     const uname = req.body.username;
-//     const uage = req.body.password;
-//     let values = [uname,uage];
-//     const rest = pg.insertintorental(values,(err,result)=>{
-//     if(err) throw err;
-//         res.sendStatus(200);
-//     })
-// })
 module.exports = router; 
