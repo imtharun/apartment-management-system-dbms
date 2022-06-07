@@ -6,16 +6,20 @@ function CreatingParkingSlot() {
   const slotNoEl = useRef(null);
   const [vehName, setVehName] = useState("");
   const [slotNo, setSlotNo] = useState("");
-  
+
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/bookslot", {
+      .post("http://192.168.137.1:5000/bookslot", {
         vehicleType: vehName,
         slotNo: slotNo,
       })
       .then((res) => {
         console.log(res);
+        if (res.status === 200) {
+          vehicleEl.current.value = "";
+          slotNoEl.current.value = "";
+        }
       })
       .catch((err) => {
         console.log(err);

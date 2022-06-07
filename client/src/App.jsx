@@ -23,16 +23,36 @@ import axios from "axios";
 function App() {
   const [isAuth, setIsAuth] = useState(false);
   const [whom, setWhom] = useState("");
+  const forAdminBox = [
+    { "Total Owner": 59 },
+    { "Total Tenant": 39 },
+    { "Total Employee": 20 },
+  ];
+  const [adminBox, setAdminBox] = useState(forAdminBox);
   useEffect(() => {
     console.log(whom);
-    axios
-      .get(`http://localhost:5000/dashboard/${whom}`)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (
+      whom === "admin" ||
+      whom === "employee" ||
+      whom === "tenant" ||
+      whom === "owner"
+    ) {
+      axios
+        .get(`http://192.168.137.1:5000/dashboard/${whom}`)
+        .then((res) => {
+          if (whom === "admin") {
+            forAdminBox[0]["Total Owner"] = res.data.totalowner;
+            forAdminBox[2]["Total Employee"] = res.data.totalemployee;
+            forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
+            setAdminBox(forAdminBox);
+            // console.log(forAdminBox);
+            console.log(res);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [whom]);
 
   const forAdmin = [
@@ -42,12 +62,6 @@ function App() {
     "Alloting Parking slot",
     "Complaints",
     "Maintenance Fee",
-  ];
-  const forAdminBox = [
-    { "Total Owner": 59 },
-    { "Total Paid": 39 },
-    { "Total not paid": 20 },
-    { "Total Payement": "Rs. 30,000" },
   ];
 
   const forEmployee = ["Salary Status", "Complaints"];
@@ -71,7 +85,7 @@ function App() {
 
   const forOwner = ["Rent details", "Tenant details", "Complaint"];
   const forOwnerBox = [
-    { "Rent received": "Rs. 14,000" },
+    { "No of Emloyees": 5 },
     { "Total Tenant": 4 },
     { "Total complaints": 2 },
   ];
@@ -213,7 +227,14 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Auth isAuth={isAuth} setIsAuth={setIsAuth} whom={whom} setWhom={setWhom} />}
+          element={
+            <Auth
+              isAuth={isAuth}
+              setIsAuth={setIsAuth}
+              whom={whom}
+              setWhom={setWhom}
+            />
+          }
         />
         <Route
           path="/admin"
@@ -222,7 +243,7 @@ function App() {
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="flex">
                 <Aside forHam={forAdmin} />
-                <Dashboard forBox={forAdminBox} />
+                <Dashboard forBox={adminBox} />
               </section>
             </main>
           }
