@@ -1,6 +1,13 @@
 const express = require("express");
+
 const bodyParser = require("body-parser");
 const pg = require("./postgre_connect");
+const insertInto = require("./routes/insertinto");
+const cors = require("cors");
+
+const bodyParser = require("body-parser");
+// const pg = require('./postgre_connect');
+const db = require("./mysql_connect");
 const insertInto = require("./routes/insertinto");
 const cors = require("cors");
 
@@ -98,6 +105,48 @@ app.get("/result/:tbname", function (req, res) {
 app.get("/fetchdata", (req, res) => {
   const rest = pg.fetchalldata("demotable", (err, result) => {
     res.send(result.rows);
+  });
+});
+
+app.get("/raisingcomplaint", function (req, res) {
+  const name = req.body.name;
+  const floorno = req.body.floorno;
+  const desc = req.body.descp;
+  const values = [name, floorno, desc];
+  const resul = db.registercomplaint(values, (err, result) => {
+    res.send(result.rows);
+  });
+});
+
+//creates owner in owner table
+app.post("/createowner", (req, res) => {
+  const name = req.body.name;
+  const age = req.body.age;
+  const aadhar = req.body.aadhar;
+  const dob = req.body.dob;
+  const values = [name, age, aadhar, dob];
+  const rest = db.createowner(value, (err, result) => {
+    if (err) res.sendStatus(404);
+    res.sendStatus(200);
+  });
+});
+
+app.get("/tenentdetails", (req, res) => {
+  const rest = db.getdata("samp", (err, result) => {
+    console.log(result);
+    res.send(result);
+  });
+});
+
+//books parking slot for tenents
+app.post("/bookslot", (req, res) => {
+  const vtype = req.body.vehicleType;
+  const slno = req.body.slotNo;
+  const values = [vtype, slno];
+  console.log(values);
+  const rest = db.bookslot(values, (err, result) => {
+    //if(err) res.sendStatus(404);
+    res.sendStatus(200);
   });
 });
 

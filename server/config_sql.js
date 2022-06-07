@@ -1,12 +1,6 @@
 const host = 'localhost';
-const pgname = 'postgres';
-const pgpass = 'root1234';
-const db = 'demo';
+const uname = 'root';
+const upass = 'root1234';
+const database= 'jssample';
 
-module.exports = 
-{
-    host,
-    pgname,
-    pgpass,
-    db
-};
+module.exports = {host,uname,upass,database};
