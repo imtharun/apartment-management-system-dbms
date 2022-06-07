@@ -37,12 +37,7 @@ function App() {
     { "Total Payement": "Rs. 30,000" },
   ];
 
-  const forEmployee = [
-    "Tenant Details",
-    "Owner Details",
-    "Salary Status",
-    "Complaints",
-  ];
+  const forEmployee = ["Salary Status", "Complaints"];
   const forEmployeeBox = [
     { "Total tenant": 5 },
     { "Total Owner": 3 },
@@ -420,28 +415,6 @@ function App() {
                   header={[...header, "status"]}
                   tenetData={oTenetData}
                 />
-              </section>
-            </main>
-          }
-        />
-        <Route
-          path="/employee/ownerdetails"
-          element={
-            <main>
-              <Header isAuth={isAuth} forHam={forEmployee} />
-              <section className="p-5">
-                <OwnerDetails header={oHeader} ownerData={ownerData} />
-              </section>
-            </main>
-          }
-        />
-        <Route
-          path="/employee/tenantdetails"
-          element={
-            <main>
-              <Header isAuth={isAuth} forHam={forEmployee} />
-              <section className="p-5">
-                <TenantDetails header={header} tenetData={tenetData} />
               </section>
             </main>
           }
