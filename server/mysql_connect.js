@@ -37,10 +37,13 @@ function connect()
 //register the complaint to the block 
 function registercomplaint(values,callback)
 {
-  sql = 'insert into samp(id,descrip)values(?,?)';
+  sql = 'insert into samp(block_no,descrip)values(?,?)';
   con.query(sql,values,(err,results)=>
   {
-    if(err) throw err;
+      if (err)
+      {
+          console.log(err);
+      }
     callback(err,results);
   })
 }
@@ -52,7 +55,6 @@ function getdata(tablename,callback)
     sql = 'select * from '+tablename+';';
     con.query(sql,(err,results)=>
     {
-        if(err) throw err;
         callback(err,results);
     })
 }
@@ -61,10 +63,9 @@ function getdata(tablename,callback)
 //add an owner tuple to the table
 function createowner(values,callback)
 {
-    sql = 'insert into owner(name,age,aadhar,dob)values(?,?,?,?)';
+    sql = 'insert into owner(name,age,aggrement_status,room_no)values(?,?,?,?)';
     con.query(sql,values,(err,results)=>
     {
-        if(err) throw err;
         callback(err,results);
     })
 }
@@ -76,9 +77,19 @@ function bookslot(values,callback)
     sql = 'insert into parkingslot(vehicletype,slotno)values(?,?)';
     con.query(sql,values,(err,results)=>
     {
-        if(err) throw err;
         callback(err,results);
     })
+}
+
+function dashboard(callback)
+{
+    sql = 'select * from block';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
+
+
 }
 
 
@@ -87,5 +98,6 @@ module.exports = {
     registercomplaint,
     createowner,
     bookslot,
-    getdata
+    getdata,
+    dashboard
 }

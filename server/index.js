@@ -63,7 +63,7 @@ app.get('/dashboard',function(req,res){
   const floorno = req.body.floorno;
   const desc = req.body.descp;
   const values = [name,floorno,desc];
-  const resul =db.dashboard(values,(err,result)=>{
+  const resul =db.dashboard((err,result)=>{
     if(err) console.log(err);
     res.send(result.rows);
   })
