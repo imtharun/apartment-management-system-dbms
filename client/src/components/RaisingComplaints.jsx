@@ -2,20 +2,20 @@ import axios from "axios";
 import React, { useState, useRef } from "react";
 
 function RaisingComplaints() {
-  const nameEl = useRef(null);
-  const floorEl = useRef(null);
+  const blockEl = useRef(null);
+  const roomEl = useRef(null);
   const descpEl = useRef(null);
 
-  const [name, setName] = useState("");
-  const [floorno, setFloorno] = useState("");
+  const [blockno, setBlockno] = useState("");
+  const [roomno, setRoomno] = useState("");
   const [descp, setDescp] = useState("");
 
   const submitHandler = function (e) {
     e.preventDefault();
     axios
       .post("http://localhost:5000/raisingcomplaint", {
-        name: name,
-        floorno: floorno,
+        blockno: blockno,
+        roomno: roomno,
         descp: descp,
       })
       .then((res) => {
@@ -35,40 +35,40 @@ function RaisingComplaints() {
           </h1>
           <div>
             <label
-              htmlFor="name"
+              htmlFor="block-no"
               className="text-base text-gray-500 font-semibold font-serif"
             >
-              Name:
+              Block no:
             </label>
             <input
-              ref={nameEl}
+              ref={blockEl}
               type="text"
-              value={name}
+              value={blockno}
               onChange={() => {
-                setName(nameEl.current.value);
+                setBlockno(blockEl.current.value);
               }}
-              placeholder="name"
-              id="name"
+              placeholder="Block no"
+              id="block-no"
               className="ml-6 my-2 outline-none py-1 px-2 text-md border-2 rounded-md"
             />
           </div>
           <div>
             <label
-              htmlFor="floorno"
+              htmlFor="room-no"
               className="my-2 font-semibold text-gray-500 text-lx font-serif"
             >
-              Floor no:
+              Room no:
             </label>
             <input
-              ref={floorEl}
+              ref={roomEl}
               type="text"
-              value={floorno}
+              value={roomno}
               onChange={() => {
-                setFloorno(floorEl.current.value);
+                setRoomno(roomEl.current.value);
               }}
-              placeholder="Floor no"
-              id="floor no"
-              className="ml-2 outline-none py-1 px-2 text-md border-2 rounded-md"
+              placeholder="room no"
+              id="room-no"
+              className="ml-5 outline-none py-1 px-2 text-md border-2 rounded-md"
             />
           </div>
           <div className="space-y-4">
