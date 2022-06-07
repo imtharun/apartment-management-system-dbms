@@ -30,20 +30,47 @@ app.get('/', function(req, res){
 
 
 app.post("/auth", (req, res) => {
-    console.log(req.body);
-    const username = req.body.username;
-    if (username && username.toUpperCase().charAt(0) === "E") {
-      res.send({ user: "employee" });
+  console.log(req.body);
+  const username = req.body.username;
+  const password = req.body.password;
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "E" &&
+    password &&
+    password.length >= 6
+  ) {
+    res.send({ user: "employee" });
+  }
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "A" &&
+    password &&
+    password.length >= 6
+  ) {
+    res.send({ user: "admin" });
+  }
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "T" &&
+    password &&
+    password.length >= 6
+  ) {
+    res.send({ user: "tenant" });
+  }
+  if (
+    username &&
+    username.toUpperCase().charAt(0) === "O" &&
+    password &&
+    password.length >= 6
+  ) {
+    res.send({ user: "owner" });
+  } else {
+    if (password.length < 6) {
+      res.send({ user: "passunknown" });
+    } else {
+      res.send({ user: "unknown" });
     }
-    if (username && username.toUpperCase().charAt(0) === "A") {
-      res.send({ user: "admin" });
-    }
-    if (username && username.toUpperCase().charAt(0) === "T") {
-      res.send({ user: "tenant" });
-    }
-    if (username && username.toUpperCase().charAt(0) === "O") {
-      res.send({ user: "owner" });
-    }
+  }
 });
 
 app.post('/raisingcomplaint',function(req,res){
@@ -59,13 +86,22 @@ app.post('/raisingcomplaint',function(req,res){
 });
 
 app.get('/dashboard',function(req,res){
-  const name = req.body.name;
-  const floorno = req.body.floorno;
-  const desc = req.body.descp;
-  const values = [name,floorno,desc];
-  const resul =db.dashboard((err,result)=>{
+  const resdata = {}
+  const resul =db.getdata((err,result)=>{
     if(err) console.log(err);
-    res.send(result.rows);
+    res.send(result);
+  })
+  resul =db.getdata((err,result)=>{
+    if(err) console.log(err);
+    res.send(result);
+  })
+  resul =db.getdata((err,result)=>{
+    if(err) console.log(err);
+    res.send(result);
+  })
+  resul =db.getdata((err,result)=>{
+    if(err) console.log(err);
+    res.send(result);
   })
 });
 
