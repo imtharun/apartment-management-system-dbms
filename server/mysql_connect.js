@@ -33,6 +33,8 @@ function connect()
 //     })
 // }
 
+
+//register the complaint to the block 
 function registercomplaint(values,callback)
 {
   sql = 'insert into samp(id,descrip)values(?,?)';
@@ -43,6 +45,8 @@ function registercomplaint(values,callback)
   })
 }
 
+
+//get all the data from the table using table name
 function getdata(tablename,callback)
 {
     sql = 'select * from '+tablename+';';
@@ -54,6 +58,7 @@ function getdata(tablename,callback)
 }
 
 
+//add an owner tuple to the table
 function createowner(values,callback)
 {
     sql = 'insert into owner(name,age,aadhar,dob)values(?,?,?,?)';
@@ -64,6 +69,8 @@ function createowner(values,callback)
     })
 }
 
+
+//book a parking slot for the tenant
 function bookslot(values,callback)
 {
     sql = 'insert into parkingslot(vehicletype,slotno)values(?,?)';
@@ -73,4 +80,12 @@ function bookslot(values,callback)
         callback(err,results);
     })
 }
-module.exports = { connect,registercomplaint,createowner,bookslot,getdata}
+
+
+module.exports = { 
+    connect,
+    registercomplaint,
+    createowner,
+    bookslot,
+    getdata
+}
