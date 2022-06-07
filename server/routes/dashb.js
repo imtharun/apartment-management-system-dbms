@@ -1,16 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const cors = require("cors")
+const app = express();
+router.use(cors());
 // const pg = require('../postgre_connect')
 
 
-// //insert into demo table
-// router.post("/demotable",(req,res)=>
-// {
-//     console.log("got request");
-//     const resul = pg.fetchalldata(('demotable'),(err,result)=>{
-//         res.send(result.rows);
-//     })
-// })
+//insert into demo table
+router.get("/owner",(req,res)=>
+{
+    console.log("got request");
+    res.send({status: "success"})
+})
 
 
 // router.post("/tenant",(req, res)=>

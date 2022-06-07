@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require('body-parser');
 // const pg = require('./postgre_connect');
 const db = require('./mysql_connect');
-const insertInto = require('./routes/insertinto');
+const dashB = require('./routes/dashb');
 const cors = require("cors")
 
 
@@ -13,7 +13,7 @@ const port = 5000;
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use("/insertinto",insertInto);
+app.use("/dashboard",dashB);
 app.use(cors())
 
 
@@ -30,7 +30,6 @@ app.get('/', function(req, res){
 
 
 app.post("/auth", (req, res) => {
-  console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
   if (
@@ -85,25 +84,50 @@ app.post('/raisingcomplaint',function(req,res){
     })
 });
 
-app.get('/dashboard',function(req,res){
-  const resdata = {}
-  const resul =db.getdata((err,result)=>{
-    if(err) console.log(err);
-    res.send(result);
-  })
-  resul =db.getdata((err,result)=>{
-    if(err) console.log(err);
-    res.send(result);
-  })
-  resul =db.getdata((err,result)=>{
-    if(err) console.log(err);
-    res.send(result);
-  })
-  resul =db.getdata((err,result)=>{
-    if(err) console.log(err);
-    res.send(result);
-  })
-});
+
+// app.get('/dashboard',function(req,res){
+//   let resdata;
+//   let blockdata;
+//   let ownerdata;
+//   let roomdata;
+//   let totalowner;
+//   let tenantdata;
+
+
+//   let resul =db.getdata('block',(err,result)=>{
+//     if(err) console.log(err);
+//     console.log(JSON.stringify(result))
+//     blockdata = Object.values(JSON.parse(JSON.stringify(result)));
+//   })
+//   resul = db.totalowner((err,result)=>
+//   {
+//     if(err) console.log(err);
+//     var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+//     totalowner = resultArray;
+//   });
+//   resul =db.getdata('owner',(err,result)=>{
+//     if(err) console.log(err);
+//     tenantdata = result;
+//   })
+//   resul =db.getdata('room',(err,result)=>{
+//     if(err) console.log(err);
+//     roomdata = result;
+//   })
+//   resul =db.getdata('tenant',(err,result)=>{
+//     if(err) console.log(err);
+//     tenantdata = result;
+//     resdata = {
+//       totalowner : totalowner,
+//       block : blockdata,
+//       owner : ownerdata,
+//       room : roomdata,
+//       tenant : tenantdata
+//     }
+//     res.send(resdata);
+//   })
+  
+
+// });
 
 //creates owner in owner table
 app.post('/createowner',(req,res)=>

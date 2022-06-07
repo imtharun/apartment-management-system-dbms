@@ -1,7 +1,6 @@
 /* eslint-disable no-multi-str */
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-// import axios from "axios";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Aside from "./components/Aside";
@@ -23,17 +22,18 @@ import axios from "axios";
 
 function App() {
   const [isAuth, setIsAuth] = useState(false);
-
+  const [whom, setWhom] = useState("");
   useEffect(() => {
+    console.log(whom);
     axios
-      .get("http://localhost:5000/dashboard")
+      .get(`http://localhost:5000/dashboard/${whom}`)
       .then((res) => {
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [whom]);
 
   const forAdmin = [
     "Tenant Details",
@@ -213,7 +213,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<Auth isAuth={isAuth} setIsAuth={setIsAuth} />}
+          element={<Auth isAuth={isAuth} setIsAuth={setIsAuth} whom={whom} setWhom={setWhom} />}
         />
         <Route
           path="/admin"

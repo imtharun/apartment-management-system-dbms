@@ -49,6 +49,15 @@ function registercomplaint(values,callback)
 }
 
 
+function totalowner(callback)
+{
+    sql = 'SELECT COUNT(owner_id) FROM owner';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
 //get all the data from the table using table name
 function getdata(tablename,callback)
 {
@@ -99,5 +108,6 @@ module.exports = {
     createowner,
     bookslot,
     getdata,
-    dashboard
+    dashboard,
+    totalowner
 }
