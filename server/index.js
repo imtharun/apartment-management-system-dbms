@@ -31,51 +31,50 @@ app.get('/', function(req, res){
 app.post("/auth", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
-  if (
-    username &&
+
+  if(username &&
     username.toUpperCase().charAt(0) === "E" &&
     password &&
-    password.length >= 6
-  ) {
-    res.send({ user: "employee" });
-  }
-  if (
+    password.length >= 6){
+
+      res.send({ user: "employee" });
+    }else if (
     username &&
     username.toUpperCase().charAt(0) === "A" &&
     password &&
     password.length >= 6
   ) {
     res.send({ user: "admin" });
-  }
-  if (
+  }else if (
     username &&
     username.toUpperCase().charAt(0) === "T" &&
     password &&
     password.length >= 6
   ) {
     res.send({ user: "tenant" });
-  }
-  if (
+  }else if (
     username &&
     username.toUpperCase().charAt(0) === "O" &&
     password &&
     password.length >= 6
   ) {
     res.send({ user: "owner" });
-  } else {
-    if (password.length < 6) {
-      res.send({ user: "passunknown" });
-    } else {
-      res.send({ user: "unknown" });
-    }
+  }  else if(password.length < 6) {
+    res.send({ user: "passunknown" });
+  }else {
+    res.send({ user: "unknown" });
   }
 });
 
+
+//register complaint
 app.post('/raisingcomplaint',function(req,res){
-    const name = req.body.name;
-    const floorno = req.body.floorno;
+    // const name = req.body.name;
+    // const floorno = req.body.floorno;
     const desc = req.body.descp;
-    const values = [name,floorno,desc];
+    const blockno = req.body.blockno;
+    const roomno = req.body.roomno;
+    const values = [,desc,blockno,roomno];
     const resul =db.registercomplaint(values,(err,result)=>{
       if(err) console.log(err);
       console.log(result);
@@ -84,58 +83,15 @@ app.post('/raisingcomplaint',function(req,res){
 });
 
 
-// app.get('/dashboard',function(req,res){
-//   let resdata;
-//   let blockdata;
-//   let ownerdata;
-//   let roomdata;
-//   let totalowner;
-//   let tenantdata;
-
-
-//   let resul =db.getdata('block',(err,result)=>{
-//     if(err) console.log(err);
-//     console.log(JSON.stringify(result))
-//     blockdata = Object.values(JSON.parse(JSON.stringify(result)));
-//   })
-//   resul = db.totalowner((err,result)=>
-//   {
-//     if(err) console.log(err);
-//     var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
-//     totalowner = resultArray;
-//   });
-//   resul =db.getdata('owner',(err,result)=>{
-//     if(err) console.log(err);
-//     tenantdata = result;
-//   })
-//   resul =db.getdata('room',(err,result)=>{
-//     if(err) console.log(err);
-//     roomdata = result;
-//   })
-//   resul =db.getdata('tenant',(err,result)=>{
-//     if(err) console.log(err);
-//     tenantdata = result;
-//     resdata = {
-//       totalowner : totalowner,
-//       block : blockdata,
-//       owner : ownerdata,
-//       room : roomdata,
-//       tenant : tenantdata
-//     }
-//     res.send(resdata);
-//   })
-  
-
-// });
-
 //creates owner in owner table
 app.post('/createowner',(req,res)=>
 {
+  const ownerid = req.body.ownerid;
     const name = req.body.name;
     const age = req.body.age;
     const aadhar = req.body.aadhar;
     const dob = req.body.dob;
-    const values = [name,age,aadhar,dob];
+    const values = [ownerid,name,age,aadhar,dob];
     const rest = db.createowner(value,(err,result)=>{
         if(err) res.sendStatus(404);
         res.sendStatus(200);
@@ -146,8 +102,7 @@ app.get('/tenentdetails',(req,res)=>
 {
     const rest = db.getdata('samp',(err,result)=>
     {
-        console.log(result);
-        res.send(result);
+      res.send(result);
     })
 })
 
@@ -158,7 +113,6 @@ app.post('/bookslot',(req,res)=>
     const vtype = req.body.vehicleType;
     const slno = req.body.slotNo;
     const values = [vtype,slno];
-    console.log(values);
     const rest = db.bookslot(values,(err,result)=>{
       // if(err) console.log(err);
       // if(err) res.sendStatus(404);

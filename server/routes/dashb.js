@@ -8,12 +8,14 @@ const db = require('../mysql_connect');
 
 
 
+//values for admin dashboard
 router.get("/admin",(req,res)=>
 {
   let resdata;
   let totalowner;
   let totaltenant;
   let totalemployee;
+  console.log("jelll");
   
   let resul = db.totalowner((err,result)=>
   {
@@ -44,9 +46,12 @@ router.get("/admin",(req,res)=>
     }
     res.send(resdata);
   })
+
 })
 
 
+
+//values for owner dashboard
 router.get("/owner",(req,res)=>
 {
     let resdata;
@@ -63,14 +68,14 @@ router.get("/owner",(req,res)=>
   resul = db.totalcomplaint((err,result)=>
   {
     if(err) console.log(err);
-    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    let resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
     totalcomplaint = resultArray;
   });
 
   resul = db.totalemployee((err,result)=>
   {
     if(err) console.log(err);
-    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    let resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
     totalemployee = resultArray;
     resdata = {
       totaltenant : totaltenant,
@@ -81,13 +86,15 @@ router.get("/owner",(req,res)=>
   })
 })
 
+
+//values for 
 router.get("/employee",(req,res)=>
 {
     let totalcomplaint;
     resul = db.totalcomplaint((err,result)=>
   {
     if(err) console.log(err);
-    var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+    let resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
     totalcomplaint = resultArray;
     resdata = 
     {
