@@ -55,7 +55,16 @@ function getdata(tablename,callback)
 //add an owner tuple to the table
 function createowner(values,callback)
 {
-    sql = 'insert into owner values(?,?,?,?,?)';
+    sql = 'insert into owner values(?,?,?,?,?,?)';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+function createownerproof(values,callback)
+{
+    sql = 'insert into identity values(?,?,null);';
     con.query(sql,values,(err,results)=>
     {
         callback(err,results);
@@ -66,12 +75,23 @@ function createowner(values,callback)
 //book a parking slot for the tenant
 function bookslot(values,callback)
 {
-    sql = 'insert into parkingslot(vehicletype,slotno)values(?,?)';
+    sql = 'update room set parking_slot =  ? where room_no = ?';
     con.query(sql,values,(err,results)=>
     {
         callback(err,results);
     })
 }
+
+
+function viewcomplaints(callback)
+{
+    sql = 'select * from oo;';
+    con.query(sql,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
 
 function dashboard(callback)
 {
@@ -110,6 +130,35 @@ function totalcomplaint(callback)
 }
 
 
+function authoriseuser(username,password,callback)
+{
+    let results;
+    sql = 'SELECT passowrd from auth where user_id = ?';
+    const value = [username];
+    con.query(sql,value,(err,result)=>
+    {
+        console.log(result);
+        if(result.length===0)
+        {
+            results = "denied";
+            callback(err,results);
+            return;
+        }
+        var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+        if(password === resultArray)
+        {
+            results = "granted";
+            console.log("fuck");
+        }
+        else
+        {
+            results = "denied";
+        }
+        callback(err,results);
+    })
+}
+
+
 module.exports = { 
     connect,
     registercomplaint,
@@ -120,5 +169,8 @@ module.exports = {
     totalowner,
     totaltenant,
     totalemployee,
-    totalcomplaint
+    totalcomplaint,
+    createownerproof,
+    viewcomplaints,
+    authoriseuser
 }

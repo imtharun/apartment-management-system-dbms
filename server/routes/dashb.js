@@ -9,8 +9,9 @@ const db = require('../mysql_connect');
 
 
 //values for admin dashboard
-router.get("/admin",(req,res)=>
+router.post("/admin",(req,res)=>
 {
+  console.log(req.body);
   let resdata;
   let totalowner;
   let totaltenant;
@@ -52,7 +53,7 @@ router.get("/admin",(req,res)=>
 
 
 //values for owner dashboard
-router.get("/owner",(req,res)=>
+router.post("/owner",(req,res)=>
 {
     let resdata;
   let totaltenant;
@@ -88,7 +89,7 @@ router.get("/owner",(req,res)=>
 
 
 //values for 
-router.get("/employee",(req,res)=>
+router.post("/employee",(req,res)=>
 {
     let totalcomplaint;
     resul = db.totalcomplaint((err,result)=>
@@ -104,11 +105,11 @@ router.get("/employee",(req,res)=>
   });
 })
 
-router.get("/tenant",(req,res)=>
+router.post("/tenant",(req,res)=>
 {
+  const tenid = req.body.tenantid;
     const rest = db.getdata('tenant',(err,result)=>
     {
-        console.log(result);
         res.send(result);
     });
 })
