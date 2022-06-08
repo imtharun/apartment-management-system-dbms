@@ -18,6 +18,8 @@ import RentDetails from "./components/RentDetails";
 import SalaryStatus from "./components/SalaryStatus";
 import { useEffect } from "react";
 import axios from "axios";
+import CreatingTenant from "./components/CreatingTenant";
+import RoomDetails from "./components/RoomDetails";
 // import Lorem from "./components/Lorem";
 
 function App() {
@@ -113,7 +115,7 @@ function App() {
   const forAdmin = [
     "Tenant Details",
     "Owner Details",
-    "Create owners",
+    "Create owner",
     "Alloting Parking slot",
     "Complaints",
     "Maintenance Fee",
@@ -127,7 +129,13 @@ function App() {
     "Pay maintenance",
   ];
 
-  const forOwner = ["Rent details", "Tenant details", "Complaint"];
+  const forOwner = [
+    "Rent details",
+    "Tenant details",
+    "Complaint",
+    "Create Tenant",
+    "Room Details"
+  ];
 
   const header = ["Tenet no", "Roomno", "Name", "Age", "dob"];
   const tenetData = [
@@ -261,6 +269,31 @@ function App() {
     },
   ];
 
+  const roomDetailsHeader = [
+    "Room no",
+    "Room Type",
+    "Floor no",
+    "Register no",
+    "Block no",
+  ];
+
+  const roomDetailsRows = [
+    {
+      roomNo: 1321,
+      roomType: "1BHK",
+      floorNo: 23,
+      registerNo: 121,
+      blockNo: 2,
+    },
+    {
+      roomNo: 1231,
+      roomType: "2BHK",
+      floorNo: 32,
+      registerNo: 451,
+      blockNo: 1,
+    },
+  ];
+
   return (
     <div className="App font-mons">
       <Routes>
@@ -348,7 +381,7 @@ function App() {
           }
         />
         <Route
-          path="/admin/createowners"
+          path="/admin/createowner"
           element={
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
@@ -358,6 +391,7 @@ function App() {
             </main>
           }
         />
+
         <Route
           path="/admin/allotingparkingslot"
           element={
@@ -460,6 +494,31 @@ function App() {
               <Header isAuth={isAuth} forHam={forOwner} />
               <section className="p-5">
                 <ComplaintsViewer complaints={compSubj} />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/createtenant"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <CreatingTenant />
+              </section>
+            </main>
+          }
+        />
+        <Route
+          path="/owner/roomdetails"
+          element={
+            <main>
+              <Header isAuth={isAuth} forHam={forOwner} />
+              <section className="p-5">
+                <RoomDetails
+                  roomDetailsHeader={roomDetailsHeader}
+                  roomDetailsRows={roomDetailsRows}
+                />
               </section>
             </main>
           }

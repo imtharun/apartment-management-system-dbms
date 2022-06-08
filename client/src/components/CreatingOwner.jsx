@@ -25,6 +25,7 @@ function CreatingUser() {
         name: name,
         age: age,
         adhaar: adhaar,
+        roomno: roomno,
         dob: dob,
       })
       .then((res) => {
@@ -177,8 +178,8 @@ function CreatingUser() {
           />
         </div>
 
-        <div>
-          <button className="hover:shadow-form  py-3 px-8 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none hover:bg-white hover:text-blue-500 transition-all duration-300 hover:border-blue-500 border-transparent border-2">
+        <div className="flex w-full">
+          <button className="mx-auto hover:shadow-form  py-3 px-8 text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none hover:bg-white hover:text-blue-500 transition-all duration-300 hover:border-blue-500 border-transparent border-2">
             Submit
           </button>
         </div>

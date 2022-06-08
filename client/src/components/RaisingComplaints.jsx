@@ -38,58 +38,58 @@ function RaisingComplaints() {
           </h1>
           <div>
             <label
-              htmlFor="block-no"
-              className="text-base text-gray-500 font-semibold font-serif"
+              htmlFor="room-no"
+              className="my-2  font-semibold text-gray-500 text-lx font-serif"
             >
-              Block no:
+              Room no:
             </label>
             <input
-              ref={blockEl}
+              ref={roomEl}
               type="text"
-              value={blockno}
+              value={roomno}
               onChange={() => {
-                setBlockno(blockEl.current.value);
+                setRoomno(roomEl.current.value);
               }}
-              placeholder="Block no"
-              id="block-no"
-              className="ml-6 outline-none py-1 px-2 text-md border-2 rounded-md"
-            />
-          </div>
-          <div>
-            <label
-              htmlFor="tenant-id"
-              className="my-2 font-semibold text-gray-500 text-lx font-serif"
-            >
-              Tenant Id:
-            </label>
-            <input
-              ref={tenantEl}
-              type="text"
-              value={tenantId}
-              onChange={() => {
-                setTenantId(tenantEl.current.value);
-              }}
-              placeholder="Tenant id"
-              id="tenant-no"
-              className="ml-5 outline-none py-1 my-3 px-2 text-md border-2 rounded-md"
+              placeholder="Room no"
+              id="room-no"
+              className="ml-5 outline-none py-1 px-2 mb-3 text-md border-2 rounded-md"
             />
             <div>
               <label
-                htmlFor="room-no"
-                className="my-2 font-semibold text-gray-500 text-lx font-serif"
+                htmlFor="block-no"
+                className="text-base text-gray-500 font-semibold font-serif"
               >
-                Room no:
+                Block no:
               </label>
               <input
-                ref={roomEl}
+                ref={blockEl}
                 type="text"
-                value={roomno}
+                value={blockno}
                 onChange={() => {
-                  setRoomno(roomEl.current.value);
+                  setBlockno(blockEl.current.value);
                 }}
-                placeholder="Room no"
-                id="room-no"
-                className="ml-5 outline-none py-1 px-2 text-md border-2 rounded-md"
+                placeholder="Block no"
+                id="block-no"
+                className="ml-6 outline-none py-1 px-2  text-md border-2 rounded-md"
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="tenant-id"
+                className="my-2 font-semibold text-gray-500 text-lx font-serif"
+              >
+                Tenant Id:
+              </label>
+              <input
+                ref={tenantEl}
+                type="text"
+                value={tenantId}
+                onChange={() => {
+                  setTenantId(tenantEl.current.value);
+                }}
+                placeholder="Tenant id"
+                id="tenant-no"
+                className="ml-5 outline-none py-1 my-3 px-2 text-md border-2 rounded-md"
               />
             </div>
           </div>
