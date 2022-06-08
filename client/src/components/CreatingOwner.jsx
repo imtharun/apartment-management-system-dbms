@@ -21,7 +21,7 @@ function CreatingUser() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://192.168.137.239:5000/createowner", {
+      .post("http://10.1.204.225:5000/createowner", {
         name: name,
         age: age,
         adhaar: adhaar,
