@@ -45,7 +45,7 @@ function Auth(props) {
     setPassword(passEl.current.value);
 
     axios
-      .post("http://192.168.76.76:5000/auth", {
+      .post("http://192.168.137.239:5000/auth", {
         username: userId,
         password: password,
       })

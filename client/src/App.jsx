@@ -58,7 +58,7 @@ function App() {
       whom === "owner"
     ) {
       axios
-        .get(`http://192.168.76.76:5000/dashboard/${whom}`)
+        .get(`http://192.168.137.239:5000/dashboard/${whom}`)
         .then((res) => {
           if (whom === "admin") {
             forAdminBox[0]["Total Owner"] = res.data.totalowner;
