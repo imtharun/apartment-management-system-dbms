@@ -21,6 +21,8 @@ import axios from "axios";
 // import Lorem from "./components/Lorem";
 
 function App() {
+  const [userid, setUserid] = useState("");
+
   const forAdminBox = [
     { "Total Owner": 59 },
     { "Total Tenant": 39 },
@@ -52,48 +54,59 @@ function App() {
   useEffect(() => {
     console.log(whom);
     if (
-      whom === "admin" ||
-      whom === "employee" ||
-      whom === "tenant" ||
-      whom === "owner"
+      userid.toUpperCase().charAt(0) === "A" ||
+      userid.toUpperCase().charAt(0) === "T" ||
+      userid.toUpperCase().charAt(0) === "E" ||
+      userid.toUpperCase().charAt(0) === "O"
     ) {
-      axios
-        .get(`http://10.1.204.225:5000/dashboard/${whom}`)
-        .then((res) => {
-          if (whom === "admin") {
-            forAdminBox[0]["Total Owner"] = res.data.totalowner;
-            forAdminBox[2]["Total Employee"] = res.data.totalemployee;
-            forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
-            setAdminBox(forAdminBox);
-            // console.log(forAdminBox);
-            console.log(res);
-          }
-          if (whom === "owner") {
-            forOwnerBox[0]["No of Emloyees"] = res.data.totalemployee;
-            forOwnerBox[1]["Total Tenant"] = res.data.totaltenant;
-            forOwnerBox[2]["Total complaints"] = res.data.totalcomplaint;
-            setOwnerBox(forOwnerBox);
-          }
-          if (whom === "employee") {
-            console.log("Inside employee");
-            console.log(res);
-            forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
-            setEmployeeBox(forEmployeeBox);
-            console.log(employeeBox);
-          }
-          if (whom === "tenant") {
-            // forTenantBox[0]["tenant id"] = ;
-            // forTenantBox[1]["Tenant Name"] = ;
-            // forTenantBox[2]["Tenant age"] = ;
-            // forTenantBox[3]["No. of members in Family"] = ;
-            // forTenantBox[4].dob = ;
-            // forTenantBox[5]["Adhaar number"] = ;
-            setTenantBox(forTenantBox);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      if (
+        whom === "admin" ||
+        whom === "employee" ||
+        whom === "tenant" ||
+        whom === "owner"
+      ) {
+        axios
+          .post(`http://10.1.204.225:5000/dashboard/${whom}`, {
+            userid: userid,
+          })
+          .then((res) => {
+            if (whom === "admin") {
+              forAdminBox[0]["Total Owner"] = res.data.totalowner;
+              forAdminBox[2]["Total Employee"] = res.data.totalemployee;
+              forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
+              setAdminBox(forAdminBox);
+              // console.log(forAdminBox);
+              console.log(res);
+            }
+            if (whom === "owner") {
+              forOwnerBox[0]["No of Emloyees"] = res.data.totalemployee;
+              forOwnerBox[1]["Total Tenant"] = res.data.totaltenant;
+              forOwnerBox[2]["Total complaints"] = res.data.totalcomplaint;
+              setOwnerBox(forOwnerBox);
+            }
+            if (whom === "employee") {
+              console.log("Inside employee");
+              console.log(res);
+              forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
+              setEmployeeBox(forEmployeeBox);
+              console.log(employeeBox);
+            }
+            if (whom === "tenant") {
+              console.log(res);
+
+              // // forTenantBox[0]["tenant id"] = ;
+              // // forTenantBox[1]["Tenant Name"] = ;
+              // // forTenantBox[2]["Tenant age"] = ;
+              // // forTenantBox[3]["No. of members in Family"] = ;
+              // // forTenantBox[4].dob = ;
+              // // forTenantBox[5]["Adhaar number"] = ;
+              // setTenantBox(forTenantBox);
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
     }
   }, [whom]);
 
@@ -116,12 +129,12 @@ function App() {
 
   const forOwner = ["Rent details", "Tenant details", "Complaint"];
 
-  const header = ["Tenet no", "Name", "Age", "Adhaar no", "dob"];
+  const header = ["Tenet no", "Roomno", "Name", "Age", "dob"];
   const tenetData = [
-    { tno: 1, name: "Tharun", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { tno: 2, name: "D K suryah", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { tno: 3, name: "Yuvarraj", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { tno: 4, name: "Shivanesh", age: 20, adhaar: 123456, dob: "21-May-2002" },
+    { tno: 1, name: "Tharun", age: 20, roomno: 123456, dob: "21-May-2002" },
+    { tno: 2, name: "D K suryah", age: 20, roomno: 123456, dob: "21-May-2002" },
+    { tno: 3, name: "Yuvarraj", age: 20, roomno: 123456, dob: "21-May-2002" },
+    { tno: 4, name: "Shivanesh", age: 20, roomno: 123456, dob: "21-May-2002" },
   ];
 
   const oHeader = ["Owner Id", "Name", "Age", "Adhaar no", "dob"];
@@ -255,6 +268,8 @@ function App() {
           path="/"
           element={
             <Auth
+              userid={userid}
+              setUserid={setUserid}
               isAuth={isAuth}
               setIsAuth={setIsAuth}
               whom={whom}

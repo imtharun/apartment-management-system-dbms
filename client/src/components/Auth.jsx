@@ -50,39 +50,51 @@ function Auth(props) {
         password: password,
       })
       .then((res) => {
-        props.setWhom(res.data.user);
-        console.log(res.data.user);
-        if (res.data.user === "employee") {
-          props.setIsAuth(true);
-          nav("/employee");
-          // window.addEventListener("popstate", function () {
-          //   this.history.forward();
-          // });
-        }
-        if (res.data.user === "admin") {
-          props.setIsAuth(true);
-          nav("/admin");
-          // window.addEventListener("popstate", function () {
-          //   this.history.forward();
-          // });
-        }
-        if (res.data.user === "tenant") {
-          props.setIsAuth(true);
-          nav("/tenant");
-          // window.addEventListener("popstate", function () {
-          //   this.history.forward();
-          // });
-        }
-        if (res.data.user === "owner") {
-          props.setIsAuth(true);
-          nav("/owner");
-          // window.addEventListener("popstate", function () {
-          //   this.history.forward();
-          // });
-        }
-        if (res.data.user === "unknown") {
+        console.log("Res", res);
+        console.log("res", res);
+        if (res.data.access === "granted") {
+          props.setWhom(res.data.user);
+          console.log(res.data.user);
+          // if()
+          if (res.data.user === "employee") {
+            props.setIsAuth(true);
+            props.setUserid(userId);
+            nav("/employee");
+            // window.addEventListener("popstate", function () {
+            //   this.history.forward();
+            // });
+          }
+          if (res.data.user === "admin") {
+            props.setIsAuth(true);
+            props.setUserid(userId);
+            nav("/admin");
+            // window.addEventListener("popstate", function () {
+            //   this.history.forward();
+            // });
+          }
+          if (res.data.user === "tenant") {
+            props.setIsAuth(true);
+            props.setUserid(userId);
+            nav("/tenant");
+            // window.addEventListener("popstate", function () {
+            //   this.history.forward();
+            // });
+          }
+          if (res.data.user === "owner") {
+            props.setIsAuth(true);
+            props.setUserid(userId);
+            nav("/owner");
+            // window.addEventListener("popstate", function () {
+            //   this.history.forward();
+            // });
+          }
+          if (res.data.user === "unknown") {
+            setIsName(false);
+          } else if (res.data.user === "passunknown") {
+            setIsPassword(false);
+          }
+        } else {
           setIsName(false);
-        } else if (res.data.user === "passunknown") {
           setIsPassword(false);
         }
       })

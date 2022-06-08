@@ -42,7 +42,7 @@ function Header(props) {
           style={{
             transform: hamActive ? "translateX(0px)" : "translateX(-300px)",
           }}
-          className="md:hidden fixed left-0 top-14 transition-all duration-400 ease-linear w-[200px] h-full rounded-r-md text-base bg-blue-200 p-3 z-50"
+          className="md:hidden min-h-full fixed left-0 top-14 transition-all duration-400 ease-linear w-[200px] rounded-r-md text-base bg-blue-200 p-3 z-50"
         >
           <ul className="font-semibold">
             {props.forHam &&

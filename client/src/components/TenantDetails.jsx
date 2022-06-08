@@ -62,6 +62,19 @@ function TenantDetails(props) {
                               border-b border-l border-[#E8E8E8]
                               "
                         >
+                          {ele.roomno}
+                        </td>
+                        <td
+                          className="
+                              text-center text-dark
+                              font-medium
+                              text-base
+                              py-5
+                              px-2
+                              bg-[#F3F6FF]
+                              border-b border-l border-[#E8E8E8]
+                              "
+                        >
                           {ele.name}
                         </td>
                         <td
@@ -89,19 +102,6 @@ function TenantDetails(props) {
                               "
                         >
                           {ele.dob}
-                        </td>
-                        <td
-                          className="
-                              text-center text-dark
-                              font-medium
-                              text-base
-                              py-5
-                              px-2
-                              bg-[#F3F6FF]
-                              border-b border-l border-[#E8E8E8]
-                              "
-                        >
-                          {ele.adhaar}
                         </td>
                       </tr>
                     );
