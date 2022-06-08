@@ -21,14 +21,34 @@ import axios from "axios";
 // import Lorem from "./components/Lorem";
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
-  const [whom, setWhom] = useState("");
   const forAdminBox = [
     { "Total Owner": 59 },
     { "Total Tenant": 39 },
     { "Total Employee": 20 },
   ];
+
+  const forEmployeeBox = [{ "Total complaints": 3 }, { Salary: "Rs. 20,0000" }];
+  const forOwnerBox = [
+    { "No of Emloyees": 5 },
+    { "Total Tenant": 4 },
+    { "Total complaints": 2 },
+  ];
+  const forTenantBox = [
+    { "tenant id": 12132 },
+    { "Tenant Name": "Tharun" },
+    { "Tenant age": 20 },
+    { "No. of members in Family": 5 },
+    { dob: "12-1-2002" },
+    { "Adhaar number": 123456 },
+  ];
+
+  const [whom, setWhom] = useState("");
+  const [isAuth, setIsAuth] = useState(false);
   const [adminBox, setAdminBox] = useState(forAdminBox);
+  const [employeeBox, setEmployeeBox] = useState(forEmployeeBox);
+  const [ownerBox, setOwnerBox] = useState(forOwnerBox);
+  const [tenantBox, setTenantBox] = useState(forTenantBox);
+
   useEffect(() => {
     console.log(whom);
     if (
@@ -38,7 +58,7 @@ function App() {
       whom === "owner"
     ) {
       axios
-        .get(`http://192.168.137.1:5000/dashboard/${whom}`)
+        .get(`http://192.168.76.76:5000/dashboard/${whom}`)
         .then((res) => {
           if (whom === "admin") {
             forAdminBox[0]["Total Owner"] = res.data.totalowner;
@@ -47,6 +67,28 @@ function App() {
             setAdminBox(forAdminBox);
             // console.log(forAdminBox);
             console.log(res);
+          }
+          if (whom === "owner") {
+            forOwnerBox[0]["No of Emloyees"] = res.data.totalemployee;
+            forOwnerBox[1]["Total Tenant"] = res.data.totaltenant;
+            forOwnerBox[2]["Total complaints"] = res.data.totalcomplaint;
+            setOwnerBox(forOwnerBox);
+          }
+          if (whom === "employee") {
+            console.log("Inside employee");
+            console.log(res);
+            forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
+            setEmployeeBox(forEmployeeBox);
+            console.log(employeeBox);
+          }
+          if (whom === "tenant") {
+            // forTenantBox[0]["tenant id"] = ;
+            // forTenantBox[1]["Tenant Name"] = ;
+            // forTenantBox[2]["Tenant age"] = ;
+            // forTenantBox[3]["No. of members in Family"] = ;
+            // forTenantBox[4].dob = ;
+            // forTenantBox[5]["Adhaar number"] = ;
+            setTenantBox(forTenantBox);
           }
         })
         .catch((err) => {
@@ -65,10 +107,6 @@ function App() {
   ];
 
   const forEmployee = ["Salary Status", "Complaints"];
-  const forEmployeeBox = [
-    { "Total complaints": 3 },
-    { "Salary Details": "Rs. 20,000" },
-  ];
 
   const forTenant = [
     "Raising Complaints",
@@ -76,19 +114,7 @@ function App() {
     "Pay maintenance",
   ];
 
-  const forTenantBox = [
-    { "Tenant Name": "Tharun" },
-    { "Tenant age": 20 },
-    { "No. of members in Family": 5 },
-    { "Adhaar number": 123456 },
-  ];
-
   const forOwner = ["Rent details", "Tenant details", "Complaint"];
-  const forOwnerBox = [
-    { "No of Emloyees": 5 },
-    { "Total Tenant": 4 },
-    { "Total complaints": 2 },
-  ];
 
   const header = ["Tenet no", "Name", "Age", "Adhaar no", "dob"];
   const tenetData = [
@@ -255,7 +281,7 @@ function App() {
               <Header isAuth={isAuth} forHam={forEmployee} />
               <section className="flex">
                 <Aside forHam={forEmployee} />
-                <Dashboard forBox={forEmployeeBox} />
+                <Dashboard forBox={employeeBox} />
               </section>
             </main>
           }
@@ -279,7 +305,7 @@ function App() {
               <Header isAuth={isAuth} forHam={forOwner} />
               <section className="flex">
                 <Aside forHam={forOwner} />
-                <Dashboard forBox={forOwnerBox} />
+                <Dashboard forBox={ownerBox} />
               </section>
             </main>
           }

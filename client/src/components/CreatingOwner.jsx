@@ -6,15 +6,22 @@ function CreatingUser() {
   const ageEl = useRef(null);
   const adhaarEl = useRef(null);
   const dobEl = useRef(null);
+  const aggreeEl = useRef(null);
+  const ownerEl = useRef(null);
+  const roomEl = useRef(null);
+
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [adhaar, setAdhaar] = useState("");
   const [dob, setDob] = useState("");
+  const [ownerId, setOwnerId] = useState("");
+  const [roomno, setRoomno] = useState("");
+  const [aggrementStatus, setAggrementStatus] = useState("");
 
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/createowner", {
+      .post("http://192.168.76.76:5000/createowner", {
         name: name,
         age: age,
         adhaar: adhaar,
@@ -45,6 +52,66 @@ function CreatingUser() {
             placeholder="Full Name"
             onChange={() => {
               setName(nameEl.current.value);
+            }}
+            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="owner-id"
+            className="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Owner Id
+          </label>
+          <input
+            type="text"
+            ref={ownerEl}
+            name="owner-id"
+            id="owner-id"
+            value={ownerId}
+            placeholder="Owner Id"
+            onChange={() => {
+              setOwnerId(ownerEl.current.value);
+            }}
+            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="room-no"
+            className="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Room no
+          </label>
+          <input
+            type="text"
+            ref={roomEl}
+            name="room-no"
+            id="room-no"
+            value={roomno}
+            placeholder="Room no"
+            onChange={() => {
+              setRoomno(roomEl.current.value);
+            }}
+            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="owner-id"
+            className="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Aggrement Status
+          </label>
+          <input
+            type="text"
+            ref={aggreeEl}
+            name="aggrementStatus"
+            id="aggrementStatus"
+            value={aggrementStatus}
+            placeholder="Aggrement Status [Yes / no]"
+            onChange={() => {
+              setAggrementStatus(aggreeEl.current.value);
             }}
             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           />

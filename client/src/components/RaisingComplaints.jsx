@@ -5,17 +5,20 @@ function RaisingComplaints() {
   const blockEl = useRef(null);
   const roomEl = useRef(null);
   const descpEl = useRef(null);
+  const tenantEl = useRef(null);
 
   const [blockno, setBlockno] = useState("");
   const [roomno, setRoomno] = useState("");
+  const [tenantId, setTenantId] = useState("");
   const [descp, setDescp] = useState("");
 
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/raisingcomplaint", {
+      .post("http://192.168.76.76:5000/raisingcomplaint", {
         blockno: blockno,
         roomno: roomno,
+        tenantId: tenantId,
         descp: descp,
       })
       .then((res) => {
@@ -49,27 +52,46 @@ function RaisingComplaints() {
               }}
               placeholder="Block no"
               id="block-no"
-              className="ml-6 my-2 outline-none py-1 px-2 text-md border-2 rounded-md"
+              className="ml-6 outline-none py-1 px-2 text-md border-2 rounded-md"
             />
           </div>
           <div>
             <label
-              htmlFor="room-no"
+              htmlFor="tenant-id"
               className="my-2 font-semibold text-gray-500 text-lx font-serif"
             >
-              Room no:
+              Tenant Id:
             </label>
             <input
-              ref={roomEl}
+              ref={tenantEl}
               type="text"
-              value={roomno}
+              value={tenantId}
               onChange={() => {
-                setRoomno(roomEl.current.value);
+                setTenantId(tenantEl.current.value);
               }}
-              placeholder="room no"
-              id="room-no"
-              className="ml-5 outline-none py-1 px-2 text-md border-2 rounded-md"
+              placeholder="Tenant id"
+              id="tenant-no"
+              className="ml-5 outline-none py-1 my-3 px-2 text-md border-2 rounded-md"
             />
+            <div>
+              <label
+                htmlFor="room-no"
+                className="my-2 font-semibold text-gray-500 text-lx font-serif"
+              >
+                Room no:
+              </label>
+              <input
+                ref={roomEl}
+                type="text"
+                value={roomno}
+                onChange={() => {
+                  setRoomno(roomEl.current.value);
+                }}
+                placeholder="Room no"
+                id="room-no"
+                className="ml-5 outline-none py-1 px-2 text-md border-2 rounded-md"
+              />
+            </div>
           </div>
           <div className="space-y-4">
             <label

@@ -45,12 +45,12 @@ function Auth(props) {
     setPassword(passEl.current.value);
 
     axios
-      .post("http://localhost:5000/auth", {
+      .post("http://192.168.76.76:5000/auth", {
         username: userId,
         password: password,
       })
       .then((res) => {
-        props.setWhom(res.data.user)
+        props.setWhom(res.data.user);
         console.log(res.data.user);
         if (res.data.user === "employee") {
           props.setIsAuth(true);
