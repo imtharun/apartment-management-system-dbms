@@ -9,7 +9,7 @@ import OwnerDetails from "./components/OwnerDetails";
 import TenantDetails from "./components/TenantDetails";
 import CreatingOwner from "./components/CreatingOwner";
 import CreatingParkingSlot from "./components/CreatingParkingSlot";
-import ComplaintsViewer from "./components/ComplaintsViewer";
+import ComplaintsViewer from "./components/CompaintsViewer";
 import Maintenance from "./components/Maintenance";
 import RaisingComplaints from "./components/RaisingComplaints";
 import ParkingSlot from "./components/ParkingSlot";
