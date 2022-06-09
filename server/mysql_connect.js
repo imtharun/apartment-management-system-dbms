@@ -7,6 +7,9 @@ const con = mysql.createConnection({
     database: config.database
 });
 connect();
+
+
+
 //used to establish connection with the database
 function connect()
 {
@@ -31,7 +34,7 @@ function registercomplaint(values,callback)
   })
 }
 
-
+//function to calculate total number of owners
 function totalowner(callback)
 {
     sql = 'SELECT COUNT(owner_id) FROM owner';
@@ -62,6 +65,8 @@ function createowner(values,callback)
     })
 }
 
+
+//function to create an owner
 function createownerproof(values,callback)
 {
     sql = 'insert into identity values(?,?,null);';
@@ -83,6 +88,7 @@ function bookslot(values,callback)
 }
 
 
+//view all the complaints
 function viewcomplaints(callback)
 {
     sql = 'select * from oo;';
@@ -92,7 +98,7 @@ function viewcomplaints(callback)
     })
 }
 
-
+//selecting all the data from block table
 function dashboard(callback)
 {
     sql = 'select * from block';
@@ -102,6 +108,7 @@ function dashboard(callback)
     })
 }
 
+//get the total no of tenants
 function totaltenant(callback)
 {
     sql = 'SELECT COUNT(tenant_id) FROM tenant';
@@ -111,6 +118,8 @@ function totaltenant(callback)
     })
 }
 
+
+//get the total number of employees
 function totalemployee(callback)
 {
     sql = 'SELECT COUNT(emp_id) FROM employee';
@@ -120,6 +129,8 @@ function totalemployee(callback)
     })
 }
 
+
+//function to retrieve all the complaints in the block
 function totalcomplaint(callback)
 {
     sql = 'SELECT COUNT(complaints) FROM block';
@@ -129,32 +140,48 @@ function totalcomplaint(callback)
     })
 }
 
+//get the data of tenent
+function gettenantdata(tid,callback)
+{
+    sql = 'select * from tenant where tenant_id in (select id from auth where user_id=?)';
+    con.query(sql,tid,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
 
+
+//function to validate user with username and password
 function authoriseuser(username,password,callback)
 {
     let results;
-    sql = 'SELECT passowrd from auth where user_id = ?';
+    sql = 'SELECT password from auth where user_id = ?';
     const value = [username];
+    console.log(value);
     con.query(sql,value,(err,result)=>
     {
         console.log(result);
+
         if(result.length===0)
         {
             results = "denied";
             callback(err,results);
             return;
         }
-        var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+        else
+        {
+        const  resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
         if(password === resultArray)
         {
             results = "granted";
-            console.log("fuck");
         }
         else
         {
             results = "denied";
         }
         callback(err,results);
+    }
+
     })
 }
 
@@ -172,5 +199,6 @@ module.exports = {
     totalcomplaint,
     createownerproof,
     viewcomplaints,
-    authoriseuser
+    authoriseuser,
+    gettenantdata
 }

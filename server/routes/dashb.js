@@ -13,10 +13,11 @@ router.post("/admin",(req,res)=>
 {
   console.log(req.body);
   let resdata;
+  let teni;
+  let tenb;
   let totalowner;
   let totaltenant;
   let totalemployee;
-  console.log("jelll");
   
   let resul = db.totalowner((err,result)=>
   {
@@ -36,14 +37,13 @@ router.post("/admin",(req,res)=>
     var resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
     totalemployee = resultArray;
   });
-
   resul =db.getdata('tenant',(err,result)=>{
     if(err) console.log(err);
     tenantdata = result;
     resdata = {
       totalowner : totalowner,
       totaltenant: totaltenant,
-      totalemployee: totalemployee
+      totalemployee: totalemployee,
     }
     res.send(resdata);
   })
@@ -107,11 +107,16 @@ router.post("/employee",(req,res)=>
 
 router.post("/tenant",(req,res)=>
 {
-  const tenid = req.body.tenantid;
-    const rest = db.getdata('tenant',(err,result)=>
-    {
-        res.send(result);
-    });
+  const username = req.body.userid;
+
+  const rest = db.gettenantdata(username,(err,result)=>
+  {
+    const p = result;
+    res.send({
+      body : p
+  });
 })
+
+});
 
 module.exports = router; 

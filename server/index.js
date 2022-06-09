@@ -21,10 +21,13 @@ app.listen(port,()=>{
   console.log("Server starten to listen...");
 }); 
 
+
 //home page 
 app.get('/', function(req, res){
   res.send("Only accepting GET and POST requests!");
 });
+
+
 
 //authorisation
 app.post("/auth", (req, res) => {
@@ -70,10 +73,11 @@ app.post("/auth", (req, res) => {
   const resul =db.authoriseuser(username,password,(err,result)=>{
     if(err) console.log(err);
     acces = result;
+    console.log(acces);
     res.send({
       access: acces,
       user: rep,
-    })
+    });
   })
 });
 
@@ -96,27 +100,29 @@ app.post('/raisingcomplaint',function(req,res){
 //creates owner in owner table
 app.post('/createowner',(req,res)=>
 {
-  const ownerid = req.body.ownerid;
+  const ownerid = req.body.ownerId;
     const name = req.body.name;
     const age = req.body.age;
-    const aggrement_status = req.body.aggrement_status;
+    const aggrement_status = req.body.aggrementStatus;
     const roomno = req.body.roomno;
     const dob = req.body.dob;
-    const proof = req.body.proof;
+    const proof = req.body.adhaar;
     const values = [ownerid,name,age,aggrement_status,roomno,dob];
     const proofval = [proof,ownerid];
 
     const rest = db.createowner(values,(err,result)=>{
       if(err) console.log(err);//res.sendStatus(404);
-
   });
   const rep = db.createownerproof(proofval,(err,result)=>{
+    console.log(proofval);
     if(err) console.log(err);//res.sendStatus(404);
     else res.sendStatus(200);
 });
 });
 
-app.get('/tenentdetails',(req,res)=>
+
+//get the tenent details fetch all data from table
+app.get('/tenantdetails',(req,res)=>
 {
     const rest = db.getdata('tenant',(err,result)=>
     {
@@ -124,10 +130,27 @@ app.get('/tenentdetails',(req,res)=>
     })
 })
 
+//get the owner details fetch all the data from the table
+app.get('/ownerdetails',(req,res)=>
+{
+    const rest = db.getdata('owner',(err,result)=>
+    {
+      res.send(result);
+    })
+})
 
 
 //view complaints that are in the database
 app.get('/viewcomplaints',(req,res)=>
+{
+    const rest = db.viewcomplaints((err,result)=>
+    {
+      res.send(result);
+    })
+})
+
+//getonlycomplaints according to owner
+app.get('/ownercomplaints',(req,res)=>
 {
     const rest = db.viewcomplaints((err,result)=>
     {
@@ -140,7 +163,7 @@ app.get('/viewcomplaints',(req,res)=>
 //books parking slot for tenents
 app.post('/bookslot',(req,res)=>
 {
-    const roomno =req.body.roomno;
+    const roomno =req.body.roomNo;
     const slno = req.body.slotNo;
     const values = [slno,roomno,];
     const rest = db.bookslot(values,(err,result)=>{
