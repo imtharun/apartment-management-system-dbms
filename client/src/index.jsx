@@ -1,16 +1,20 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
+import "./index.css";
+import Loader from "./components/Loader";
 import HamContextProvider from "./HamContextProvider";
+// import App from "./App";
+const App = React.lazy(() => import("./App"));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <HamContextProvider>
       <BrowserRouter>
-        <App />
+        <Suspense fallback={<Loader />}>
+          <App />
+        </Suspense>
       </BrowserRouter>
     </HamContextProvider>
   </React.StrictMode>
