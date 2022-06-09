@@ -1,6 +1,7 @@
 /* eslint-disable no-multi-str */
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
+import axios from "axios";
 import Header from "./components/Header";
 import Dashboard from "./components/Dashboard";
 import Aside from "./components/Aside";
@@ -16,8 +17,6 @@ import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
 import RentDetails from "./components/RentDetails";
 import SalaryStatus from "./components/SalaryStatus";
-import { useEffect } from "react";
-import axios from "axios";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
 // import Lorem from "./components/Lorem";
@@ -25,11 +24,20 @@ import RoomDetails from "./components/RoomDetails";
 function App() {
   const [userid, setUserid] = useState("");
 
-  const forAdminBox = [
-    { "Total Owner": 59 },
-    { "Total Tenant": 39 },
-    { "Total Employee": 20 },
-  ];
+  const forAdminBox = useMemo(
+    () => [
+      { "Total Owner": 59 },
+      { "Total Tenant": 39 },
+      { "Total Employee": 20 },
+    ],
+    []
+  );
+
+  // const forAdminBox = [
+  //   { "Total Owner": 59 },
+  //   { "Total Tenant": 39 },
+  //   { "Total Employee": 20 },
+  // ];
 
   const forEmployeeBox = [{ "Total complaints": 3 }, { Salary: "Rs. 20,0000" }];
   const forOwnerBox = [
@@ -41,9 +49,8 @@ function App() {
     { "tenant id": 12132 },
     { "Tenant Name": "Tharun" },
     { "Tenant age": 20 },
-    { "No. of members in Family": 5 },
     { dob: "12-1-2002" },
-    { "Adhaar number": 123456 },
+    { "Room no": 123456 },
   ];
 
   const [whom, setWhom] = useState("");
@@ -55,6 +62,8 @@ function App() {
 
   useEffect(() => {
     console.log(whom);
+    // setWhom(JSON.parse(window.localStorage.getItem("whom")));
+    // setIsAuth(JSON.parse(window.localStorage.getItem("isAuth").isAuth));
     if (
       userid.toUpperCase().charAt(0) === "A" ||
       userid.toUpperCase().charAt(0) === "T" ||
@@ -68,17 +77,16 @@ function App() {
         whom === "owner"
       ) {
         axios
-          .post(`http://10.1.204.225:5000/dashboard/${whom}`, {
+          .post(`http://10.1.204.172:5000/dashboard/${whom}`, {
             userid: userid,
           })
           .then((res) => {
+            console.log(whom, res);
             if (whom === "admin") {
               forAdminBox[0]["Total Owner"] = res.data.totalowner;
               forAdminBox[2]["Total Employee"] = res.data.totalemployee;
               forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
               setAdminBox(forAdminBox);
-              // console.log(forAdminBox);
-              console.log(res);
             }
             if (whom === "owner") {
               forOwnerBox[0]["No of Emloyees"] = res.data.totalemployee;
@@ -87,22 +95,18 @@ function App() {
               setOwnerBox(forOwnerBox);
             }
             if (whom === "employee") {
-              console.log("Inside employee");
-              console.log(res);
               forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
               setEmployeeBox(forEmployeeBox);
-              console.log(employeeBox);
             }
             if (whom === "tenant") {
-              console.log(res);
+              console.log(res.data.body[0]);
 
-              // // forTenantBox[0]["tenant id"] = ;
-              // // forTenantBox[1]["Tenant Name"] = ;
-              // // forTenantBox[2]["Tenant age"] = ;
-              // // forTenantBox[3]["No. of members in Family"] = ;
-              // // forTenantBox[4].dob = ;
-              // // forTenantBox[5]["Adhaar number"] = ;
-              // setTenantBox(forTenantBox);
+              forTenantBox[0]["tenant id"] = res.data.body[0].tenant_id;
+              forTenantBox[1]["Tenant Name"] = res.data.body[0].name;
+              forTenantBox[2]["Tenant age"] = res.data.body[0].age;
+              forTenantBox[3].dob = res.data.body[0].dob;
+              forTenantBox[4]["Room no"] = res.data.body[0].room_no;
+              setTenantBox(forTenantBox);
             }
           })
           .catch((err) => {
@@ -112,45 +116,35 @@ function App() {
     }
   }, [whom]);
 
+  // Sidebar
   const forAdmin = [
     "Tenant Details",
     "Owner Details",
     "Create owner",
     "Alloting Parking slot",
     "Complaints",
-    "Maintenance Fee",
+    // "Maintenance Fee",
   ];
-
   const forEmployee = ["Salary Status", "Complaints"];
-
   const forTenant = [
     "Raising Complaints",
     "Alloted Parking slot",
     "Pay maintenance",
   ];
-
   const forOwner = [
     "Rent details",
     "Tenant details",
     "Complaint",
     "Create Tenant",
-    "Room Details"
+    "Room Details",
   ];
 
   const header = ["Tenet no", "Roomno", "Name", "Age", "dob"];
-  const tenetData = [
+  const tenantData = [
     { tno: 1, name: "Tharun", age: 20, roomno: 123456, dob: "21-May-2002" },
     { tno: 2, name: "D K suryah", age: 20, roomno: 123456, dob: "21-May-2002" },
     { tno: 3, name: "Yuvarraj", age: 20, roomno: 123456, dob: "21-May-2002" },
     { tno: 4, name: "Shivanesh", age: 20, roomno: 123456, dob: "21-May-2002" },
-  ];
-
-  const oHeader = ["Owner Id", "Name", "Age", "Adhaar no", "dob"];
-  const ownerData = [
-    { oid: 1, name: "Tharun", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { oid: 2, name: "D K suryah", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { oid: 3, name: "Yuvarraj", age: 20, adhaar: 123456, dob: "21-May-2002" },
-    { oid: 4, name: "Shivanesh", age: 20, adhaar: 123456, dob: "21-May-2002" },
   ];
 
   const compSubj = [
@@ -276,7 +270,6 @@ function App() {
     "Register no",
     "Block no",
   ];
-
   const roomDetailsRows = [
     {
       roomNo: 1321,
@@ -341,7 +334,7 @@ function App() {
               <Header isAuth={isAuth} forHam={forTenant} />
               <section className="flex">
                 <Aside forHam={forTenant} />
-                <Dashboard forBox={forTenantBox} />
+                <Dashboard forBox={tenantBox} />
               </section>
             </main>
           }
@@ -364,7 +357,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="p-5">
-                <OwnerDetails header={oHeader} ownerData={ownerData} />
+                <OwnerDetails />
               </section>
             </main>
           }
@@ -375,7 +368,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="p-5">
-                <TenantDetails header={header} tenetData={tenetData} />
+                <TenantDetails />
               </section>
             </main>
           }
@@ -409,13 +402,13 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
               <section className="p-5">
-                <ComplaintsViewer complaints={compSubj} />
+                <ComplaintsViewer />
               </section>
             </main>
           }
         />
-        <Route
-          path="/admin/maintenancefee"
+        {/* <Route
+          path="/admin/maintenancefee"Maintenance Fee
           element={
             <main>
               <Header isAuth={isAuth} forHam={forAdmin} />
@@ -428,7 +421,7 @@ function App() {
               </section>
             </main>
           }
-        />
+        /> */}
         <Route
           path="/tenant/raisingcomplaints"
           element={
@@ -471,7 +464,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forOwner} />
               <section className="p-5">
-                <TenantDetails header={header} tenetData={tenetData} />
+                <TenantDetails header={header} tenantData={tenantData} />
               </section>
             </main>
           }
@@ -482,7 +475,7 @@ function App() {
             <main>
               <Header isAuth={isAuth} forHam={forOwner} />
               <section className="p-5">
-                <TenantDetails header={header} tenetData={tenetData} />
+                <TenantDetails header={header} tenantData={tenantData} />
               </section>
             </main>
           }

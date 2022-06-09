@@ -44,24 +44,30 @@ function Auth(props) {
     setPassword(passEl.current.value);
 
     axios
-      .post("http://10.1.204.225:5000/auth", {
+      .post("http://10.1.204.172:5000/auth", {
         username: userId,
         password: password,
       })
       .then((res) => {
         console.log("Res", res);
-        console.log("res", res);
+        // window.localStorage.setItem(
+        //   "whom",
+        //   JSON.stringify({
+        //     userType: res.data.user,
+        //     username: inputEl.current.value,
+        //   })
+        // );
         if (res.data.access === "granted") {
           props.setWhom(res.data.user);
           console.log(res.data.user);
-          // if()
           if (res.data.user === "employee") {
             props.setIsAuth(true);
+            // window.localStorage.setItem(
+            //   "isAuth",
+            //   JSON.stringify({ isAuth: true })
+            // );
             props.setUserid(userId);
             nav("/employee");
-            // window.addEventListener("popstate", function () {
-            //   this.history.forward();
-            // });
           }
           if (res.data.user === "admin") {
             props.setIsAuth(true);
@@ -75,17 +81,11 @@ function Auth(props) {
             props.setIsAuth(true);
             props.setUserid(userId);
             nav("/tenant");
-            // window.addEventListener("popstate", function () {
-            //   this.history.forward();
-            // });
           }
           if (res.data.user === "owner") {
             props.setIsAuth(true);
             props.setUserid(userId);
             nav("/owner");
-            // window.addEventListener("popstate", function () {
-            //   this.history.forward();
-            // });
           }
           if (res.data.user === "unknown") {
             setIsName(false);

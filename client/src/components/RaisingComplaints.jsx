@@ -15,7 +15,7 @@ function RaisingComplaints() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://10.1.204.225:5000/raisingcomplaint", {
+      .post("http://10.1.204.172:5000/raisingcomplaint", {
         blockno: blockno,
         roomno: roomno,
         tenantId: tenantId,

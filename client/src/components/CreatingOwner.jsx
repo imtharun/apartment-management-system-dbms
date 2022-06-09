@@ -21,15 +21,26 @@ function CreatingUser() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://10.1.204.225:5000/createowner", {
+      .post("http://10.1.204.172:5000/createowner", {
         name: name,
         age: age,
+        ownerId: ownerId,
         adhaar: adhaar,
         roomno: roomno,
+        aggrementStatus: aggrementStatus,
         dob: dob,
       })
       .then((res) => {
         console.log(res);
+        if (res.status === 200) {
+          nameEl.current.value = "";
+          ageEl.current.value = "";
+          adhaarEl.current.value = "";
+          dobEl.current.value = "";
+          ownerEl.current.value = "";
+          aggreeEl.current.value = "";
+          roomEl.current.value = "";
+        }
       })
       .catch((err) => console.log(err));
   };

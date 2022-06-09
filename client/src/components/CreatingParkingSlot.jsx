@@ -2,22 +2,22 @@ import axios from "axios";
 import React, { useState, useRef } from "react";
 
 function CreatingParkingSlot() {
-  const vehicleEl = useRef(null);
+  const roomEl = useRef(null);
   const slotNoEl = useRef(null);
-  const [vehName, setVehName] = useState("");
+  const [roomNo, setRoomno] = useState("");
   const [slotNo, setSlotNo] = useState("");
 
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://10.1.204.225:5000/bookslot", {
-        vehicleType: vehName,
+      .post("http://10.1.204.172:5000/bookslot", {
+        roomNo: roomNo,
         slotNo: slotNo,
       })
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          vehicleEl.current.value = "";
+          roomEl.current.value = "";
           slotNoEl.current.value = "";
         }
       })
@@ -38,21 +38,21 @@ function CreatingParkingSlot() {
               </div>
               <div className="mb-6">
                 <label
-                  htmlFor="vehicleType"
+                  htmlFor="roomNo"
                   className="block mb-2  text-base text-gray-600 "
                 >
-                  Parking Vehicle Type
+                  Room No
                 </label>
                 <input
                   type="text"
-                  ref={vehicleEl}
-                  value={vehName}
+                  ref={roomEl}
+                  value={roomNo}
                   onChange={() => {
-                    setVehName(vehicleEl.current.value);
+                    setRoomno(roomEl.current.value);
                   }}
-                  name="vehicleType"
-                  id="vehicleType"
-                  placeholder="Eg., Car, Bike.."
+                  name="Room no"
+                  id="Room no"
+                  placeholder="Enter your Room no"
                   required
                   className="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 "
                 />
