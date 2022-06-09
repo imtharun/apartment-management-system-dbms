@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Particles } from "react-tsparticles";
+import Particle from "./Particle";
 
 function Auth(props) {
   const nav = useNavigate();
@@ -104,7 +106,8 @@ function Auth(props) {
   };
   return (
     <div>
-      <div className="font-mons flex items-center min-h-screen bg-white">
+      <Particle />
+      <div className="font-mons flex items-center min-h-screen z-50">
         <div className="container mx-auto">
           <div className="max-w-md mx-auto my-10">
             <div className="text-center">

@@ -266,7 +266,7 @@ function App() {
   ];
 
   return (
-    <div className="App font-mons">
+    <div className="App font-mons bg-white">
       <Routes>
         <Route
           path="/"
