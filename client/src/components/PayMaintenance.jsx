@@ -1,9 +1,11 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+// import { useEffect } from "react";
 
 function PayMaintenance(props) {
   const [isPaid, setIsPaid] = useState(false);
+
+  // useEffect()
 
   return (
     <section className="bg-white px-10 ">

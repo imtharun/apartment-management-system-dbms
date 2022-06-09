@@ -50,18 +50,19 @@ function Auth(props) {
       })
       .then((res) => {
         console.log("Res", res);
-        // window.localStorage.setItem(
-        //   "whom",
-        //   JSON.stringify({
-        //     userType: res.data.user,
-        //     username: inputEl.current.value,
-        //   })
-        // );
         if (res.data.access === "granted") {
-          props.setWhom(res.data.user);
           console.log(res.data.user);
+          props.setWhom(res.data.user);
+          window.localStorage.setItem(
+            "whom",
+            JSON.stringify({
+              userType: res.data.user,
+              // isAuth: true,
+              username: inputEl.current.value,
+            })
+          );
           if (res.data.user === "employee") {
-            props.setIsAuth(true);
+            // props.setIsAuth(true);
             // window.localStorage.setItem(
             //   "isAuth",
             //   JSON.stringify({ isAuth: true })
@@ -70,7 +71,7 @@ function Auth(props) {
             nav("/employee");
           }
           if (res.data.user === "admin") {
-            props.setIsAuth(true);
+            // props.setIsAuth(true);
             props.setUserid(userId);
             nav("/admin");
             // window.addEventListener("popstate", function () {
@@ -78,12 +79,12 @@ function Auth(props) {
             // });
           }
           if (res.data.user === "tenant") {
-            props.setIsAuth(true);
+            // props.setIsAuth(true);
             props.setUserid(userId);
             nav("/tenant");
           }
           if (res.data.user === "owner") {
-            props.setIsAuth(true);
+            // props.setIsAuth(true);
             props.setUserid(userId);
             nav("/owner");
           }

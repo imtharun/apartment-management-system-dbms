@@ -11,7 +11,6 @@ import TenantDetails from "./components/TenantDetails";
 import CreatingOwner from "./components/CreatingOwner";
 import CreatingParkingSlot from "./components/CreatingParkingSlot";
 import ComplaintsViewer from "./components/CompaintsViewer";
-import Maintenance from "./components/Maintenance";
 import RaisingComplaints from "./components/RaisingComplaints";
 import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
@@ -19,11 +18,9 @@ import RentDetails from "./components/RentDetails";
 import SalaryStatus from "./components/SalaryStatus";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
-// import Lorem from "./components/Lorem";
+// import Maintenance from "./components/Maintenance";
 
 function App() {
-  const [userid, setUserid] = useState("");
-
   const forAdminBox = useMemo(
     () => [
       { "Total Owner": 59 },
@@ -53,8 +50,11 @@ function App() {
     { "Room no": 123456 },
   ];
 
+  // const isAuthh = window.localStorage.getItem("whom").
+  // const [isAuth, setIsAuth] = useState(true);
+  const [userid, setUserid] = useState("");
   const [whom, setWhom] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+
   const [adminBox, setAdminBox] = useState(forAdminBox);
   const [employeeBox, setEmployeeBox] = useState(forEmployeeBox);
   const [ownerBox, setOwnerBox] = useState(forOwnerBox);
@@ -62,6 +62,7 @@ function App() {
 
   useEffect(() => {
     console.log(whom);
+    // setUserid(JSON.parse(window.localStorage.getItem("whom")).username);
     // setWhom(JSON.parse(window.localStorage.getItem("whom")));
     // setIsAuth(JSON.parse(window.localStorage.getItem("isAuth").isAuth));
     if (
@@ -170,12 +171,12 @@ function App() {
 
   const allotedSlots = ["A-123", "B-2131", "C-12312"];
 
-  const monthlyDetails = [
-    { "Total Owners": 59 },
-    { "Total Paid": 39 },
-    { "Total not paid": 20 },
-    { "Total Payment": "Rs. 20,000" },
-  ];
+  // const monthlyDetails = [
+  //   { "Total Owners": 59 },
+  //   { "Total Paid": 39 },
+  //   { "Total not paid": 20 },
+  //   { "Total Payment": "Rs. 20,000" },
+  // ];
 
   const maintenanceHeader = ["Name", "Flat no", "Mobile number", "Status"];
   const maintenanceRows = {
@@ -263,30 +264,6 @@ function App() {
     },
   ];
 
-  const roomDetailsHeader = [
-    "Room no",
-    "Room Type",
-    "Floor no",
-    "Register no",
-    "Block no",
-  ];
-  const roomDetailsRows = [
-    {
-      roomNo: 1321,
-      roomType: "1BHK",
-      floorNo: 23,
-      registerNo: 121,
-      blockNo: 2,
-    },
-    {
-      roomNo: 1231,
-      roomType: "2BHK",
-      floorNo: 32,
-      registerNo: 451,
-      blockNo: 1,
-    },
-  ];
-
   return (
     <div className="App font-mons">
       <Routes>
@@ -296,8 +273,6 @@ function App() {
             <Auth
               userid={userid}
               setUserid={setUserid}
-              isAuth={isAuth}
-              setIsAuth={setIsAuth}
               whom={whom}
               setWhom={setWhom}
             />
@@ -307,7 +282,7 @@ function App() {
           path="/admin"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="flex">
                 <Aside forHam={forAdmin} />
                 <Dashboard forBox={adminBox} />
@@ -319,7 +294,7 @@ function App() {
           path="/employee"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forEmployee} />
+              <Header forHam={forEmployee} />
               <section className="flex">
                 <Aside forHam={forEmployee} />
                 <Dashboard forBox={employeeBox} />
@@ -331,7 +306,7 @@ function App() {
           path="/tenant"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forTenant} />
+              <Header forHam={forTenant} />
               <section className="flex">
                 <Aside forHam={forTenant} />
                 <Dashboard forBox={tenantBox} />
@@ -343,7 +318,7 @@ function App() {
           path="/owner"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="flex">
                 <Aside forHam={forOwner} />
                 <Dashboard forBox={ownerBox} />
@@ -355,7 +330,7 @@ function App() {
           path="/admin/ownerdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="p-5">
                 <OwnerDetails />
               </section>
@@ -366,7 +341,7 @@ function App() {
           path="/admin/tenantdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="p-5">
                 <TenantDetails />
               </section>
@@ -377,7 +352,7 @@ function App() {
           path="/admin/createowner"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="p-5">
                 <CreatingOwner />
               </section>
@@ -389,7 +364,7 @@ function App() {
           path="/admin/allotingparkingslot"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="p-5">
                 <CreatingParkingSlot />
               </section>
@@ -400,7 +375,7 @@ function App() {
           path="/admin/complaints"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header forHam={forAdmin} />
               <section className="p-5">
                 <ComplaintsViewer />
               </section>
@@ -411,7 +386,7 @@ function App() {
           path="/admin/maintenancefee"Maintenance Fee
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forAdmin} />
+              <Header  forHam={forAdmin} />
               <section className="p-5">
                 <Maintenance
                   monthlyDetails={monthlyDetails}
@@ -426,7 +401,7 @@ function App() {
           path="/tenant/raisingcomplaints"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forTenant} />
+              <Header forHam={forTenant} />
               <section className="p-5">
                 <RaisingComplaints />
               </section>
@@ -437,7 +412,7 @@ function App() {
           path="/tenant/allotedparkingslot"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forTenant} />
+              <Header forHam={forTenant} />
               <section className="p-5">
                 <ParkingSlot allotedSlots={allotedSlots} />
               </section>
@@ -448,7 +423,7 @@ function App() {
           path="/tenant/paymaintenance"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forTenant} />
+              <Header forHam={forTenant} />
               <section className="p-5">
                 <PayMaintenance
                   maintenanceHeader={maintenanceHeader}
@@ -462,7 +437,7 @@ function App() {
           path="/owner/tenantdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
                 <TenantDetails header={header} tenantData={tenantData} />
               </section>
@@ -473,7 +448,7 @@ function App() {
           path="/owner/tenantdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
                 <TenantDetails header={header} tenantData={tenantData} />
               </section>
@@ -484,7 +459,7 @@ function App() {
           path="/owner/complaint"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
                 <ComplaintsViewer complaints={compSubj} />
               </section>
@@ -495,7 +470,7 @@ function App() {
           path="/owner/createtenant"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
                 <CreatingTenant />
               </section>
@@ -506,12 +481,9 @@ function App() {
           path="/owner/roomdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
-                <RoomDetails
-                  roomDetailsHeader={roomDetailsHeader}
-                  roomDetailsRows={roomDetailsRows}
-                />
+                <RoomDetails userid={userid} />
               </section>
             </main>
           }
@@ -520,7 +492,7 @@ function App() {
           path="/owner/rentdetails"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forOwner} />
+              <Header forHam={forOwner} />
               <section className="p-5">
                 <RentDetails
                   header={[...header, "status"]}
@@ -534,7 +506,7 @@ function App() {
           path="/employee/complaints"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forEmployee} />
+              <Header forHam={forEmployee} />
               <section className="p-5">
                 <ComplaintsViewer complaints={compSubj} />
               </section>
@@ -545,7 +517,7 @@ function App() {
           path="/employee/salarystatus"
           element={
             <main>
-              <Header isAuth={isAuth} forHam={forEmployee} />
+              <Header forHam={forEmployee} />
               <section className="p-5">
                 <SalaryStatus
                   salaryStatusHeader={salaryStatusHeader}

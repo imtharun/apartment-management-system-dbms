@@ -1,6 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function RoomDetails(props) {
+  const roomDetailsHeader = [
+    "Room no",
+    "Room Type",
+    "Floor no",
+    "Register no",
+    "Block no",
+    "Parking Slot",
+  ];
+  const roomDetailsRows = [
+    {
+      roomNo: 1321,
+      roomType: "1BHK",
+      floorNo: 23,
+      registerNo: 121,
+      blockNo: 2,
+      parkingSlot: "a-123",
+    },
+    {
+      roomNo: 1231,
+      roomType: "2BHK",
+      floorNo: 32,
+      registerNo: 451,
+      blockNo: 1,
+      parkingSlot: "b-123",
+    },
+  ];
+
+  const [roomRows, setRoomRows] = useState(roomDetailsRows);
+  useEffect(() => {
+    // console.log(props.userid);
+    // window.localStorage.setItem("userId", JSON.stringify(props.userid));
+    axios
+      .post("http://10.1.204.172:5000/ownerroomdetails", {
+        userId: JSON.parse(window.localStorage.getItem("whom")).username,
+      })
+      .then((res) => {
+        console.log(res.data);
+        setRoomRows(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <section className="bg-white px-10 ">
       <div className="container">
@@ -10,7 +54,7 @@ function RoomDetails(props) {
               <table className="table-auto w-full">
                 <thead>
                   <tr className="bg-blue-500 text-center">
-                    {props.roomDetailsHeader.map((ele, index) => {
+                    {roomDetailsHeader.map((ele, index) => {
                       return (
                         <th
                           key={index + 1}
@@ -35,7 +79,7 @@ function RoomDetails(props) {
                 </thead>
                 <tbody>
                   {/* <tr> */}
-                  {props.roomDetailsRows.map((ele, index) => {
+                  {roomRows.map((ele, index) => {
                     return (
                       <tr key={index + 1}>
                         <td
@@ -49,7 +93,7 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
-                          {ele.roomNo}
+                          {ele.room_no}
                         </td>
                         <td
                           className="
@@ -62,7 +106,7 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
-                          {ele.roomType}
+                          {ele.type}
                         </td>
                         <td
                           className="
@@ -75,7 +119,7 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
-                          {ele.floorNo}
+                          {ele.floor}
                         </td>
                         <td
                           className="
@@ -88,7 +132,7 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
-                          {ele.registerNo}
+                          {ele.reg_no}
                         </td>
                         <td
                           className="
@@ -101,7 +145,20 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
-                          {ele.blockNo}
+                          {ele.block_no}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
+                          {ele.parking_slot}
                         </td>
                       </tr>
                     );

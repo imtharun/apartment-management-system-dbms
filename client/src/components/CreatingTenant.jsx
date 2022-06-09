@@ -29,6 +29,14 @@ function CreatingTenant() {
       })
       .then((res) => {
         console.log(res);
+        if (res.status === 200) {
+          tenantEl.current.value = "";
+          nameEl.current.value = "";
+          ageEl.current.value = "";
+          roomEl.current.value = "";
+          adhaarEl.current.value = "";
+          dobEl.current.value = "";
+        }
       })
       .catch((err) => console.log(err));
   };
