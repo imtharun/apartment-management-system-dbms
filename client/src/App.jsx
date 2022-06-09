@@ -18,6 +18,7 @@ import RentDetails from "./components/RentDetails";
 import SalaryStatus from "./components/SalaryStatus";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
+import ErrorPage from "./ErrorPage";
 // import Maintenance from "./components/Maintenance";
 
 function App() {
@@ -527,7 +528,14 @@ function App() {
             </main>
           }
         />
-        <Route />
+        <Route
+          path="/*"
+          element={
+            <main>
+              <ErrorPage />
+            </main>
+          }
+        />
       </Routes>
     </div>
   );
