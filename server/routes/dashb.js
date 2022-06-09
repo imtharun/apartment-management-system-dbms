@@ -13,8 +13,6 @@ router.post("/admin",(req,res)=>
 {
   console.log(req.body);
   let resdata;
-  let teni;
-  let tenb;
   let totalowner;
   let totaltenant;
   let totalemployee;

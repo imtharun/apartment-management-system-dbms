@@ -96,6 +96,28 @@ app.post('/raisingcomplaint',function(req,res){
     })
 });
 
+//create a new tenant by owner
+app.post('/createtenant',function(req,res){
+  // const name = req.body.name;
+  // const floorno = req.body.floorno;
+  const name = req.body.name;
+  const age = req.body.age;
+  const tenantno = req.body.tenantno;  
+  const adhaar = req.body.adhaar;
+  const roomno = req.body.roomno;
+  const dob = req.body.dob;
+  const values = [tenantno,name,dob,roomno,age];
+  const resul =db.createtenant(values,(err,result)=>{
+    if(err) console.log(err);
+  const prof = [adhaar,tenantno];
+  const resul =db.createtenantproof(prof,(err,result)=>{
+    if(err) console.log(err);
+  res.sendStatus(200);
+  })
+});
+});
+
+
 
 //creates owner in owner table
 app.post('/createowner',(req,res)=>
@@ -135,6 +157,26 @@ app.get('/ownerdetails',(req,res)=>
 {
     const rest = db.getdata('owner',(err,result)=>
     {
+      res.send(result);
+    })
+})
+
+//update the maintanence to paid
+app.get('/paymaintanence',(req,res)=>
+{
+    const rest = db.getdata('tenant',(err,result)=>
+    {
+      res.send(result);
+    })
+})
+
+
+app.post('/ownerroomdetails',(req,res)=>
+{
+  const ownerid = req.body.userId;
+    const rest = db.ownerroomdetails(ownerid,(err,result)=>
+    {
+      if(err) console.log(err);
       res.send(result);
     })
 })

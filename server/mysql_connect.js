@@ -23,7 +23,8 @@ function connect()
 //register the complaint to the block 
 function registercomplaint(values,callback)
 {
-  sql = ' update block set complaints= ? where block_no = ? and roomno= ?';
+  sql = ' update block set complaints= ? where block_no = ? and room_no= ?';
+  console.log();
   con.query(sql,values,(err,results)=>
   {
       if (err)
@@ -151,6 +152,40 @@ function gettenantdata(tid,callback)
 }
 
 
+//creating an tenant id
+function createtenant(values,callback)
+{
+    sql = 'insert into tenant values(?,?,?,null,?,?)';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
+
+function ownerroomdetails(values,callback)
+{
+    sql = 'select * from room where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
+
+//creating an proof for tenant
+function createtenantproof(values,callback)
+{
+    sql = 'insert into identity values(?,null,?)';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
 //function to validate user with username and password
 function authoriseuser(username,password,callback)
 {
@@ -200,5 +235,8 @@ module.exports = {
     createownerproof,
     viewcomplaints,
     authoriseuser,
-    gettenantdata
+    gettenantdata,
+    createtenant,
+    createtenantproof,
+    ownerroomdetails
 }
