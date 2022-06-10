@@ -15,13 +15,13 @@ import RaisingComplaints from "./components/RaisingComplaints";
 import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
 import RentDetails from "./components/RentDetails";
-// import SalaryStatus from "./components/SalaryStatus";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
 import ErrorPage from "./ErrorPage";
 import CompaintsViewerOwner from "./components/ComplaintsViewerOwner";
 import RoomDetailsOwner from "./components/RoomDetailsOwner";
 // import Maintenance from "./components/Maintenance";
+// import SalaryStatus from "./components/SalaryStatus";
 
 function App() {
   const forAdminBox = [
@@ -220,49 +220,49 @@ function App() {
     },
   ];
 
-  const salaryStatusHeader = [
-    "Eid",
-    "Name",
-    "age",
-    "adhaar",
-    "Month",
-    "status",
-  ];
+  // const salaryStatusHeader = [
+  //   "Eid",
+  //   "Name",
+  //   "age",
+  //   "adhaar",
+  //   "Month",
+  //   "status",
+  // ];
 
-  const salaryStatusRows = [
-    {
-      eid: 1,
-      name: "Tharun",
-      age: 20,
-      adhaar: 123456,
-      month: "January",
-      status: "Received",
-    },
-    {
-      eid: 2,
-      name: "D K suryah",
-      age: 20,
-      adhaar: 123456,
-      month: "Feburary",
-      status: "Received",
-    },
-    {
-      eid: 3,
-      name: "Yuvarraj",
-      age: 20,
-      adhaar: 123456,
-      month: "March",
-      status: "Received",
-    },
-    {
-      eid: 4,
-      name: "Shivanesh",
-      age: 20,
-      adhaar: 123456,
-      month: "April",
-      status: "Pending",
-    },
-  ];
+  // const salaryStatusRows = [
+  //   {
+  //     eid: 1,
+  //     name: "Tharun",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     month: "January",
+  //     status: "Received",
+  //   },
+  //   {
+  //     eid: 2,
+  //     name: "D K suryah",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     month: "Feburary",
+  //     status: "Received",
+  //   },
+  //   {
+  //     eid: 3,
+  //     name: "Yuvarraj",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     month: "March",
+  //     status: "Received",
+  //   },
+  //   {
+  //     eid: 4,
+  //     name: "Shivanesh",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     month: "April",
+  //     status: "Pending",
+  //   },
+  // ];
 
   return (
     <div className="App font-mons bg-white">
