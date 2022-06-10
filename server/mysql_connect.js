@@ -107,7 +107,7 @@ function viewcomplaints(callback)
 //dbms yuvarraj
 function ownercomplaints(ownerid,callback)
 {
-    sql = 'select complaints from block where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    sql = 'select complaints,room_no from block where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
     con.query(sql,ownerid,(err,results)=>
     {
         callback(err,results);
@@ -183,31 +183,51 @@ function createuserid(values,callback)
     })
 }
 
-//paying maintanance feee
-function paymaintanence(tenid,callback)
+
+//owner viewing tenant details
+function ownertenantdetails(values,callback)
 {
-    sql = 'insert into auth values(?,?,?)';
-    con.query(sql,tenid,(err,results)=>
-    {
-        callback(err,results);
-    })
-}
-
-
-
-//owner viewing room owned by him
-function ownerroomdetails(values,callback)
-{
-    sql = 'select complaints from block where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    sql = 'select * from tenant where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
     con.query(sql,values,(err,results)=>
     {
         callback(err,results);
     })
 }
-//
+
+//tenant pays maintanence fee
+function paymaintanence(id,callback)
+{
+    sql = 'update tenant set stat="paid" where tenant_id in (select id from auth where user_id=?)';
+    con.query(sql,id,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+//owner viewing room owned by him
+function ownerroomdetails(values,callback)
+{
+    sql = 'select * from room where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+//view parking alloted for tenant
 function viewparking(id,callback)
 {
     sql = 'select parking_slot from room where room_no in (select room_no from tenant where tenant_id in (select id from auth where user_id=?))';
+    con.query(sql,id,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
+//employee salary get 
+function empsalary(id,callback)
+{
+    sql = 'select salary from employee where emp_id in (select id from auth where user_id=?)';
     con.query(sql,id,(err,results)=>
     {
         callback(err,results);
@@ -271,5 +291,8 @@ module.exports = {
     ownercomplaints,
     viewparking,
     createuserid,
-    paymaintanence
+    paymaintanence,
+    empsalary,
+    ownerroomdetails,
+    ownertenantdetails
 }

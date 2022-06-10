@@ -90,6 +90,14 @@ router.post("/owner",(req,res)=>
 router.post("/employee",(req,res)=>
 {
     let totalcomplaint;
+    const empid = req.body.userId;
+    let sal;
+    resul = db.empsalary(empid,(err,result)=>
+    {
+      if(err) console.log(err);
+      let resultArray = Object.values(JSON.parse(JSON.stringify(result))[0])[0];
+      sal = resultArray;
+    })
     resul = db.totalcomplaint((err,result)=>
   {
     if(err) console.log(err);
@@ -97,22 +105,20 @@ router.post("/employee",(req,res)=>
     totalcomplaint = resultArray;
     resdata = 
     {
-        totalcomplaint : totalcomplaint
+      salary : sal,
+      totalcomplaint : totalcomplaint
     }
-      res.send(resdata);
+    res.send(resdata);
   });
 })
 
 router.post("/tenant",(req,res)=>
 {
-  const username = req.body.userid;
-
+  const username = req.body.userId;
   const rest = db.gettenantdata(username,(err,result)=>
   {
-    const p = result;
-    res.send({
-      body : p
-  });
+    if(err) console.log(err);
+    res.send(result);
 })
 
 });

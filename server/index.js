@@ -182,29 +182,12 @@ app.post('/viewparking',(req,res)=>
 
 
 
-//update the maintanence to paid
-//yuvarrraj need to do work
-app.get('/paymaintanence',(req,res)=>
-{
-  const tenid = req.body.userId;
-    const rest = db.paymaintanence(tenid,(err,result)=>
-    {
-      if(err) console.log(err);
-      else{
-        res.sendStatus(200);
-      }
-      
-    })
-})
-
-
 //get the room details owned by the owner
 app.post('/ownercomplaints',(req,res)=>
 {
   const ownerid = req.body.userId;
     const rest = db.ownercomplaints(ownerid,(err,result)=>
     {
-      console.log(result);
       if(err) console.log(err);
       res.send(result);
     })
@@ -222,11 +205,10 @@ app.get('/viewcomplaints',(req,res)=>
 
 
 //getonlycomplaints according to owner
-//need work done database
-app.get('/ownerroomdetails',(req,res)=>
+app.post('/ownerroomdetails',(req,res)=>
 {
-    const ownerId = '1';
-    const rest = db.ownercomplaints(ownerId,(err,result)=>
+    const ownerId = req.body.userId;
+    const rest = db.ownerroomdetails(ownerId,(err,result)=>
     {
       if(err) console.log(err);
       res.send(result);
@@ -252,6 +234,30 @@ app.post('/bookslot',(req,res)=>
   })
 });
 
+
+app.post('/ownertenantdetails',(req,res)=>
+{
+    const id = req.body.userId;
+    const rest = db.ownertenantdetails(id,(err,result)=>{
+      if(err) console.log(err);
+      if(err) res.sendStatus(405);
+      else{
+        res.send(result);
+      }
+  })
+});
+
+app.post('/paymaintanance',(req,res)=>
+{
+    const id = req.body.userId;
+    const rest = db.paymaintanence(id,(err,result)=>{
+      if(err) console.log(err);
+      if(err) res.sendStatus(405);
+      else{
+        res.sendStatus(200);
+      }
+  })
+});
 //Other routes
 app.get('*', function(req, res){
   res.send('Sorry, this is an invalid URL.');
