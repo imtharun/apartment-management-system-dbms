@@ -27,7 +27,9 @@ function CompaintsViewer(props) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.137.69:5000/viewcomplaints")
+      .post("http://192.168.137.69:5000/ownercomplaints", {
+        userId: JSON.parse(localStorage.getItem("whom")).username,
+      })
       .then((res) => {
         console.log(res.data);
         setComps(res.data);

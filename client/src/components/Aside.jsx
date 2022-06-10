@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 function Aside(props) {
   return (
-    <div className="hidden md:block min-h-full transition translate-all duration-300 rounded-r-md text-sm bg-blue-200 p-3 ">
+    <div className="hidden md:block h-screen transition translate-all duration-300 rounded-r-md text-sm bg-blue-200 p-3 ">
       <ul className="font-semibold">
         {props.forHam &&
           props.forHam.map((ele, index) => {

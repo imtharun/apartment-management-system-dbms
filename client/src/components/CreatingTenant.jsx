@@ -7,23 +7,27 @@ function CreatingTenant() {
   const ageEl = useRef(null);
   const dobEl = useRef(null);
   const roomEl = useRef(null);
+  const passEl = useRef(null);
+
   const adhaarEl = useRef(null);
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [dob, setDob] = useState("");
   const [roomno, setRoomno] = useState("");
+  const [pass, setPass] = useState("");
   const [tenantno, setTenantno] = useState("");
   const [adhaar, setAdhaar] = useState("");
 
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://10.1.204.172:5000/createtenant", {
+      .post("http://192.168.137.69:5000/createtenant", {
         name: name,
         age: age,
         roomno: roomno,
         tenantno: tenantno,
+        password: pass,
         adhaar: adhaar,
         dob: dob,
       })
@@ -34,6 +38,7 @@ function CreatingTenant() {
           nameEl.current.value = "";
           ageEl.current.value = "";
           roomEl.current.value = "";
+          passEl.current.value = "";
           adhaarEl.current.value = "";
           dobEl.current.value = "";
         }
@@ -161,6 +166,26 @@ function CreatingTenant() {
               setAdhaar(adhaarEl.current.value);
             }}
             placeholder="Adhaar"
+            className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+          />
+        </div>
+        <div className="mb-5">
+          <label
+            htmlFor="pass"
+            className="mb-3 block text-base font-medium text-[#07074D]"
+          >
+            Password
+          </label>
+          <input
+            type="text"
+            name="pass"
+            ref={passEl}
+            value={pass}
+            onChange={() => {
+              setPass(passEl.current.value);
+            }}
+            id="dob"
+            placeholder="Enter your Password"
             className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
           />
         </div>

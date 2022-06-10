@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Particles } from "react-tsparticles";
 import Particle from "./Particle";
 
 function Auth(props) {
@@ -46,12 +45,13 @@ function Auth(props) {
     setPassword(passEl.current.value);
 
     axios
-      .post("http://10.1.204.172:5000/auth", {
+      .post("http://192.168.137.69:5000/auth", {
         username: userId,
         password: password,
       })
       .then((res) => {
         console.log("Res", res);
+
         if (res.data.access === "granted") {
           console.log(res.data.user);
           props.setWhom(res.data.user);
@@ -60,7 +60,7 @@ function Auth(props) {
             JSON.stringify({
               userType: res.data.user,
               // isAuth: true,
-              username: inputEl.current.value,
+              username: userId,
             })
           );
           if (res.data.user === "employee") {

@@ -1,11 +1,24 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useEffect } from "react";
 // import { useEffect } from "react";
 
 function PayMaintenance(props) {
   const [isPaid, setIsPaid] = useState(false);
 
-  // useEffect()
+  useEffect(() => {
+    axios
+      .post("http://192.168.137.69:5000/paymaintanance", {
+        userId: JSON.parse(localStorage.getItem("whom")).username,
+        status: "Paid",
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [isPaid]);
 
   return (
     <section className="bg-white px-10 ">
@@ -98,17 +111,6 @@ function PayMaintenance(props) {
                           className="px-6 py-2 font-semibold text-white bg-blue-500 rounded-md focus:bg-blue-600 focus:outline-none hover:bg-white hover:text-blue-500 transition-all duration-300 hover:border-blue-500 border-transparent border-2"
                           onClick={() => {
                             setIsPaid(!isPaid);
-                            axios
-                              .post("http://localpost:5000/userpaid", {
-                                name: props.maintenanceRows.name,
-                                status: "Paid",
-                              })
-                              .then((res) => {
-                                console.log(res);
-                              })
-                              .catch((err) => {
-                                console.log(err);
-                              });
                           }}
                         >
                           Pay

@@ -3,12 +3,12 @@ import axios from "axios";
 
 function RoomDetails(props) {
   const roomDetailsHeader = [
+    "Tenant id",
+    "Name",
+    "Age",
+    "dob",
+    "Status",
     "Room no",
-    "Room Type",
-    "Floor no",
-    "Register no",
-    "Block no",
-    "Parking Slot",
   ];
   const roomDetailsRows = [
     {
@@ -34,7 +34,7 @@ function RoomDetails(props) {
     // console.log(props.userid);
     // window.localStorage.setItem("userId", JSON.stringify(props.userid));
     axios
-      .post("http://192.168.137.69:5000/ownerroomdetails", {
+      .post("http://192.168.137.69:5000/ownertenantdetails", {
         userId: JSON.parse(window.localStorage.getItem("whom")).username,
       })
       .then((res) => {
@@ -93,72 +93,72 @@ function RoomDetails(props) {
                         border-b border-l border-[#E8E8E8]
                         "
                         >
+                          {ele.tenant_id}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
+                          {ele.name}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
+                          {ele.age}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
+                          {ele.dob}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
+                          {ele.stat}
+                        </td>
+                        <td
+                          className="
+                        text-center text-dark
+                        font-medium
+                        text-base
+                        py-5
+                        px-2
+                        bg-[#F3F6FF]
+                        border-b border-l border-[#E8E8E8]
+                        "
+                        >
                           {ele.room_no}
-                        </td>
-                        <td
-                          className="
-                        text-center text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]
-                        "
-                        >
-                          {ele.type}
-                        </td>
-                        <td
-                          className="
-                        text-center text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]
-                        "
-                        >
-                          {ele.floor}
-                        </td>
-                        <td
-                          className="
-                        text-center text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]
-                        "
-                        >
-                          {ele.reg_no}
-                        </td>
-                        <td
-                          className="
-                        text-center text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]
-                        "
-                        >
-                          {ele.block_no}
-                        </td>
-                        <td
-                          className="
-                        text-center text-dark
-                        font-medium
-                        text-base
-                        py-5
-                        px-2
-                        bg-[#F3F6FF]
-                        border-b border-l border-[#E8E8E8]
-                        "
-                        >
-                          {ele.parking_slot}
                         </td>
                       </tr>
                     );

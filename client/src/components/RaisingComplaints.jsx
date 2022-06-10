@@ -15,7 +15,7 @@ function RaisingComplaints() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://10.1.204.172:5000/raisingcomplaint", {
+      .post("http://192.168.137.69:5000/raisingcomplaint", {
         blockno: blockno,
         roomno: roomno,
         tenantId: tenantId,
@@ -23,6 +23,12 @@ function RaisingComplaints() {
       })
       .then((res) => {
         console.log(res);
+        if (res.status === 200) {
+          blockEl.current.value = "";
+          roomEl.current.value = "";
+          descpEl.current.value = "";
+          tenantEl.current.value = "";
+        }
       })
       .catch((err) => {
         console.log(err);

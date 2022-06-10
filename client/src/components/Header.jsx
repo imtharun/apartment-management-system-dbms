@@ -5,6 +5,7 @@ import jasmineImage from "./../assets/jasmine.png";
 
 function Header(props) {
   const { hamActive, hamHandler } = useContext(HamContext);
+  const user = JSON.parse(localStorage.getItem("whom")).userType;
   return (
     <nav className="w-full sticky z-50 top-0 h-14 bg-blue-500">
       <div className=" flex items-center justify-between p-2">
@@ -48,7 +49,7 @@ function Header(props) {
                 return (
                   <li key={index + 1} className="mt-6 px-8 text-left">
                     <NavLink
-                      to={`${ele.replace(/\s/g, "").toLowerCase()}`}
+                      to={`/${user}/${ele.replace(/\s/g, "").toLowerCase()}`}
                       onClick={hamHandler}
                     >
                       <span className="transition duration-300 border-2 border-transparent hover:border-b-black">

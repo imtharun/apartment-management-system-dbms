@@ -1,5 +1,5 @@
 /* eslint-disable no-multi-str */
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Header from "./components/Header";
@@ -15,29 +15,24 @@ import RaisingComplaints from "./components/RaisingComplaints";
 import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
 import RentDetails from "./components/RentDetails";
-import SalaryStatus from "./components/SalaryStatus";
+// import SalaryStatus from "./components/SalaryStatus";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
 import ErrorPage from "./ErrorPage";
+import CompaintsViewerOwner from "./components/ComplaintsViewerOwner";
+import RoomDetailsOwner from "./components/RoomDetailsOwner";
 // import Maintenance from "./components/Maintenance";
 
 function App() {
-  const forAdminBox = useMemo(
-    () => [
-      { "Total Owner": 59 },
-      { "Total Tenant": 39 },
-      { "Total Employee": 20 },
-    ],
-    []
-  );
-
-  // const forAdminBox = [
-  //   { "Total Owner": 59 },
-  //   { "Total Tenant": 39 },
-  //   { "Total Employee": 20 },
-  // ];
-
-  const forEmployeeBox = [{ "Total complaints": 3 }, { Salary: "Rs. 20,0000" }];
+  const forAdminBox = [
+    { "Total Owner": 59 },
+    { "Total Tenant": 39 },
+    { "Total Employee": 20 },
+  ];
+  const forEmployeeBox = [
+    { "Total complaints": 31 },
+    { Salary: "Rs. 20,0000" },
+  ];
   const forOwnerBox = [
     { "No of Emloyees": 5 },
     { "Total Tenant": 4 },
@@ -62,9 +57,12 @@ function App() {
   const [tenantBox, setTenantBox] = useState(forTenantBox);
 
   useEffect(() => {
+    setUserid(JSON.parse(window.localStorage.getItem("whom")).username);
+    setWhom(JSON.parse(window.localStorage.getItem("whom")).userType);
+  }, []);
+
+  useEffect(() => {
     console.log(whom);
-    // setUserid(JSON.parse(window.localStorage.getItem("whom")).username);
-    // setWhom(JSON.parse(window.localStorage.getItem("whom")));
     // setIsAuth(JSON.parse(window.localStorage.getItem("isAuth").isAuth));
     if (
       userid.toUpperCase().charAt(0) === "A" ||
@@ -79,12 +77,13 @@ function App() {
         whom === "owner"
       ) {
         axios
-          .post(`http://10.1.204.172:5000/dashboard/${whom}`, {
-            userid: userid,
+          .post(`http://192.168.137.69:5000/dashboard/${whom}`, {
+            userId: userid,
           })
           .then((res) => {
-            console.log(whom, res);
+            console.log("Inside then ", whom, res);
             if (whom === "admin") {
+              console.log("Inside admin");
               forAdminBox[0]["Total Owner"] = res.data.totalowner;
               forAdminBox[2]["Total Employee"] = res.data.totalemployee;
               forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
@@ -98,16 +97,19 @@ function App() {
             }
             if (whom === "employee") {
               forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
+              forEmployeeBox[1].Salary = "Rs. " + res.data.salary;
               setEmployeeBox(forEmployeeBox);
+              console.log(employeeBox);
             }
             if (whom === "tenant") {
-              console.log(res.data.body[0]);
-
-              forTenantBox[0]["tenant id"] = res.data.body[0].tenant_id;
-              forTenantBox[1]["Tenant Name"] = res.data.body[0].name;
-              forTenantBox[2]["Tenant age"] = res.data.body[0].age;
-              forTenantBox[3].dob = res.data.body[0].dob;
-              forTenantBox[4]["Room no"] = res.data.body[0].room_no;
+              console.log("Inside tenant", res.data[0]);
+              // const tenantArr = ;
+              // console.log("Tenant Arr", tenantArr);
+              forTenantBox[0]["tenant id"] = res.data[0].tenant_id;
+              forTenantBox[1]["Tenant Name"] = res.data[0].name;
+              forTenantBox[2]["Tenant age"] = res.data[0].age;
+              forTenantBox[3].dob = res.data[0].dob;
+              forTenantBox[4]["Room no"] = res.data[0].room_no;
               setTenantBox(forTenantBox);
             }
           })
@@ -127,14 +129,13 @@ function App() {
     "Complaints",
     // "Maintenance Fee",
   ];
-  const forEmployee = ["Salary Status", "Complaints"];
+  const forEmployee = ["Complaints"];
   const forTenant = [
     "Raising Complaints",
     "Alloted Parking slot",
     "Pay maintenance",
   ];
   const forOwner = [
-    "Rent details",
     "Tenant details",
     "Complaint",
     "Create Tenant",
@@ -169,8 +170,6 @@ function App() {
   quod officiis!",
     },
   ];
-
-  const allotedSlots = ["A-123", "B-2131", "C-12312"];
 
   // const monthlyDetails = [
   //   { "Total Owners": 59 },
@@ -415,7 +414,7 @@ function App() {
             <main>
               <Header forHam={forTenant} />
               <section className="p-5">
-                <ParkingSlot allotedSlots={allotedSlots} />
+                <ParkingSlot />
               </section>
             </main>
           }
@@ -440,7 +439,7 @@ function App() {
             <main>
               <Header forHam={forOwner} />
               <section className="p-5">
-                <TenantDetails header={header} tenantData={tenantData} />
+                <RoomDetailsOwner header={header} tenantData={tenantData} />
               </section>
             </main>
           }
@@ -462,7 +461,7 @@ function App() {
             <main>
               <Header forHam={forOwner} />
               <section className="p-5">
-                <ComplaintsViewer complaints={compSubj} />
+                <CompaintsViewerOwner />
               </section>
             </main>
           }
@@ -514,7 +513,7 @@ function App() {
             </main>
           }
         />
-        <Route
+        {/* <Route
           path="/employee/salarystatus"
           element={
             <main>
@@ -527,7 +526,7 @@ function App() {
               </section>
             </main>
           }
-        />
+        /> */}
         <Route
           path="/*"
           element={
