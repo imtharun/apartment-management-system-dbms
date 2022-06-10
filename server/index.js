@@ -84,8 +84,6 @@ app.post("/auth", (req, res) => {
 
 //register complaint
 app.post('/raisingcomplaint',function(req,res){
-    // const name = req.body.name;
-    // const floorno = req.body.floorno;
     const desc = req.body.descp;
     const blockno = req.body.blockno;
     const roomno = req.body.roomno;
@@ -98,25 +96,27 @@ app.post('/raisingcomplaint',function(req,res){
 
 //create a new tenant by owner
 app.post('/createtenant',function(req,res){
-  // const name = req.body.name;
-  // const floorno = req.body.floorno;
   const name = req.body.name;
   const age = req.body.age;
   const tenantno = req.body.tenantno;  
   const adhaar = req.body.adhaar;
   const roomno = req.body.roomno;
+  const password = req.body.password;
   const dob = req.body.dob;
   const values = [tenantno,name,dob,roomno,age];
   const resul =db.createtenant(values,(err,result)=>{
     if(err) console.log(err);
   const prof = [adhaar,tenantno];
+  const vals = ["t-"+tenantno,password,tenantno];
   const resul =db.createtenantproof(prof,(err,result)=>{
-    if(err) console.log(err);
-  res.sendStatus(200);
+    if(err) console.log(err);//res.sendStatus(404);
+  })
+  const respn =db.createuserid(vals,(err,result)=>{
+    if(err) console.log(err);//res.sendStatus(404);
+    else res.sendStatus(200);
   })
 });
 });
-
 
 
 //creates owner in owner table
@@ -131,6 +131,8 @@ app.post('/createowner',(req,res)=>
     const proof = req.body.adhaar;
     const values = [ownerid,name,age,aggrement_status,roomno,dob];
     const proofval = [proof,ownerid];
+    const password = req.body.password;
+    const vals = ["o-"+ownerid,password,ownerid];
 
     const rest = db.createowner(values,(err,result)=>{
       if(err) console.log(err);//res.sendStatus(404);
@@ -138,9 +140,13 @@ app.post('/createowner',(req,res)=>
   const rep = db.createownerproof(proofval,(err,result)=>{
     console.log(proofval);
     if(err) console.log(err);//res.sendStatus(404);
-    else res.sendStatus(200);
 });
+const respn =db.createuserid(vals,(err,result)=>{
+  if(err) console.log(err);//res.sendStatus(404);
+  else res.sendStatus(200);
+})
 });
+
 
 
 //get the tenent details fetch all data from table
@@ -152,6 +158,8 @@ app.get('/tenantdetails',(req,res)=>
     })
 })
 
+
+
 //get the owner details fetch all the data from the table
 app.get('/ownerdetails',(req,res)=>
 {
@@ -161,21 +169,42 @@ app.get('/ownerdetails',(req,res)=>
     })
 })
 
+//view parkings owned by tenant
+app.post('/viewparking',(req,res)=>
+{
+  const id = req.body.userId;
+  const rest = db.viewparking(id,(err,result)=>
+  {
+    if(err) console.log(err);
+    res.send(result);
+  })
+})
+
+
+
 //update the maintanence to paid
+//yuvarrraj need to do work
 app.get('/paymaintanence',(req,res)=>
 {
-    const rest = db.getdata('tenant',(err,result)=>
+  const tenid = req.body.userId;
+    const rest = db.paymaintanence(tenid,(err,result)=>
     {
-      res.send(result);
+      if(err) console.log(err);
+      else{
+        res.sendStatus(200);
+      }
+      
     })
 })
 
 
-app.post('/ownerroomdetails',(req,res)=>
+//get the room details owned by the owner
+app.post('/ownercomplaints',(req,res)=>
 {
   const ownerid = req.body.userId;
-    const rest = db.ownerroomdetails(ownerid,(err,result)=>
+    const rest = db.ownercomplaints(ownerid,(err,result)=>
     {
+      console.log(result);
       if(err) console.log(err);
       res.send(result);
     })
@@ -191,14 +220,19 @@ app.get('/viewcomplaints',(req,res)=>
     })
 })
 
+
 //getonlycomplaints according to owner
-app.get('/ownercomplaints',(req,res)=>
+//need work done database
+app.get('/ownerroomdetails',(req,res)=>
 {
-    const rest = db.viewcomplaints((err,result)=>
+    const ownerId = '1';
+    const rest = db.ownercomplaints(ownerId,(err,result)=>
     {
+      if(err) console.log(err);
       res.send(result);
     })
 })
+
 
 
 
@@ -211,7 +245,10 @@ app.post('/bookslot',(req,res)=>
     const rest = db.bookslot(values,(err,result)=>{
       if(err) console.log(err);
       if(err) res.sendStatus(405);
-      res.sendStatus(200);
+      else{
+        res.sendStatus(200);
+      }
+      
   })
 });
 

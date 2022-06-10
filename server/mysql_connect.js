@@ -6,10 +6,8 @@ const con = mysql.createConnection({
     password: config.upass,
     database: config.database
 });
+
 connect();
-
-
-
 //used to establish connection with the database
 function connect()
 {
@@ -19,6 +17,9 @@ function connect()
         console.log("database Connected!");
     });
 }
+
+
+
 
 //register the complaint to the block 
 function registercomplaint(values,callback)
@@ -65,8 +66,6 @@ function createowner(values,callback)
         callback(err,results);
     })
 }
-
-
 //function to create an owner
 function createownerproof(values,callback)
 {
@@ -76,6 +75,7 @@ function createownerproof(values,callback)
         callback(err,results);
     })
 }
+
 
 
 //book a parking slot for the tenant
@@ -89,6 +89,7 @@ function bookslot(values,callback)
 }
 
 
+
 //view all the complaints
 function viewcomplaints(callback)
 {
@@ -99,15 +100,21 @@ function viewcomplaints(callback)
     })
 }
 
-//selecting all the data from block table
-function dashboard(callback)
+
+
+
+//view only owner complaints
+//dbms yuvarraj
+function ownercomplaints(ownerid,callback)
 {
-    sql = 'select * from block';
-    con.query(sql,(err,results)=>
+    sql = 'select complaints from block where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    con.query(sql,ownerid,(err,results)=>
     {
         callback(err,results);
     })
 }
+
+
 
 //get the total no of tenants
 function totaltenant(callback)
@@ -118,8 +125,6 @@ function totaltenant(callback)
         callback(err,results);
     })
 }
-
-
 //get the total number of employees
 function totalemployee(callback)
 {
@@ -129,8 +134,6 @@ function totalemployee(callback)
         callback(err,results);
     })
 }
-
-
 //function to retrieve all the complaints in the block
 function totalcomplaint(callback)
 {
@@ -140,7 +143,6 @@ function totalcomplaint(callback)
         callback(err,results);
     })
 }
-
 //get the data of tenent
 function gettenantdata(tid,callback)
 {
@@ -152,6 +154,8 @@ function gettenantdata(tid,callback)
 }
 
 
+
+
 //creating an tenant id
 function createtenant(values,callback)
 {
@@ -161,20 +165,6 @@ function createtenant(values,callback)
         callback(err,results);
     })
 }
-
-
-
-function ownerroomdetails(values,callback)
-{
-    sql = 'select * from room where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
-    con.query(sql,values,(err,results)=>
-    {
-        callback(err,results);
-    })
-}
-
-
-
 //creating an proof for tenant
 function createtenantproof(values,callback)
 {
@@ -184,6 +174,48 @@ function createtenantproof(values,callback)
         callback(err,results);
     })
 }
+function createuserid(values,callback)
+{
+    sql = 'insert into auth values(?,?,?)';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+//paying maintanance feee
+function paymaintanence(tenid,callback)
+{
+    sql = 'insert into auth values(?,?,?)';
+    con.query(sql,tenid,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
+
+//owner viewing room owned by him
+function ownerroomdetails(values,callback)
+{
+    sql = 'select complaints from block where room_no in (select room_no from owner where owner_id in(select id from auth where user_id=?))';
+    con.query(sql,values,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+//
+function viewparking(id,callback)
+{
+    sql = 'select parking_slot from room where room_no in (select room_no from tenant where tenant_id in (select id from auth where user_id=?))';
+    con.query(sql,id,(err,results)=>
+    {
+        callback(err,results);
+    })
+}
+
+
+
 
 
 //function to validate user with username and password
@@ -195,8 +227,6 @@ function authoriseuser(username,password,callback)
     console.log(value);
     con.query(sql,value,(err,result)=>
     {
-        console.log(result);
-
         if(result.length===0)
         {
             results = "denied";
@@ -227,7 +257,6 @@ module.exports = {
     createowner,
     bookslot,
     getdata,
-    dashboard,
     totalowner,
     totaltenant,
     totalemployee,
@@ -238,5 +267,9 @@ module.exports = {
     gettenantdata,
     createtenant,
     createtenantproof,
-    ownerroomdetails
+    ownerroomdetails,
+    ownercomplaints,
+    viewparking,
+    createuserid,
+    paymaintanence
 }
