@@ -12,20 +12,20 @@ function RoomDetails(props) {
   ];
   const roomDetailsRows = [
     {
-      roomNo: 1321,
-      roomType: "1BHK",
-      floorNo: 23,
-      registerNo: 121,
-      blockNo: 2,
-      parkingSlot: "a-123",
+      room_no: 1321,
+      type: "1BHK",
+      floor: 23,
+      reg_no: 121,
+      block_no: 2,
+      parking_slot: "a-123",
     },
     {
-      roomNo: 1231,
-      roomType: "2BHK",
-      floorNo: 32,
-      registerNo: 451,
-      blockNo: 1,
-      parkingSlot: "b-123",
+      room_no: 1231,
+      type: "2BHK",
+      floor: 32,
+      reg_no: 451,
+      block_no: 1,
+      parking_slot: "b-123",
     },
   ];
 

@@ -5,19 +5,22 @@ import React, { useEffect, useState } from "react";
 function CompaintsViewer(props) {
   const complaints = [
     {
-      complaints1:
+      room_no: "14",
+      complaints:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat\
   harum soluta? Placeat odio magnam dignissimos repellendus quisquam et\
   quod officiis!",
     },
     {
-      compalints2:
+      room_no: "15",
+      complaints:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,\
   harum soluta? Placeat odio magnam dignissimos repellendus quisquam et\
   quod officiis!",
     },
     {
-      complaints3:
+      room_no: "16",
+      complaints:
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat,\
   harum soluta? Placeat odio magnam dignissimos repellendus quisquam et\
   quod officiis!",
@@ -48,17 +51,17 @@ function CompaintsViewer(props) {
               key={index + 1}
               className="border-2 my-3 border-gray-300 p-5 flex justify-evenly"
             >
-              <div>
+              <div className="mx-3">
                 <h1 className="font-semibold capitalize text-center">
                   Room No
                 </h1>
-                <p className="">{"Room no" + ele.room_no}</p>
+                <h2 className="text-center">{ele.room_no}</h2>
               </div>
-              <div>
+              <div className="mx-3">
                 <h1 className="font-semibold capitalize text-center">
                   Complaints
                 </h1>
-                <p> {ele.complaints}</p>
+                <h2 className="text-center"> {ele.complaints}</h2>
               </div>
             </div>
           )

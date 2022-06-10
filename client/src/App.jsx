@@ -14,12 +14,12 @@ import ComplaintsViewer from "./components/CompaintsViewer";
 import RaisingComplaints from "./components/RaisingComplaints";
 import ParkingSlot from "./components/ParkingSlot";
 import PayMaintenance from "./components/PayMaintenance";
-import RentDetails from "./components/RentDetails";
 import CreatingTenant from "./components/CreatingTenant";
 import RoomDetails from "./components/RoomDetails";
 import ErrorPage from "./ErrorPage";
 import CompaintsViewerOwner from "./components/ComplaintsViewerOwner";
 import RoomDetailsOwner from "./components/RoomDetailsOwner";
+// import RentDetails from "./components/RentDetails";
 // import Maintenance from "./components/Maintenance";
 // import SalaryStatus from "./components/SalaryStatus";
 
@@ -47,7 +47,7 @@ function App() {
   ];
 
   // const isAuthh = window.localStorage.getItem("whom").
-  // const [isAuth, setIsAuth] = useState(true);
+  // const [isAuth, setIsAuth] = useState(false);
   const [userid, setUserid] = useState("");
   const [whom, setWhom] = useState("");
 
@@ -185,40 +185,40 @@ function App() {
     mobileNumber: 987654321,
   };
 
-  const oTenetData = [
-    {
-      tno: 1,
-      name: "Tharun",
-      age: 20,
-      adhaar: 123456,
-      dob: "21-May-2002",
-      status: "paid",
-    },
-    {
-      tno: 2,
-      name: "D K suryah",
-      age: 20,
-      adhaar: 123456,
-      dob: "21-May-2002",
-      status: "pending",
-    },
-    {
-      tno: 3,
-      name: "Yuvarraj",
-      age: 20,
-      adhaar: 123456,
-      dob: "21-May-2002",
-      status: "pending",
-    },
-    {
-      tno: 4,
-      name: "Shivanesh",
-      age: 20,
-      adhaar: 123456,
-      dob: "21-May-2002",
-      status: "paid",
-    },
-  ];
+  // const oTenetData = [
+  //   {
+  //     tno: 1,
+  //     name: "Tharun",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     dob: "21-May-2002",
+  //     status: "paid",
+  //   },
+  //   {
+  //     tno: 2,
+  //     name: "D K suryah",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     dob: "21-May-2002",
+  //     status: "pending",
+  //   },
+  //   {
+  //     tno: 3,
+  //     name: "Yuvarraj",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     dob: "21-May-2002",
+  //     status: "pending",
+  //   },
+  //   {
+  //     tno: 4,
+  //     name: "Shivanesh",
+  //     age: 20,
+  //     adhaar: 123456,
+  //     dob: "21-May-2002",
+  //     status: "paid",
+  //   },
+  // ];
 
   // const salaryStatusHeader = [
   //   "Eid",
@@ -359,7 +359,6 @@ function App() {
             </main>
           }
         />
-
         <Route
           path="/admin/allotingparkingslot"
           element={
@@ -444,7 +443,7 @@ function App() {
             </main>
           }
         />
-        <Route
+        {/* <Route
           path="/owner/tenantdetails"
           element={
             <main>
@@ -454,7 +453,7 @@ function App() {
               </section>
             </main>
           }
-        />
+        /> */}
         <Route
           path="/owner/complaint"
           element={
@@ -488,7 +487,7 @@ function App() {
             </main>
           }
         />
-        <Route
+        {/* <Route
           path="/owner/rentdetails"
           element={
             <main>
@@ -501,7 +500,7 @@ function App() {
               </section>
             </main>
           }
-        />
+        /> */}
         <Route
           path="/employee/complaints"
           element={
