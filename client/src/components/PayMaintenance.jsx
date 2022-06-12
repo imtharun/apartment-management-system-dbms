@@ -8,12 +8,12 @@ function PayMaintenance(props) {
 
   useEffect(() => {
     axios
-      .post("http://192.168.137.69:5000/paymaintanance", {
+      .post("http://localhost:5000/paymaintanance", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
         status: "Paid",
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => {
         console.log(err);

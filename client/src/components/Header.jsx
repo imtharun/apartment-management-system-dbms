@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { HamContext } from "../HamContextProvider";
 import jasmineImage from "./../assets/jasmine.png";
 
 function Header(props) {
+  const nav = useNavigate();
+  const logoutHandler = function () {
+    nav("/");
+    window.localStorage.clear();
+    window.location.reload();
+  };
+
   const { hamActive, hamHandler } = useContext(HamContext);
   const user = JSON.parse(localStorage.getItem("whom")).userType;
   return (
@@ -15,12 +22,20 @@ function Header(props) {
             Jasmine Towers
           </h1>
         </div>
+        <div>
+          <button
+            className=" text-white font-medium transition duration-300 border-2 hover:border-b-white border-transparent mr-12"
+            onClick={logoutHandler}
+          >
+            Logout
+          </button>
+        </div>
         {/* Hamburger Icon */}
-        <div className="md:hidden">
+        <div className="md:hidden absolute top-4 right-4">
           <button onClick={hamHandler}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-8 w-8"
+              className="h-7 w-7"
               fill="none"
               viewBox="0 0 24 24"
               stroke="white"

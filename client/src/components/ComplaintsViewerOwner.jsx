@@ -30,11 +30,11 @@ function CompaintsViewer(props) {
 
   useEffect(() => {
     axios
-      .post("http://192.168.137.69:5000/ownercomplaints", {
+      .post("http://localhost:5000/ownercomplaints", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setComps(res.data);
       })
       .catch((err) => {

@@ -7,18 +7,18 @@ function Auth(props) {
   const nav = useNavigate();
   const inputEl = useRef(null);
   const passEl = useRef(null);
-  const [isName, setIsName] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
+  const [isName, setIsName] = useState(true);
+  const [isPassword, setIsPassword] = useState(true);
   const [userId, setuserId] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
     if (
+      inputEl.current.value === "" ||
       userId.toUpperCase().charAt(0) === "A" ||
       userId.toUpperCase().charAt(0) === "O" ||
       userId.toUpperCase().charAt(0) === "E" ||
-      userId.toUpperCase().charAt(0) === "T" ||
-      userId === ""
+      userId.toUpperCase().charAt(0) === "T"
     ) {
       setIsName(true);
       return;
@@ -45,30 +45,24 @@ function Auth(props) {
     setPassword(passEl.current.value);
 
     axios
-      .post("http://192.168.137.69:5000/auth", {
+      .post("http://localhost:5000/auth", {
         username: userId,
         password: password,
       })
       .then((res) => {
-        console.log("Res", res);
+        // console.log("Res of Auth.jsx", res);
 
         if (res.data.access === "granted") {
-          console.log(res.data.user);
           props.setWhom(res.data.user);
           window.localStorage.setItem(
             "whom",
             JSON.stringify({
               userType: res.data.user,
-              // isAuth: true,
               username: userId,
             })
           );
           if (res.data.user === "employee") {
             // props.setIsAuth(true);
-            // window.localStorage.setItem(
-            //   "isAuth",
-            //   JSON.stringify({ isAuth: true })
-            // );
             props.setUserid(userId);
             nav("/employee");
           }
@@ -76,11 +70,9 @@ function Auth(props) {
             // props.setIsAuth(true);
             props.setUserid(userId);
             nav("/admin");
-            // window.addEventListener("popstate", function () {
-            //   this.history.forward();
-            // });
           }
           if (res.data.user === "tenant") {
+            // console.log(("Tenant: ", userId, password));
             // props.setIsAuth(true);
             props.setUserid(userId);
             nav("/tenant");
@@ -106,7 +98,6 @@ function Auth(props) {
   };
   return (
     <div>
-      <Particle />
       <div className="font-mons flex items-center min-h-screen z-50">
         <div className="container mx-auto">
           <div className="max-w-md mx-auto my-10">
@@ -188,6 +179,7 @@ function Auth(props) {
           </div>
         </div>
       </div>
+      <Particle />
     </div>
   );
 }

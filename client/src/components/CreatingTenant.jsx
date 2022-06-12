@@ -22,7 +22,7 @@ function CreatingTenant() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://192.168.137.69:5000/createtenant", {
+      .post("http://localhost:5000/createtenant", {
         name: name,
         age: age,
         roomno: roomno,
@@ -32,7 +32,7 @@ function CreatingTenant() {
         dob: dob,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           tenantEl.current.value = "";
           nameEl.current.value = "";

@@ -48,9 +48,9 @@ function OwnerDetails(props) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.137.69:5000/ownerdetails")
+      .get("http://localhost:5000/ownerdetails")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setOwnerRows(res.data);
       })
       .catch((err) => {

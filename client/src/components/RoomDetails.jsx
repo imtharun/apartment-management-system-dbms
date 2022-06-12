@@ -34,11 +34,11 @@ function RoomDetails(props) {
     // console.log(props.userid);
     // window.localStorage.setItem("userId", JSON.stringify(props.userid));
     axios
-      .post("http://192.168.137.69:5000/ownerroomdetails", {
+      .post("http://localhost:5000/ownerroomdetails", {
         userId: JSON.parse(window.localStorage.getItem("whom")).username,
       })
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setRoomRows(res.data);
       })
       .catch((err) => {

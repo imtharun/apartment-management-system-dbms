@@ -23,7 +23,7 @@ function CreatingUser() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://192.168.137.69:5000/createowner", {
+      .post("http://localhost:5000/createowner", {
         name: name,
         age: age,
         ownerId: ownerId,
@@ -34,7 +34,7 @@ function CreatingUser() {
         dob: dob,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           nameEl.current.value = "";
           ageEl.current.value = "";

@@ -41,9 +41,9 @@ function TenantDetails(props) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.137.69:5000/tenantDetails")
+      .get("http://localhost:5000/tenantDetails")
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         setTenantRows(res.data);
       })
       .catch((err) => {

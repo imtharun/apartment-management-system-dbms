@@ -15,14 +15,14 @@ function RaisingComplaints() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://192.168.137.69:5000/raisingcomplaint", {
+      .post("http://localhost:5000/raisingcomplaint", {
         blockno: blockno,
         roomno: roomno,
         tenantId: tenantId,
         descp: descp,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           blockEl.current.value = "";
           roomEl.current.value = "";

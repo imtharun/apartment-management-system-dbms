@@ -35,7 +35,7 @@ function App() {
   ];
   const forOwnerBox = [
     { "No of Emloyees": 5 },
-    { "Total Tenant": 4 },
+    // { "Total Tenant": 4 },
     { "Total complaints": 2 },
   ];
   const forTenantBox = [
@@ -47,7 +47,7 @@ function App() {
   ];
 
   // const isAuthh = window.localStorage.getItem("whom").
-  // const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(false);
   const [userid, setUserid] = useState("");
   const [whom, setWhom] = useState("");
 
@@ -57,12 +57,20 @@ function App() {
   const [tenantBox, setTenantBox] = useState(forTenantBox);
 
   useEffect(() => {
-    setUserid(JSON.parse(window.localStorage.getItem("whom")).username);
-    setWhom(JSON.parse(window.localStorage.getItem("whom")).userType);
+    if (JSON.parse(window.localStorage.getItem("whom"))) {
+      setUserid(JSON.parse(window.localStorage.getItem("whom")).username);
+    } else {
+      setUserid("");
+    }
+    if (JSON.parse(window.localStorage.getItem("whom"))) {
+      setWhom(JSON.parse(window.localStorage.getItem("whom")).userType);
+    } else {
+      setWhom("");
+    }
   }, []);
 
   useEffect(() => {
-    console.log(whom);
+    // console.log(isAuth);
     // setIsAuth(JSON.parse(window.localStorage.getItem("isAuth").isAuth));
     if (
       userid.toUpperCase().charAt(0) === "A" ||
@@ -76,14 +84,17 @@ function App() {
         whom === "tenant" ||
         whom === "owner"
       ) {
+        // console.log(localStorage.getItem("whom"));
+        // console.log(whom);
+        // console.log("userid", userid);
         axios
-          .post(`http://192.168.137.69:5000/dashboard/${whom}`, {
-            userId: userid,
+          .post(`http://localhost:5000/dashboard/${whom}`, {
+            userId: JSON.parse(window.localStorage.getItem("whom")).username,
           })
           .then((res) => {
-            console.log("Inside then ", whom, res);
+            // console.log("Inside then of App.jsx", whom, res);
             if (whom === "admin") {
-              console.log("Inside admin");
+              // console.log("Inside admin");
               forAdminBox[0]["Total Owner"] = res.data.totalowner;
               forAdminBox[2]["Total Employee"] = res.data.totalemployee;
               forAdminBox[1]["Total Tenant"] = res.data.totaltenant;
@@ -91,18 +102,18 @@ function App() {
             }
             if (whom === "owner") {
               forOwnerBox[0]["No of Emloyees"] = res.data.totalemployee;
-              forOwnerBox[1]["Total Tenant"] = res.data.totaltenant;
-              forOwnerBox[2]["Total complaints"] = res.data.totalcomplaint;
+              // forOwnerBox[1]["Total Tenant"] = res.data.totaltenant;
+              forOwnerBox[1]["Total complaints"] = res.data.totalcomplaint;
               setOwnerBox(forOwnerBox);
             }
             if (whom === "employee") {
               forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
               forEmployeeBox[1].Salary = "Rs. " + res.data.salary;
               setEmployeeBox(forEmployeeBox);
-              console.log(employeeBox);
+              // console.log(employeeBox);
             }
             if (whom === "tenant") {
-              console.log("Inside tenant", res.data[0]);
+              // console.log("Inside tenant", res.data[0]);
               // const tenantArr = ;
               // console.log("Tenant Arr", tenantArr);
               forTenantBox[0]["tenant id"] = res.data[0].tenant_id;
