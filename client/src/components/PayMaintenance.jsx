@@ -4,13 +4,32 @@ import { useEffect } from "react";
 // import { useEffect } from "react";
 
 function PayMaintenance(props) {
-  const [isPaid, setIsPaid] = useState(false);
-  const maintenanceHeader = ["Tenant no","Name", "Room no", "Status"];
+  const maintenanceHeader = ["Name", "Tenant no", "Room no", "Status"];
   const maintenanceRows = {
-    Name: "Tharunprasath A S",
-    roomno: 123,
-    tenantno: 12,
+    name: "Tharunprasath A S",
+    room_no: 123,
+    tenant_id: 12,
+    stat: "not paid",
+    dob: "21-may-02",
+    age: 20,
   };
+  const [isPaid, setIsPaid] = useState(false);
+
+  const [header, setHeader] = useState(maintenanceHeader);
+  const [rows, setRows] = useState(maintenanceRows);
+
+  useEffect(() => {
+    axios
+      .post(`http://localhost:5000/dashboard/tenant`, {
+        userId: JSON.parse(window.localStorage.getItem("whom")).username,
+      })
+      .then((res) => {
+        const [result] = res.data;
+        setRows(result);
+        setIsPaid(result.stat === "paid");
+      })
+      .catch((err) => {});
+  }, []);
 
   useEffect(() => {
     axios
@@ -22,7 +41,7 @@ function PayMaintenance(props) {
         // console.log(res);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [isPaid]);
 
@@ -35,7 +54,7 @@ function PayMaintenance(props) {
               <table className="table-auto w-full">
                 <thead>
                   <tr className="bg-blue-500 text-center">
-                    {props.maintenanceHeader.map((ele, index) => {
+                    {header.map((ele, index) => {
                       return (
                         <th
                           key={index + 1}
@@ -73,7 +92,7 @@ function PayMaintenance(props) {
                           border-b border-l border-[#E8E8E8]
                           "
                     >
-                      {props.maintenanceRows.Name}
+                      {rows.name}
                     </td>
                     <td
                       className="
@@ -86,7 +105,7 @@ function PayMaintenance(props) {
                           border-b border-l border-[#E8E8E8]
                           "
                     >
-                      {props.maintenanceRows.flatNo}
+                      {rows.room_no}
                     </td>
                     <td
                       className="
@@ -99,7 +118,7 @@ function PayMaintenance(props) {
                           border-b border-l border-[#E8E8E8]
                           "
                     >
-                      {props.maintenanceRows.mobileNumber}
+                      {rows.tenant_id}
                     </td>
                     <td
                       className="
