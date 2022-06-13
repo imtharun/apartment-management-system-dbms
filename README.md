@@ -1,6 +1,6 @@
 # Apartment Management System
 
-#### We created this project as a part of Database Management System Course.
+We created this project as a part of Database Management System Course.
 
 <br />
 
@@ -18,7 +18,7 @@
 
 # Project Description
 
-#### In this project we created a Apartment management system with user interface and database support.This project is a part of our curriculum, here we solved the problem of manual entry of data in apartments by creating user interface and storing data in mysql database.
+In this project we created a Apartment management system with user interface and database support.This project is a part of our curriculum, here we solved the problem of manual entry of data in apartments by creating user interface and storing data in mysql database.
 
 <br />
 
@@ -43,6 +43,7 @@
   - Owner can see Total Complaint.
   - Owner can see Number of Employee.
 - Tenant
+
   - Tenant can see the alloted parking slot.
   - Tenant can pay maintenance fee.
   - Tenant can raise complaints.
@@ -53,30 +54,38 @@
   - Tenant can see his/her Room no.
 
 - Employee
+
   - Employee can see all the complaints.
   - Employee can see Total number of Complaints
 
 - All the admins, owners, tenant, employees can login and logout.
 
-
 ## ER Diagram
 
 <kbd><img src="assets/er-diagram.png" width="800px"></kbd>
+
+## Database Schema
+
+<kbd><img src="assets/schema.png" alt="database-schema" width="800px"></kbd>
 
 <br />
 
 ## Screenshots of the Implementation
 
 ### Admin dashboard
+
 <kbd><img src="assets/admin.png" alt="admin-dashboard" width="800px"></kbd>
 
 ### Owner dashboard
+
 <kbd><img src="assets/owner.png" alt="owner-dashboard" width="800px"></kbd>
 
 ### Tenant dashboard
+
 <kbd><img src="assets/tenant.png" alt="tenant-dashboard" width="800px"></kbd>
 
 ### Employee dashboard
+
 <kbd><img src="assets/employee.png" alt="employee-dashboard" width="800px"></kbd>
 
 # Tech Stack
@@ -100,7 +109,7 @@
 
           npm install
 
-- Install MySql workbench if you don't have one, and then import the database.sql file in workbench.
+- Install MySql workbench if you don't have one, and then import the export.sql file under database folder in workbench.
 
 - Then in server folder create a file "config_sql.js" add localhost name, database name, username and password of your sql workbench and export it.
 
@@ -111,7 +120,7 @@
           npm run start
 
   - For sever,
-    npm start
+    npm run start
 
 - Now, you can use the project.
 
@@ -119,7 +128,7 @@
 
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Suryah07"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/67333204?v=4?s=100" width="100px;" alt="D K Suryah"/><br /><sub><b>D K Suryah </b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/Suryah07"><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/67333204?v=4?s=100" width="100px;" alt="D K Suryah"/><br /><sub><b>D K Suryah </b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/imtharun"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/80610149?v=4?s=100" width="100px;" alt="Tharunprasth A S"/><br /><sub><b>Tharunprasath A S</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/yuvarraj-sriramkumar"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/69584827?v=4?s=100" width="100px;" alt="Yuvarraj S"/><br /><sub><b>Yuvarraj S</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/shivsrith03"><img style="border-radius: 50%" src="https://avatars.githubusercontent.com/u/105268528?v=4?s=100" width="100px;" alt="Shivanesh S"/><br /><sub><b>Shivanesh S</b></sub></a><br /></td>
