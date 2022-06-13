@@ -10,7 +10,7 @@ function CreatingParkingSlot() {
   const submitHandler = function (e) {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/bookslot", {
+      .post("http://192.168.137.69:5000/bookslot", {
         roomNo: roomNo,
         slotNo: slotNo,
       })

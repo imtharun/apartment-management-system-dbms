@@ -10,7 +10,7 @@ function ParkingSlot(props) {
   const [parkingSlot, setParkingSlot] = useState(allotedSlots);
   useEffect(() => {
     axios
-      .post("http://localhost:5000/viewparking", {
+      .post("http://192.168.137.69:5000/viewparking", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
       })
       .then((res) => {
@@ -28,13 +28,24 @@ function ParkingSlot(props) {
       </div>
       <div className="flex">
         {parkingSlot.map((ele, index) => {
+          if (ele.parking_slot === null) {
+            return (
+              <div
+                key={index + 1}
+                className="w-full h-full flex justify-center items-center"
+              >
+                <h1 className="font-medium text-lg">No parking slot alloted</h1>
+              </div>
+            );
+          } else {
+            return (
+              <div key={index + 1} className="p-5 border-2 m-2">
+                <h1 className="">Slot no</h1>
+                <p className="">{ele.parking_slot}</p>
+              </div>
+            );
+          }
           // console.log(ele);
-          return (
-            <div key={index + 1} className="p-5 border-2 m-2">
-              <h1 className="">Slot no</h1>
-              <p className="">{ele.parking_slot}</p>
-            </div>
-          );
         })}
       </div>
     </div>

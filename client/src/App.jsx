@@ -47,7 +47,7 @@ function App() {
   ];
 
   // const isAuthh = window.localStorage.getItem("whom").
-  const [isAuth, setIsAuth] = useState(false);
+  // const [isAuth, setIsAuth] = useState(false);
   const [userid, setUserid] = useState("");
   const [whom, setWhom] = useState("");
 
@@ -88,7 +88,7 @@ function App() {
         // console.log(whom);
         // console.log("userid", userid);
         axios
-          .post(`http://localhost:5000/dashboard/${whom}`, {
+          .post(`http://192.168.137.69:5000/dashboard/${whom}`, {
             userId: JSON.parse(window.localStorage.getItem("whom")).username,
           })
           .then((res) => {

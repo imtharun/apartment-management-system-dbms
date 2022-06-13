@@ -8,7 +8,7 @@ function PayMaintenance(props) {
 
   useEffect(() => {
     axios
-      .post("http://localhost:5000/paymaintanance", {
+      .post("http://192.168.137.69:5000/paymaintanance", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
         status: "Paid",
       })
