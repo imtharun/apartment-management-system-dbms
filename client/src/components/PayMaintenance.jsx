@@ -5,10 +5,16 @@ import { useEffect } from "react";
 
 function PayMaintenance(props) {
   const [isPaid, setIsPaid] = useState(false);
+  const maintenanceHeader = ["Tenant no","Name", "Room no", "Status"];
+  const maintenanceRows = {
+    Name: "Tharunprasath A S",
+    roomno: 123,
+    tenantno: 12,
+  };
 
   useEffect(() => {
     axios
-      .post("http://192.168.137.69:5000/paymaintanance", {
+      .post("http://localhost:5000/paymaintanance", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
         status: "Paid",
       })

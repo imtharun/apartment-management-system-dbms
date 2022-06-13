@@ -88,7 +88,7 @@ function App() {
         // console.log(whom);
         // console.log("userid", userid);
         axios
-          .post(`http://192.168.137.69:5000/dashboard/${whom}`, {
+          .post(`http://localhost:5000/dashboard/${whom}`, {
             userId: JSON.parse(window.localStorage.getItem("whom")).username,
           })
           .then((res) => {
@@ -189,11 +189,11 @@ function App() {
   //   { "Total Payment": "Rs. 20,000" },
   // ];
 
-  const maintenanceHeader = ["Name", "Flat no", "Mobile number", "Status"];
+  const maintenanceHeader = ["Tenant no","Name", "Room no", "Status"];
   const maintenanceRows = {
     Name: "Tharunprasath A S",
-    flatNo: 123,
-    mobileNumber: 987654321,
+    roomno: 123,
+    tenantno: 12,
   };
 
   // const oTenetData = [

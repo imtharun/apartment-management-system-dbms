@@ -30,7 +30,7 @@ function CompaintsViewer(props) {
 
   useEffect(() => {
     axios
-      .get("http://192.168.137.69:5000/viewcomplaints")
+      .get("http://localhost:5000/viewcomplaints")
       .then((res) => {
         // console.log(res.data);
         setComps(res.data);

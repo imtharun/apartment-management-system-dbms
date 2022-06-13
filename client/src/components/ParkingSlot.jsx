@@ -10,7 +10,7 @@ function ParkingSlot(props) {
   const [parkingSlot, setParkingSlot] = useState(allotedSlots);
   useEffect(() => {
     axios
-      .post("http://192.168.137.69:5000/viewparking", {
+      .post("http://localhost:5000/viewparking", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
       })
       .then((res) => {

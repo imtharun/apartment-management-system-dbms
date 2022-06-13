@@ -236,8 +236,6 @@ function empsalary(id,callback)
 
 
 
-
-
 //function to validate user with username and password
 function authoriseuser(username,password,callback)
 {
