@@ -1,6 +1,6 @@
 # Apartment Management System
 
-### We created this project as a part of Database Management System Course.
+#### We created this project as a part of Database Management System Course.
 
 <br />
 
@@ -11,13 +11,14 @@
   - Functionalities
   - ER Diagram
   - Database Schema
+  - Screenshots of the Interface
 - Tech Stack
 - How to Run
 - Contributors
 
 # Project Description
 
-### In this project we created a Apartment management system with user interface and database support.This project is a part of our curriculum, here we solved the problem of manual entry of data in apartments by creating user interface and storing data in mysql database.
+#### In this project we created a Apartment management system with user interface and database support.This project is a part of our curriculum, here we solved the problem of manual entry of data in apartments by creating user interface and storing data in mysql database.
 
 <br />
 
@@ -55,12 +56,28 @@
   - Employee can see all the complaints.
   - Employee can see Total number of Complaints
 
+- All the admins, owners, tenant, employees can login and logout.
+
 
 ## ER Diagram
 
 <kbd><img src="assets/er-diagram.png" width="800px"></kbd>
 
 <br />
+
+## Screenshots of the Implementation
+
+### Admin dashboard
+<kbd><img src="assets/admin.png" alt="admin-dashboard" width="800px"></kbd>
+
+### Owner dashboard
+<kbd><img src="assets/owner.png" alt="owner-dashboard" width="800px"></kbd>
+
+### Tenant dashboard
+<kbd><img src="assets/tenant.png" alt="tenant-dashboard" width="800px"></kbd>
+
+### Employee dashboard
+<kbd><img src="assets/employee.png" alt="employee-dashboard" width="800px"></kbd>
 
 # Tech Stack
 
