@@ -15,7 +15,6 @@ function PayMaintenance(props) {
   };
   const [isPaid, setIsPaid] = useState(false);
 
-  const [header, setHeader] = useState(maintenanceHeader);
   const [rows, setRows] = useState(maintenanceRows);
 
   useEffect(() => {
@@ -54,7 +53,7 @@ function PayMaintenance(props) {
               <table className="table-auto w-full">
                 <thead>
                   <tr className="bg-blue-500 text-center">
-                    {header.map((ele, index) => {
+                    {maintenanceHeader.map((ele, index) => {
                       return (
                         <th
                           key={index + 1}

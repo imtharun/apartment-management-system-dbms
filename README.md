@@ -2,10 +2,7 @@
 
 We created this project as a part of Database Management System Course.
 
-<br />
-
 # Contents
-
 - Project Description
 - Basic Structure
   - Functionalities
@@ -19,8 +16,6 @@ We created this project as a part of Database Management System Course.
 # Project Description
 
 In this project we created a Apartment management system with user interface and database support.This project is a part of our curriculum, here we solved the problem of manual entry of data in apartments by creating user interface and storing data in mysql database.
-
-<br />
 
 # Basic Structure
 
@@ -68,8 +63,6 @@ In this project we created a Apartment management system with user interface and
 
 <kbd><img src="assets/schema.png" alt="database-schema" width="800px"></kbd>
 
-<br />
-
 ## Screenshots of the Implementation
 
 ### Admin dashboard
@@ -93,8 +86,6 @@ In this project we created a Apartment management system with user interface and
 - Frontend - HTML5, Tailwind css, React JS
 - Backend - NodeJS, ExpressJS
 - Database - MySql
-
-<br />
 
 # How to Run
 
