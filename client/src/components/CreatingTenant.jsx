@@ -19,10 +19,9 @@ function CreatingTenant() {
   const [tenantno, setTenantno] = useState("");
   const [adhaar, setAdhaar] = useState("");
 
-  const submitHandler = function (e) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/createtenant", {
+  const createTenant = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/createtenant", {
         name: name,
         age: age,
         roomno: roomno,
@@ -30,20 +29,24 @@ function CreatingTenant() {
         password: pass,
         adhaar: adhaar,
         dob: dob,
-      })
-      .then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          tenantEl.current.value = "";
-          nameEl.current.value = "";
-          ageEl.current.value = "";
-          roomEl.current.value = "";
-          passEl.current.value = "";
-          adhaarEl.current.value = "";
-          dobEl.current.value = "";
-        }
-      })
-      .catch((err) => console.log(err));
+      });
+      if (res.status === 200) {
+        tenantEl.current.value = "";
+        nameEl.current.value = "";
+        ageEl.current.value = "";
+        roomEl.current.value = "";
+        passEl.current.value = "";
+        adhaarEl.current.value = "";
+        dobEl.current.value = "";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    createTenant();
   };
 
   return (

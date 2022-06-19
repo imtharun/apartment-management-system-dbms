@@ -7,18 +7,17 @@ function ComplaintsViewer(props) {
 
   const getComplaints = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/ownercomplaints", {
-        userId: JSON.parse(localStorage.getItem("whom")).username,
-      });
+      const res = await axios.get("http://localhost:5000/viewcomplaints");
       setComps(res.data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
     }
   };
 
   useEffect(() => {
     getComplaints();
   }, []);
+  
   return (
     <div className="p-5">
       {comps.map((ele, index) => {
@@ -27,7 +26,7 @@ function ComplaintsViewer(props) {
           ele.room_no && (
             <div
               key={index + 1}
-              className="border-2 my-3 border-gray-300 p-5 flex justify-evenly"
+              className="border-2 my-3 border-gray-300 p-5 flex  justify-evenly"
             >
               <div className="mx-3">
                 <h1 className="font-semibold capitalize text-center">

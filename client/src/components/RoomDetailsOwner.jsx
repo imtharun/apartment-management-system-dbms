@@ -10,43 +10,26 @@ function RoomDetails(props) {
     "Status",
     "Room no",
   ];
-  const roomDetailsRows = [
-    {
-      tenant_id: 212,
-      room_no: 1321,
-      name: "Tharun",
-      age: 19,
-      dob: "21-may-2002",
-      stat: "paid",
-    },
-    {
-      tenant_id: 12,
-      room_no: 1231,
-      name: "D K Suryah",
-      age: "89",
-      dob: "12-mar-2003",
-      stat: "unpaid",
-    },
-  ];
 
-  const [roomRows, setRoomRows] = useState(roomDetailsRows);
-  useEffect(() => {
-    // console.log(props.userid);
-    // window.localStorage.setItem("userId", JSON.stringify(props.userid));
-    axios
-      .post("http://localhost:5000/ownertenantdetails", {
+  const [roomRows, setRoomRows] = useState([]);
+
+  const getRoomDetails = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/ownertenantdetails", {
         userId: JSON.parse(window.localStorage.getItem("whom")).username,
-      })
-      .then((res) => {
-        // console.log(res.data);
-        setRoomRows(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      setRoomRows(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getRoomDetails();
   }, []);
+
   return (
-    <section className="bg-white px-10 ">
+    <section className="bg-white px-10">
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">

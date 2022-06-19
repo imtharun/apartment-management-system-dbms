@@ -3,55 +3,24 @@ import React, { useEffect, useState } from "react";
 
 function TenantDetails(props) {
   const header = ["Tenant no", "Room_no", "Name", "Age", "DOB", "Stat"];
-  const tenantData = [
-    {
-      tenant_id: 1,
-      name: "Tharun",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      stat: "paid",
-    },
-    {
-      tenant_id: 2,
-      name: "D K suryah",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      stat: "unpaid",
-    },
-    {
-      tenant_id: 3,
-      name: "Yuvarraj",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      stat: "paid",
-    },
-    {
-      tenant_id: 4,
-      name: "Shivanesh",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      stat: "paid",
-    },
-  ];
-  const [tenantRows, setTenantRows] = useState(tenantData);
+
+  const [tenantRows, setTenantRows] = useState([]);
+
+  const getTenantRows = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/tenantDetails");
+      setTenantRows(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/tenantDetails")
-      .then((res) => {
-        // console.log(res.data);
-        setTenantRows(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getTenantRows();
   }, []);
+
   return (
-    <section className="bg-white py-20 lg:py-[120px]">
+    <section className="bg-white py-20">
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">

@@ -12,27 +12,28 @@ function RaisingComplaints() {
   const [tenantId, setTenantId] = useState("");
   const [descp, setDescp] = useState("");
 
-  const submitHandler = function (e) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/raisingcomplaint", {
+  const raiseComplaint = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/raisingcomplaint", {
         blockno: blockno,
         roomno: roomno,
         tenantId: tenantId,
         descp: descp,
-      })
-      .then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          blockEl.current.value = "";
-          roomEl.current.value = "";
-          descpEl.current.value = "";
-          tenantEl.current.value = "";
-        }
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      if (res.status === 200) {
+        blockEl.current.value = "";
+        roomEl.current.value = "";
+        descpEl.current.value = "";
+        tenantEl.current.value = "";
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    raiseComplaint();
   };
 
   return (

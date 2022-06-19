@@ -2,24 +2,21 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 
 function ParkingSlot(props) {
-  const allotedSlots = [
-    { parking_slot: "A-123" },
-    { parking_slot: "B-2131" },
-    { parking_slot: "C-12312" },
-  ];
-  const [parkingSlot, setParkingSlot] = useState(allotedSlots);
-  useEffect(() => {
-    axios
-      .post("http://localhost:5000/viewparking", {
+  const [parkingSlot, setParkingSlot] = useState([]);
+
+  const slots = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/viewparking", {
         userId: JSON.parse(localStorage.getItem("whom")).username,
-      })
-      .then((res) => {
-        // console.log("Parking slot", res.data);
-        setParkingSlot(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      setParkingSlot(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    slots();
   }, []);
   return (
     <div>

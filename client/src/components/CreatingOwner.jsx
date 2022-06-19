@@ -20,10 +20,9 @@ function CreatingUser() {
   const [pass, setPass] = useState("");
   const [aggrementStatus, setAggrementStatus] = useState("");
 
-  const submitHandler = function (e) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/createowner", {
+  const post = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/createowner", {
         name: name,
         age: age,
         ownerId: ownerId,
@@ -32,21 +31,25 @@ function CreatingUser() {
         password: pass,
         aggrementStatus: aggrementStatus,
         dob: dob,
-      })
-      .then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          nameEl.current.value = "";
-          ageEl.current.value = "";
-          adhaarEl.current.value = "";
-          dobEl.current.value = "";
-          ownerEl.current.value = "";
-          aggreeEl.current.value = "";
-          passEl.current.value = "";
-          roomEl.current.value = "";
-        }
-      })
-      .catch((err) => console.log(err));
+      });
+      if (res.status === 200) {
+        nameEl.current.value = "";
+        ageEl.current.value = "";
+        adhaarEl.current.value = "";
+        dobEl.current.value = "";
+        ownerEl.current.value = "";
+        aggreeEl.current.value = "";
+        passEl.current.value = "";
+        roomEl.current.value = "";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    post();
   };
 
   return (
@@ -117,7 +120,7 @@ function CreatingUser() {
             htmlFor="owner-id"
             className="mb-3 block text-base font-medium text-[#07074D]"
           >
-            Aggrement Status
+            Agreement Status
           </label>
           <input
             type="text"

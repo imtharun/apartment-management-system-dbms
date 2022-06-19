@@ -8,58 +8,25 @@ function OwnerDetails(props) {
     "Age",
     "Room no",
     "DOB",
-    "Aggrement Status",
+    "Agreement Status",
   ];
-  const ownerData = [
-    {
-      owner_id: 1,
-      name: "Tharun",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      aggrement_status: "yes",
-    },
-    {
-      owner_id: 2,
-      name: "D K suryah",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      aggrement_status: "no",
-    },
-    {
-      owner_id: 3,
-      name: "Yuvarraj",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      aggrement_status: "yes",
-    },
-    {
-      owner_id: 4,
-      name: "Shivanesh",
-      age: 20,
-      room_no: 123456,
-      dob: "21-May-2002",
-      aggrement_status: "yes",
-    },
-  ];
-  const [ownerRows, setOwnerRows] = useState(ownerData);
+  const [ownerRows, setOwnerRows] = useState([]);
+
+  const getOwnerData = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/ownerdetails");
+      setOwnerRows(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .get("http://localhost:5000/ownerdetails")
-      .then((res) => {
-        // console.log(res.data);
-        setOwnerRows(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    getOwnerData();
   }, []);
 
   return (
-    <section className="bg-white py-20 lg:py-[120px]">
+    <section className="bg-white py-20">
       <div className="container">
         <div className="flex flex-wrap -mx-4">
           <div className="w-full px-4">

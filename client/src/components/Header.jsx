@@ -5,10 +5,10 @@ import jasmineImage from "./../assets/jasmine.png";
 
 function Header(props) {
   const nav = useNavigate();
+
   const logoutHandler = function () {
-    nav("/");
+    nav("/", { replace: true });
     window.localStorage.clear();
-    window.location.reload();
   };
 
   const { hamActive, hamHandler } = useContext(HamContext);
@@ -18,7 +18,7 @@ function Header(props) {
       <div className=" flex items-center justify-between p-2">
         <div className="ml-4 flex items-center justify-between">
           <img className="h-10 w-10" src={jasmineImage} alt="Jasmine Icon" />
-          <h1 className="font-mons text-lg px-2 font-semibold text-white">
+          <h1 className="text-lg px-2 font-semibold text-white">
             Jasmine Towers
           </h1>
         </div>

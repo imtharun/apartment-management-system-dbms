@@ -9,7 +9,7 @@ function Auth(props) {
   const passEl = useRef(null);
   const [isName, setIsName] = useState(true);
   const [isPassword, setIsPassword] = useState(true);
-  const [userId, setuserId] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
   useEffect(() => {
@@ -38,67 +38,56 @@ function Auth(props) {
     }
   }, [password]);
 
-  const submitHandler = function (e) {
-    e.preventDefault();
-
-    setuserId(inputEl.current.value);
-    setPassword(passEl.current.value);
-
-    axios
-      .post("http://localhost:5000/auth", {
+  const authorize = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/auth", {
         username: userId,
         password: password,
-      })
-      .then((res) => {
-        // console.log("Res of Auth.jsx", res);
-
-        if (res.data.access === "granted") {
-          props.setWhom(res.data.user);
-          window.localStorage.setItem(
-            "whom",
-            JSON.stringify({
-              userType: res.data.user,
-              username: userId,
-            })
-          );
-          if (res.data.user === "employee") {
-            // props.setIsAuth(true);
-            props.setUserid(userId);
-            nav("/employee");
-          }
-          if (res.data.user === "admin") {
-            // props.setIsAuth(true);
-            props.setUserid(userId);
-            nav("/admin");
-          }
-          if (res.data.user === "tenant") {
-            // console.log(("Tenant: ", userId, password));
-            // props.setIsAuth(true);
-            props.setUserid(userId);
-            nav("/tenant");
-          }
-          if (res.data.user === "owner") {
-            // props.setIsAuth(true);
-            props.setUserid(userId);
-            nav("/owner");
-          }
-          if (res.data.user === "unknown") {
-            setIsName(false);
-          } else if (res.data.user === "passunknown") {
-            setIsPassword(false);
-          }
-        } else {
+      });
+      if (res.data.access === "granted") {
+        window.localStorage.setItem(
+          "whom",
+          JSON.stringify({
+            userType: res.data.user,
+            username: userId,
+          })
+        );
+        if (res.data.user === "employee") {
+          nav("/employee", { replace: true });
+        }
+        if (res.data.user === "admin") {
+          nav("/admin", { replace: true });
+        }
+        if (res.data.user === "tenant") {
+          nav("/tenant", { replace: true });
+        }
+        if (res.data.user === "owner") {
+          nav("/owner", { replace: true });
+        }
+        if (res.data.user === "unknown") {
           setIsName(false);
+        } else if (res.data.user === "passunknown") {
           setIsPassword(false);
         }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      } else {
+        setIsName(false);
+        setIsPassword(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    setUserId(inputEl.current.value);
+    setPassword(passEl.current.value);
+    authorize();
+  };
+  
   return (
     <div>
-      <div className="font-mons flex items-center min-h-screen z-50">
+      <div className="flex items-center min-h-screen z-50">
         <div className="container mx-auto">
           <div className="max-w-md mx-auto my-10">
             <div className="text-center">
@@ -122,7 +111,7 @@ function Auth(props) {
                     name="user-id"
                     required
                     value={userId}
-                    onChange={() => setuserId(inputEl.current.value)}
+                    onChange={() => setUserId(inputEl.current.value)}
                     id="used-id"
                     placeholder="User id"
                     className={`w-full px-3 py-2 placeholder-gray-300 border ${

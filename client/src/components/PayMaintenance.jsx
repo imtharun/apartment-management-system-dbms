@@ -5,29 +5,25 @@ import { useEffect } from "react";
 
 function PayMaintenance(props) {
   const maintenanceHeader = ["Name", "Tenant no", "Room no", "Status"];
-  const maintenanceRows = {
-    name: "Tharunprasath A S",
-    room_no: 123,
-    tenant_id: 12,
-    stat: "not paid",
-    dob: "21-may-02",
-    age: 20,
-  };
   const [isPaid, setIsPaid] = useState(false);
 
-  const [rows, setRows] = useState(maintenanceRows);
+  const [rows, setRows] = useState([]);
+
+  const pay = async () => {
+    try {
+      const res = await axios.post(`http://localhost:5000/dashboard/tenant`, {
+        userId: JSON.parse(window.localStorage.getItem("whom")).username,
+      });
+      const [result] = res.data;
+      setRows(result);
+      setIsPaid(result.stat === "paid");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    axios
-      .post(`http://localhost:5000/dashboard/tenant`, {
-        userId: JSON.parse(window.localStorage.getItem("whom")).username,
-      })
-      .then((res) => {
-        const [result] = res.data;
-        setRows(result);
-        setIsPaid(result.stat === "paid");
-      })
-      .catch((err) => {});
+    pay();
   }, []);
 
   useEffect(() => {

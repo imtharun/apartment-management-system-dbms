@@ -7,26 +7,27 @@ function CreatingParkingSlot() {
   const [roomNo, setRoomno] = useState("");
   const [slotNo, setSlotNo] = useState("");
 
-  const submitHandler = function (e) {
-    e.preventDefault();
-    axios
-      .post("http://localhost:5000/bookslot", {
+  const createSlot = async () => {
+    try {
+      const res = await axios.post("http://localhost:5000/bookslot", {
         roomNo: roomNo,
         slotNo: slotNo,
-      })
-      .then((res) => {
-        // console.log(res);
-        if (res.status === 200) {
-          roomEl.current.value = "";
-          slotNoEl.current.value = "";
-        }
-      })
-      .catch((err) => {
-        console.log(err);
       });
+      if (res.status === 200) {
+        roomEl.current.value = "";
+        slotNoEl.current.value = "";
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const submitHandler = function (e) {
+    e.preventDefault();
+    createSlot();
   };
   return (
-    <div className="flex items-center min-h-screen font-mons">
+    <div className="flex items-center min-h-screen">
       <div className="container mx-auto">
         <div className="max-w-md mx-auto my-5 bg-white p-5 rounded-md shadow-lg">
           <div className="m-7">
