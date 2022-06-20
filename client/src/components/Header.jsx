@@ -18,13 +18,13 @@ function Header(props) {
       <div className=" flex items-center justify-between p-2">
         <div className="ml-4 flex items-center justify-between">
           <img className="h-10 w-10" src={jasmineImage} alt="Jasmine Icon" />
-          <h1 className="text-lg px-2 font-semibold text-white">
+          <h1 className="text-base md:text-lg px-2 font-semibold text-white">
             Jasmine Towers
           </h1>
         </div>
         <div>
           <button
-            className=" text-white font-medium transition duration-300 border-2 hover:border-b-white border-transparent mr-12"
+            className="hidden md:block text-white font-medium text-base transition duration-300 border-2 hover:border-b-white border-transparent mr-5"
             onClick={logoutHandler}
           >
             Logout
@@ -61,6 +61,17 @@ function Header(props) {
           <ul className="font-semibold">
             {props.forHam &&
               props.forHam.map((ele, index) => {
+                if (ele === "Logout") {
+                  return (
+                    <li key={index + 1} className="mt-6 px-8 text-left">
+                      <NavLink to="/" onClick={hamHandler}>
+                        <span className="transition duration-300 border-2 border-transparent hover:border-b-black">
+                          {ele}
+                        </span>
+                      </NavLink>
+                    </li>
+                  );
+                }
                 return (
                   <li key={index + 1} className="mt-6 px-8 text-left">
                     <NavLink

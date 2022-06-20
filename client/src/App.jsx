@@ -48,7 +48,7 @@ function App() {
           path="/admin"
           element={
             <main>
-              <Header forHam={forAdmin} />
+              <Header forHam={[...forAdmin, "Logout"]} />
               <section className="flex">
                 <Aside forHam={forAdmin} />
                 <Dashboard />
@@ -60,7 +60,7 @@ function App() {
           path="/employee"
           element={
             <main>
-              <Header forHam={forEmployee} />
+              <Header forHam={[...forEmployee, "Logout"]} />
               <section className="flex">
                 <Aside forHam={forEmployee} />
                 <Dashboard />
@@ -72,7 +72,7 @@ function App() {
           path="/tenant"
           element={
             <main>
-              <Header forHam={forTenant} />
+              <Header forHam={[...forTenant, "Logout"]} />
               <section className="flex">
                 <Aside forHam={forTenant} />
                 <Dashboard />
@@ -84,7 +84,7 @@ function App() {
           path="/owner"
           element={
             <main>
-              <Header forHam={forOwner} />
+              <Header forHam={[...forOwner, "Logout"]} />
               <section className="flex">
                 <Aside forHam={forOwner} />
                 <Dashboard />

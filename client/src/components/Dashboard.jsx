@@ -3,7 +3,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { HamContext } from "../HamContextProvider";
 
 function Dashboard(props) {
-  const { hamActive } = useContext(HamContext);
+  const { hamActive, hamHandler } = useContext(HamContext);
   const [forBox, setForBox] = useState();
 
   const getBoxInfo = async () => {
@@ -13,7 +13,6 @@ function Dashboard(props) {
         userId: JSON.parse(window.localStorage.getItem("whom")).username,
       });
       if (whom === "admin") {
-        console.log("Inside admin");
         const forAdminBox = [
           { "Total Owner": 59 },
           { "Total Tenant": 39 },
@@ -43,7 +42,6 @@ function Dashboard(props) {
         forEmployeeBox[0]["Total complaints"] = res.data.totalcomplaint;
         forEmployeeBox[1].Salary = "Rs. " + res.data.salary;
         setForBox(forEmployeeBox);
-        // console.log(employeeBox);
       }
       if (whom === "tenant") {
         const forTenantBox = [
@@ -53,9 +51,6 @@ function Dashboard(props) {
           { dob: "12-1-2002" },
           { "Room no": 123456 },
         ];
-        // console.log("Inside tenant", res.data[0]);
-        // const tenantArr = ;
-        // console.log("Tenant Arr", tenantArr);
         forTenantBox[0]["tenant id"] = res.data[0].tenant_id;
         forTenantBox[1]["Tenant Name"] = res.data[0].name;
         forTenantBox[2]["Tenant age"] = res.data[0].age;
@@ -74,6 +69,11 @@ function Dashboard(props) {
 
   return (
     <div
+      onClick={() => {
+        if (hamActive === true) {
+          hamHandler();
+        }
+      }}
       style={{
         filter: hamActive ? "blur(2px)" : "blur(0px)",
       }}
