@@ -7,14 +7,14 @@ function Header(props) {
   const nav = useNavigate();
 
   const logoutHandler = function () {
+    localStorage.clear();
     nav("/", { replace: true });
-    window.localStorage.clear();
   };
 
   const { hamActive, hamHandler } = useContext(HamContext);
   const user = JSON.parse(localStorage.getItem("whom")).userType;
   return (
-    <nav className="w-full sticky z-50 top-0 h-14 bg-blue-500">
+    <nav className="w-full sticky z-50 top-0 h-14  bg-blue-500">
       <div className=" flex items-center justify-between p-2">
         <div className="ml-4 flex items-center justify-between">
           <img className="h-10 w-10" src={jasmineImage} alt="Jasmine Icon" />
@@ -56,16 +56,19 @@ function Header(props) {
           style={{
             transform: hamActive ? "translateX(0px)" : "translateX(-300px)",
           }}
-          className="md:hidden fixed left-0 top-14 transition duration-300 w-[200px] h-full rounded-r-md text-base bg-blue-200 p-3 z-50"
+          className="md:hidden fixed left-0 top-14 transition duration-300 w-[200px] h-full rounded-r-md text-sm bg-blue-200 p-3 z-50"
         >
-          <ul className="font-semibold">
+          <ul className="font-medium">
             {props.forHam &&
               props.forHam.map((ele, index) => {
                 if (ele === "Logout") {
                   return (
                     <li key={index + 1} className="mt-6 px-8 text-left">
                       <NavLink to="/" onClick={hamHandler}>
-                        <span className="transition duration-300 border-2 border-transparent hover:border-b-black">
+                        <span
+                          className="transition duration-300 border-2 border-transparent hover:border-b-black"
+                          onClick={logoutHandler}
+                        >
                           {ele}
                         </span>
                       </NavLink>

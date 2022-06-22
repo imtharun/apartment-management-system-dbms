@@ -84,7 +84,7 @@ function Auth(props) {
     setPassword(passEl.current.value);
     authorize();
   };
-  
+
   return (
     <div>
       <div className="flex items-center min-h-screen z-50">
