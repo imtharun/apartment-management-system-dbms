@@ -1,7 +1,6 @@
 # Apartment Management System
 
 We created this project as a part of Database Management System Course.
-
 # Contents
 - Project Description
 - Basic Structure
