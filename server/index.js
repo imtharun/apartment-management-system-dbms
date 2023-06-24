@@ -3,10 +3,10 @@ const bodyParser = require('body-parser');
 const db = require('./mysql_connect');
 const dashB = require('./routes/dashb');
 const cors = require("cors")
-
+const config = require('./config_sql');
 
 //port number to listen
-const port = 5000;
+const port = config.port;
 
 //init
 const app = express();

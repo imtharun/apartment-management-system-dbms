@@ -28,7 +28,7 @@ CREATE TABLE `auth` (
   `id` int NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -72,7 +72,7 @@ CREATE TABLE `block` (
   PRIMARY KEY (`block_no`),
   KEY `fk_r` (`room_no`),
   CONSTRAINT `fk_r` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `block_admin` (
   PRIMARY KEY (`admin_id`),
   KEY `block_no` (`block_no`),
   CONSTRAINT `block_admin_ibfk_1` FOREIGN KEY (`block_no`) REFERENCES `block` (`block_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`emp_id`),
   KEY `block_no` (`block_no`),
   CONSTRAINT `employee_ibfk_1` FOREIGN KEY (`block_no`) REFERENCES `block` (`block_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `identity` (
   KEY `fk_t` (`tenant_id`),
   CONSTRAINT `fk_t` FOREIGN KEY (`tenant_id`) REFERENCES `tenant` (`tenant_id`),
   CONSTRAINT `identity_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `owner` (`owner_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -213,7 +213,7 @@ CREATE TABLE `owner` (
   PRIMARY KEY (`owner_id`),
   KEY `FK_rrno` (`room_no`),
   CONSTRAINT `FK_rrno` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -242,7 +242,7 @@ CREATE TABLE `rental` (
   KEY `FK_rno` (`room_no`),
   CONSTRAINT `FK_rno` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`),
   CONSTRAINT `rental_ibfk_1` FOREIGN KEY (`tenant_id`) REFERENCES `tenant` (`tenant_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -274,7 +274,7 @@ CREATE TABLE `room` (
   UNIQUE KEY `reg_no` (`reg_no`),
   KEY `block_no` (`block_no`),
   CONSTRAINT `room_ibfk_1` FOREIGN KEY (`block_no`) REFERENCES `block` (`block_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -319,7 +319,7 @@ CREATE TABLE `tenant` (
   PRIMARY KEY (`tenant_id`),
   KEY `fk_rn` (`room_no`),
   CONSTRAINT `fk_rn` FOREIGN KEY (`room_no`) REFERENCES `room` (`room_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
